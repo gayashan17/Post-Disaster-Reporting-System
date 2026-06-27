@@ -1,5 +1,4 @@
-
-//datatable 
+/* datatable initialization */
 $(document).ready(function () {
   $('#reports-table').DataTable({
     pageLength: 5,
@@ -16,38 +15,44 @@ $(document).ready(function () {
   });
 });
 
-// chart
-const chartCtx = document.getElementById('report-chart').getContext('2d');
+/* doughnut chart implementation */
+document.addEventListener('DOMContentLoaded', function () {
+  const chartElement = document.getElementById('report-chart');
+  
+  if (chartElement) {
+    const chartCtx = chartElement.getContext('2d');
 
-new Chart(chartCtx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Property Damage', 'Missing Person', 'Death Report', 'Flood Damage', 'Other'],
-    datasets: [{
-      data: [7, 1, 1, 2, 1],
-      backgroundColor: ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#7c3aed'],
-      borderWidth: 0,
-      hoverOffset: 6
-    }]
-  },
-  options: {
-    cutout: '65%',
-    responsive: true,
-    maintainAspectRatio: false,
-    plugins: {
-      legend: {
-        position: 'bottom',
-        labels: { font: { size: 11 }, padding: 10, boxWidth: 12 }
+    new Chart(chartCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Property Damage', 'Missing Person', 'Death Report', 'Flood Damage', 'Other'],
+        datasets: [{
+          data: [7, 1, 1, 2, 1],
+          backgroundColor: ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#7c3aed'],
+          borderWidth: 0,
+          hoverOffset: 6
+        }]
+      },
+      options: {
+        cutout: '65%',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: { font: { size: 11 }, padding: 10, boxWidth: 12 }
+          }
+        }
       }
-    }
+    });
   }
 });
 
-// stat counter animation
+/* stat counter animation logic */
 function animateCounter(elementId, targetValue) {
   const el = document.getElementById(elementId);
   let current = 0;
-  const step = Math.ceil(targetValue / 20);
+  const step = Math.ceil(targetValue / 20) || 1;
 
   const interval = setInterval(() => {
     current += step;
@@ -67,12 +72,12 @@ window.addEventListener('load', () => {
   animateCounter('stat-payment',  2);
 });
 
-//side bar toggle for mobile
+/* responsive mobile sidebar toggle */
 function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('open');
 }
 
-//SweetAlert: General Info
+/* sweetalert: general info popup */
 function showInfo(page) {
   Swal.fire({
     title: page,
@@ -83,7 +88,7 @@ function showInfo(page) {
   });
 }
 
-// SweetAlert: View Report Details
+/* sweetalert: detailed report view */
 function viewReport(reportId) {
   Swal.fire({
     title: reportId,
@@ -105,7 +110,7 @@ function viewReport(reportId) {
   });
 }
 
-// SweetAlert: Notifications Panel
+/* sweetalert: dynamic notification panel */
 function showNotifications() {
   Swal.fire({
     title: 'Notifications',
@@ -131,7 +136,7 @@ function showNotifications() {
   });
 }
 
-//SweetAlert: Logout Confirmation
+/* sweetalert: application logout handler */
 function confirmLogout() {
   Swal.fire({
     title: 'Logging out?',

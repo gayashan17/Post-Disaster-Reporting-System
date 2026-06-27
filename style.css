@@ -1,21 +1,25 @@
-/* ── CSS Variables ── */
+/* ==========================================================================
+   1. GLOBAL REUSABLE VARIABLES & DESIGN TOKENS
+   ========================================================================== */
 :root {
-  --navy:      #0f2044;
-  --accent:    #2563eb;
-  --gold:      #f59e0b;
-  --emerald:   #10b981;
-  --violet:    #7c3aed;
-  --rose:      #ef4444;
-  --bg:        #f1f5f9;
-  --card:      #ffffff;
-  --text:      #0f172a;
-  --muted:     #64748b;
-  --border:    #e2e8f0;
-  --sidebar-w: 240px;
-  --topbar-h:  60px;
+  --navy:       #0f2044;
+  --accent:     #2563eb;
+  --gold:       #f59e0b;
+  --emerald:    #10b981;
+  --violet:     #7c3aed;
+  --rose:       #ef4444;
+  --bg:         #f1f5f9;
+  --card:       #ffffff;
+  --text:       #0f172a;
+  --muted:      #64748b;
+  --border:     #e2e8f0;
+  --role-color: #2563eb;
+  --role-light: #eff6ff;
+  --sidebar-w:  240px;
+  --topbar-h:   60px;
 }
 
-/* ── Base ── */
+/* Base Adjustments */
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
@@ -23,95 +27,12 @@ body {
   margin: 0;
 }
 
-/* ════════ SIDEBAR ════════ */
-#sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: var(--sidebar-w);
-  height: 100vh;
-  background: linear-gradient(180deg, var(--navy), #0b1a38);
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
-  overflow-y: auto;
-  transition: transform 0.3s ease;
-}
 
-.sidebar-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
+/* ==========================================================================
+   2. SHARED USER INTERFACE COMPONENTS (Used across both DMO & LAO)
+   ========================================================================== */
 
-.brand-icon {
-  width: 42px;
-  height: 42px;
-  background: var(--accent);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: #fff;
-}
-
-.brand-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.brand-sub {
-  font-size: 10px;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-
-.nav-section-label {
-  padding: 16px 14px 4px;
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  margin: 2px 8px;
-  border-radius: 8px;
-  color: rgba(255,255,255,0.6);
-  font-size: 13.5px;
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.nav-item:hover {
-  color: #fff;
-  background: rgba(255,255,255,0.07);
-}
-
-.nav-item.active {
-  color: #fff;
-  background: var(--accent);
-  box-shadow: 0 4px 14px rgba(37,99,235,0.4);
-}
-
-.sidebar-footer {
-  margin-top: auto;
-  padding: 12px 8px 18px;
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-/* ════════ TOPBAR ════════ */
+/* Shared Core Dashboard Layout Structure */
 #topbar {
   position: fixed;
   top: 0;
@@ -127,91 +48,6 @@ body {
   z-index: 900;
 }
 
-.topbar-title {
-  flex: 1;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.topbar-title span {
-  color: var(--accent);
-}
-
-.notif-btn {
-  position: relative;
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 17px;
-  color: var(--muted);
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.notif-btn:hover {
-  background: var(--bg);
-}
-
-.notif-badge {
-  position: absolute;
-  top: 5px; right: 5px;
-  width: 16px; height: 16px;
-  background: var(--rose);
-  border-radius: 50%;
-  font-size: 9px;
-  font-weight: 700;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.user-pill {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 10px 5px 5px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.user-pill:hover {
-  background: var(--bg);
-}
-
-.user-avatar {
-  width: 30px; height: 30px;
-  background: #1a3060;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 13px;
-}
-
-.user-name {
-  font-size: 13px;
-  font-weight: 500;
-}
-
-#menu-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  color: var(--text);
-  cursor: pointer;
-}
-
-/* ════════ MAIN CONTENT ════════ */
 #main {
   margin-left: var(--sidebar-w);
   margin-top: var(--topbar-h);
@@ -219,213 +55,221 @@ body {
   min-height: calc(100vh - var(--topbar-h));
 }
 
-/* ════════ STAT CARDS ════════ */
-.stat-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
+/* Shared Sidebar Architecture Elements */
+.sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 16px;
-  transition: box-shadow 0.2s, transform 0.2s;
+  gap: 10px;
+  padding: 20px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.stat-card:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
+.brand-icon {
+  width: 42px; height: 42px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; color: #fff;
 }
 
-.stat-icon {
-  width: 52px; height: 52px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
+.brand-title { font-size: 13px; font-weight: 700; color: #fff; }
+.brand-sub { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.6px; }
+.nav-section-label { padding: 16px 14px 4px; font-size: 9.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px; margin: 2px 8px; border-radius: 8px;
+  color: rgba(255,255,255,0.6); font-size: 13.5px; font-weight: 500;
+  cursor: pointer; text-decoration: none; transition: all 0.2s;
 }
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.07); }
+.nav-item.active { color: #fff; background: var(--accent); box-shadow: 0 4px 14px rgba(37,99,235,0.4); }
+.sidebar-footer { margin-top: auto; padding: 12px 8px 18px; border-top: 1px solid rgba(255,255,255,0.08); }
 
-.stat-icon.blue   { background: #eff6ff; color: var(--accent); }
-.stat-icon.amber  { background: #fffbeb; color: var(--gold); }
-.stat-icon.green  { background: #ecfdf5; color: var(--emerald); }
-.stat-icon.purple { background: #f5f3ff; color: var(--violet); }
+/* Header Elements & Controls */
+.topbar-title { flex: 1; font-size: 16px; font-weight: 600; }
+.topbar-title span { color: var(--accent); }
+#menu-toggle { display: none; background: transparent; border: none; font-size: 20px; color: var(--text); cursor: pointer; }
 
-.stat-label {
-  font-size: 12px;
-  color: var(--muted);
-  font-weight: 500;
-}
+.notif-btn { position: relative; width: 38px; height: 38px; border: 1px solid var(--border); border-radius: 10px; background: transparent; display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--muted); cursor: pointer; transition: background 0.15s; }
+.notif-btn:hover { background: var(--bg); }
+.notif-badge { position: absolute; top: 5px; right: 5px; width: 16px; height: 16px; background: var(--rose); border-radius: 50%; font-size: 9px; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; }
 
-.stat-value {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1;
-  margin: 2px 0;
-}
+.user-pill { display: flex; align-items: center; gap: 8px; padding: 5px 10px 5px 5px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: background 0.15s; }
+.user-pill:hover { background: var(--bg); }
+.user-avatar { width: 30px; height: 30px; background: #1a3060; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; }
+.user-name { font-size: 13px; font-weight: 500; }
 
-.stat-link {
-  font-size: 11.5px;
-  color: var(--accent);
-  font-weight: 500;
-  cursor: pointer;
-  text-decoration: none;
-}
+/* Panels & Layout Containers */
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+.panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.panel-title { font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.panel-title i { color: var(--muted); }
+.chart-wrap { position: relative; height: 200px; }
 
-.stat-link:hover {
-  text-decoration: underline;
-}
+/* Universal List Feed Notification Items */
+.notif-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.notif-item:last-child { border-bottom: none; }
+.notif-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; }
+.notif-icon.green  { background: #ecfdf5; color: var(--emerald); }
+.notif-icon.blue   { background: #eff6ff; color: var(--accent); }
+.notif-icon.purple { background: #f5f3ff; color: var(--violet); }
+.notif-icon.amber  { background: #fffbeb; color: var(--gold); }
+.notif-text { font-size: 12.5px; line-height: 1.5; flex: 1; }
+.notif-time { font-size: 11px; color: var(--muted); white-space: nowrap; }
 
-/* ════════ PANELS ════════ */
-.panel {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-}
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.panel-title {
-  font-size: 15px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.panel-title i {
-  color: var(--muted);
-}
-
-/* ════════ STATUS BADGES ════════ */
-.badge-status {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 20px;
-  display: inline-block;
-}
-
+/* Dynamic Status Indicators & Badges */
+.badge-status { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; }
 .badge-pending  { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
 .badge-approved { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
 .badge-payment  { background: #f5f3ff; color: #5b21b6; border: 1px solid #ddd6fe; }
 .badge-verify   { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
 
-/* ════════ NOTIFICATIONS ════════ */
-.notif-item {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.notif-item:last-child {
-  border-bottom: none;
-}
-
-.notif-icon {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 15px;
-}
-
-.notif-icon.green  { background: #ecfdf5; color: var(--emerald); }
-.notif-icon.blue   { background: #eff6ff; color: var(--accent); }
-.notif-icon.purple { background: #f5f3ff; color: var(--violet); }
-.notif-icon.amber  { background: #fffbeb; color: var(--gold); }
-
-.notif-text {
-  font-size: 12.5px;
-  line-height: 1.5;
-  flex: 1;
-}
-
-.notif-time {
-  font-size: 11px;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-/* ════════ STATUS FLOW ════════ */
-.flow-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.flow-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex: 1;
-  min-width: 90px;
-}
-
-.flow-circle {
-  width: 54px; height: 54px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  background: var(--card);
-  margin-bottom: 10px;
-}
-
-.flow-circle.blue   { border-color: var(--accent);  color: var(--accent); }
-.flow-circle.amber  { border-color: var(--gold);    color: var(--gold); }
-.flow-circle.green  { border-color: var(--emerald); color: var(--emerald); background: #ecfdf5; }
-.flow-circle.purple { border-color: var(--violet);  color: var(--violet); }
-
-.flow-label { font-size: 11.5px; font-weight: 600; }
-.flow-sub   { font-size: 10px; color: var(--muted); }
-.flow-arrow { font-size: 20px; color: var(--border); margin-bottom: 28px; flex-shrink: 0; }
-
-/* ════════ QUICK ACTIONS ════════ */
-.qa-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 14px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 500;
-  background: var(--card);
-  color: var(--text);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.18s;
-}
-
-.qa-btn:hover        { border-color: var(--accent); background: #eff6ff; color: var(--accent); }
+/* Quick Action Widgets */
+.qa-btn { display: flex; align-items: center; gap: 10px; padding: 13px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 13px; font-weight: 500; background: var(--card); color: var(--text); text-decoration: none; cursor: pointer; transition: all 0.18s; }
+.qa-btn:hover { border-color: var(--accent); background: #eff6ff; color: var(--accent); }
 .qa-btn .bi-plus-circle-fill { color: var(--accent); }
 .qa-btn .bi-search           { color: var(--emerald); }
 .qa-btn .bi-bell-fill        { color: var(--violet); }
 .qa-btn .bi-person-fill      { color: var(--gold); }
 
-/* ════════ CHART ════════ */
-.chart-wrap {
-  position: relative;
-  height: 200px;
+/* Common Display Metrics Cards */
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 16px; transition: box-shadow 0.2s, transform 0.2s; }
+.stat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.stat-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.stat-icon.blue   { background: #eff6ff; color: var(--accent); }
+.stat-icon.amber  { background: #fffbeb; color: var(--gold); }
+.stat-icon.green  { background: #ecfdf5; color: var(--emerald); }
+.stat-icon.purple { background: #f5f3ff; color: var(--violet); }
+.stat-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+.stat-value { font-size: 28px; font-weight: 700; line-height: 1; margin: 2px 0; }
+.stat-link { font-size: 11.5px; color: var(--accent); font-weight: 500; cursor: pointer; text-decoration: none; }
+.stat-link:hover { text-decoration: underline; }
+
+/* Structural Timeline Status Flow Map */
+.flow-wrap { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.flow-step { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; min-width: 90px; }
+.flow-circle { width: 54px; height: 54px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 22px; background: var(--card); margin-bottom: 10px; }
+.flow-circle.blue   { border-color: var(--accent);  color: var(--accent); }
+.flow-circle.amber  { border-color: var(--gold);    color: var(--gold); }
+.flow-circle.green  { border-color: var(--emerald); color: var(--emerald); background: #ecfdf5; }
+.flow-circle.purple { border-color: var(--violet);  color: var(--violet); }
+.flow-label { font-size: 11.5px; font-weight: 600; }
+.flow-sub   { font-size: 10px; color: var(--muted); }
+.flow-arrow { font-size: 20px; color: var(--border); margin-bottom: 28px; flex-shrink: 0; }
+
+
+/* ==========================================================================
+   3. DISASTER MANAGEMENT OFFICER (DMO) SPECIFIC STYLES
+   ========================================================================== */
+#sidebarDMO {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: linear-gradient(180deg, var(--navy), #0b1a38);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
 }
 
-/* ════════ FOOTER ════════ */
+.role-tag {
+  background: var(--role-light);
+  color: var(--role-color);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+
+.amount-badge {
+  display: inline-block;
+  background: #f0fdf4;
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-top: 4px;
+  border: 1px solid #bbf7d0;
+}
+
+
+/* ==========================================================================
+   4. LOCAL AUTHORITY OFFICER (LAO) SPECIFIC STYLES
+   ========================================================================== */
+#sidebarLAO {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: linear-gradient(180deg, var(--navy), #0b1a38);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: transform 0.3s ease;
+}
+
+.role-tagLAO {
+  background: var(--role-light);
+  color: var(--role-color);
+  font-size: 11px; font-weight: 600;
+  padding: 2px 10px; border-radius: 20px;
+}
+
+/* Local Authority Incoming Report Feed Cards */
+.report-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: box-shadow .2s;
+}
+.report-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+
+.report-thumb {
+  width: 64px; height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #e2e8f0;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; color: var(--muted);
+}
+
+.report-meta { flex: 1; }
+.report-id   { font-size: 13px; font-weight: 700; }
+.report-type { font-size: 12.5px; color: var(--muted); }
+.report-by   { font-size: 12px; color: var(--muted); }
+.report-date { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+
+/* LAO Metric Horizontal Strip Components */
+.summary-strip { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.strip-card {
+  flex: 1; min-width: 100px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.strip-icon.blue   { background: #eff6ff; color: #2563eb; }
+.strip-icon.amber  { background: #fffbeb; color: #f59e0b; }
+.strip-icon.green  { background: #ecfdf5; color: #10b981; }
+.strip-icon.rose   { background: #fef2f2; color: #ef4444; }
+.strip-val  { font-size: 22px; font-weight: 700; line-height: 1; }
+.strip-lbl  { font-size: 11px; color: var(--muted); font-weight: 500; }
+
+
+/* ==========================================================================
+   5. COMPONENT SYSTEM LAYOUT FOOTER & RESPONSIVE BREAKPOINTS
+   ========================================================================== */
 footer {
   text-align: center;
   font-size: 11.5px;
@@ -435,7 +279,6 @@ footer {
   margin-top: 8px;
 }
 
-/* ════════ RESPONSIVE ════════ */
 @media (max-width: 768px) {
   #sidebar              { transform: translateX(-100%); }
   #sidebar.open         { transform: translateX(0); }
