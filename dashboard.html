@@ -14,7 +14,8 @@
 </head>
 <body>
 
-<!-- sidebar -->
+
+<!-- Summary Strip -->
 <nav id="sidebar">
 
   <div class="sidebar-brand">
@@ -87,53 +88,55 @@
 <main id="main">
 
   <!-- Stat Cards -->
-    
 
-    <div class="col-6 col-xl-3">
-      <div class="stat-card">
-        <div class="stat-icon blue"><i class="bi bi-file-earmark-text-fill"></i></div>
-        <div>
-          <div class="stat-label">Total Reports</div>
-          <div class="stat-value" id="stat-total">0</div>
-          <a class="stat-link" onclick="showInfo('Total Reports')">View Details &rsaquo;</a>
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon blue"><i class="bi bi-file-earmark-text-fill"></i></div>
+                <div>
+                    <div class="stat-label">Total Reports</div>
+                    <div class="stat-value" id="stat-total">0</div>
+                    <a class="stat-link" onclick="showInfo('Total Reports')">View Details &rsaquo;</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-6 col-xl-3">
-      <div class="stat-card">
-        <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
-        <div>
-          <div class="stat-label">Pending</div>
-          <div class="stat-value" id="stat-pending">0</div>
-          <a class="stat-link" onclick="showInfo('Pending Reports')">View Details &rsaquo;</a>
+        <div class="col-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
+                <div>
+                    <div class="stat-label">Pending</div>
+                    <div class="stat-value" id="stat-pending">0</div>
+                    <a class="stat-link" onclick="showInfo('Pending Reports')">View Details &rsaquo;</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-6 col-xl-3">
-      <div class="stat-card">
-        <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
-        <div>
-          <div class="stat-label">Approved</div>
-          <div class="stat-value" id="stat-approved">0</div>
-          <a class="stat-link" onclick="showInfo('Approved Reports')">View Details &rsaquo;</a>
+        <div class="col-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
+                <div>
+                    <div class="stat-label">Approved</div>
+                    <div class="stat-value" id="stat-approved">0</div>
+                    <a class="stat-link" onclick="showInfo('Approved Reports')">View Details &rsaquo;</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-6 col-xl-3">
-      <div class="stat-card">
-        <div class="stat-icon purple"><i class="bi bi-credit-card-fill"></i></div>
-        <div>
-          <div class="stat-label">Payments Completed</div>
-          <div class="stat-value" id="stat-payment">0</div>
-          <a class="stat-link" onclick="showInfo('Payments')">View Details &rsaquo;</a>
+        <div class="col-6 col-xl-3">
+            <div class="stat-card">
+                <div class="stat-icon purple"><i class="bi bi-credit-card-fill"></i></div>
+                <div>
+                    <div class="stat-label">Payments Completed</div>
+                    <div class="stat-value" id="stat-payment">0</div>
+                    <a class="stat-link" onclick="showInfo('Payments')">View Details &rsaquo;</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-  </div>
+    </div> <div class="row g-3 mb-4">
 
   <!-- recent reports and notifications -->
   <div class="row g-3 mb-4">
@@ -367,7 +370,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
 </main>
