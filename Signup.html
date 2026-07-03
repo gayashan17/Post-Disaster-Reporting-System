@@ -28,54 +28,82 @@
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
               </span>
-            <input type="text" class="form-control " id="fullname-input" placeholder="Username">
+            <input type="text" class="form-control border-start-0" id="fullname-input" placeholder="Username">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-person-lines-fill"></i>
               </span>
-            <input type="text" class="form-control " id="username-input" placeholder="Full Name">
+            <input type="text" class="form-control border-start-0" id="username-input" placeholder="FullName">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-person-badge"></i>
               </span>
-            <input type="text" class="form-control " id="nic-input" placeholder="National Identity Card (NIC) Number">
+            <input type="text" class="form-control border-start-0" id="nic-input" placeholder="National Identity Card (NIC) Number">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-house"></i>
               </span>
-            <input type="text" class="form-control " id="address-input" placeholder="Home Address">
+            <input type="text" class="form-control border-start-0" id="address-input" placeholder="Home Address">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-phone"></i>
               </span>
-            <input type="tel" class="form-control" id="phoneNo-input" placeholder="Mobile Number">
+            <input type="tel" class="form-control border-start-0" id="phoneNo-input" placeholder="Mobile Number">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-envelope"></i>
               </span>
-            <input type="email" class="form-control " id="email-input" placeholder="Email Address">
+            <input type="email" class="form-control border-start-0" id="email-input" placeholder="Email Address">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-key"></i>
               </span>
-            <input type="password" class="form-control border-start-0 ps-0" id="password-input" placeholder="Password">
+            <input type="password" class="form-control border-start-0 " id="password-input" placeholder="Password">
             <span class="input-group-text bg-white  " id="togglePassword" style="cursor: pointer;">
-                <i class="bi bi-eye" id="eyeIcon"></i>
+                <i class="bi bi-eye" id="PWeyeIcon"></i>
             </span>
         </div>
 
+        <div class="input-group mb-4 w-100">
+              <span class="input-group-text">
+                <i class="bi bi-key"></i>
+              </span>
+            <input type="password" class="form-control border-start-0 " id="Confpassword-input" placeholder="Confirm Password">
+            <span class="input-group-text bg-white  " id="toggleConfPassword" style="cursor: pointer;">
+                <i class="bi bi-eye " id="ConfPWeyeIcon"></i>
+            </span>
+        </div>
+
+        <label class="text-muted fw-bold " for="bDay-input">Birthday</label>
+        <div class="input-group mb-4 w-100">
+              <span class="input-group-text">
+                <i class="bi bi-calendar4-week"></i>
+              </span>
+            <input type="date" class="form-control border-start-0 text-muted" id="bDay-input">
+        </div>
+
+        <label class="text-muted fw-bold" for="gender-input">Gender</label>
+        <div class="input-group mb-3 w-100">
+            <select class="form-control text-muted" id="gender-input">
+                <option value="default">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <label class="mb-1 fw-bold" style="color:white"></label>
         <button type="button" class=" btn btn-primary btn-lg btn-block w-100" style="">REGISTER</button>
         <div style="padding-top:25px">
             Already have an account? <a href="Login.html" class="stat-link" style="font-size:16px">Login Here</a>
