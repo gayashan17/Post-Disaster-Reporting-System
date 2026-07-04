@@ -20,8 +20,8 @@
 
         try
         {
-            $query = "INSERT INTO users (Username, Password, Full_name, Gender, NIC, Email, Phone_Number, Address)
-                      VALUES (?,?,?,?,?,?,?,?)";
+            $query = "INSERT INTO users (Username, Password, Full_name, Gender, NIC, Email, Phone_Number, Address,Role_ID)
+                      VALUES (?,?,?,?,?,?,?,?,3)";
 
                     $stmt = mysqli_prepare($con, $query);
 
