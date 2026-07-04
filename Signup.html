@@ -1,9 +1,11 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sign up</title>
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -13,6 +15,8 @@
 </head>
 <body>
 <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
+
+    <form id="signupForm" method="post" action="Signup.php" onsubmit="">
     <div class="loginPanel">
         <div>
             <img src="C:\NIBM\Final Project\Post Disaster Reporting System\pictures\Post-Disaster-Reporting-Logo.png" width="55%">
@@ -28,14 +32,14 @@
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
               </span>
-            <input type="text" class="form-control border-start-0" id="fullname-input" placeholder="Username">
+            <input type="text" class="form-control border-start-0" id="username-input" placeholder="Username">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-person-lines-fill"></i>
               </span>
-            <input type="text" class="form-control border-start-0" id="username-input" placeholder="FullName">
+            <input type="text" class="form-control border-start-0" id="fullname-input" placeholder="FullName">
         </div>
 
         <div class="input-group mb-4 w-100">
@@ -80,7 +84,7 @@
               <span class="input-group-text">
                 <i class="bi bi-key"></i>
               </span>
-            <input type="password" class="form-control border-start-0 " id="Confpassword-input" placeholder="Confirm Password">
+            <input type="password" class="form-control border-start-0 " id="confPassword-input" placeholder="Confirm Password">
             <span class="input-group-text bg-white  " id="toggleConfPassword" style="cursor: pointer;">
                 <i class="bi bi-eye " id="ConfPWeyeIcon"></i>
             </span>
@@ -104,11 +108,12 @@
         </div>
 
         <label class="mb-1 fw-bold" style="color:white"></label>
-        <button type="button" class=" btn btn-primary btn-lg btn-block w-100" style="">REGISTER</button>
+        <button type="submit" name="register" class=" btn btn-primary btn-lg btn-block w-100" >REGISTER</button>
         <div style="padding-top:25px">
             Already have an account? <a href="Login.html" class="stat-link" style="font-size:16px">Login Here</a>
         </div>
     </div>
+    </form>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
