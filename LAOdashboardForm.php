@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $username = isset($_SESSION['username']) ? $_SESSION['username'] : header("Location:LoginForm.php") ;
+    include 'userData.php';
 ?>
 
 <!DOCTYPE html>

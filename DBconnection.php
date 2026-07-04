@@ -2,7 +2,8 @@
     $con = mysqli_connect("localhost","root","","post_disaster_management_db");
 
     if(!$con) {
-        header("Location:Error.html");
+        $_SESSION['message'] = "Failed to connect database";
+        header("Location:Error.php");
         die();
     }
 ?>
