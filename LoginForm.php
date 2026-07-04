@@ -14,9 +14,11 @@
 </head>
 <body>
 <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
+
+    <form id="loginForm" method="post" action="Login.php" onsubmit="">
     <div class="loginPanel">
         <div>
-            <img src="C:\NIBM\Final Project\Post Disaster Reporting System\pictures\Post-Disaster-Reporting-Logo.png" width="55%">
+            <img src="pictures\Post-Disaster-Reporting-Logo.png" width="55%">
         </div>
         <div class="panel-header justify-content-center">
             <div class="panel-title">
@@ -29,14 +31,14 @@
               <span class="input-group-text">
                 <i class="bi bi-envelope"></i>
               </span>
-            <input type="email" class="form-control border-start-0 ps-0" placeholder="Username / Email Address">
+            <input type="text" class="form-control border-start-0 ps-0" id="username-input" name="username-input" placeholder="Username">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-key"></i>
               </span>
-            <input type="password" class="form-control border-start-0 ps-0" id="password-input" placeholder="Password">
+            <input type="password" class="form-control border-start-0 ps-0" id="password-input" name="password-input" placeholder="Password">
             <span class="input-group-text bg-white  " id="togglePassword" style="cursor: pointer;">
                 <i class="bi bi-eye" id="eyeIcon"></i>
             </span>
@@ -45,7 +47,7 @@
         <div class="d-flex justify-content-between align-items-center w-100 mb-4 px-1">
 
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="rememberMe">
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
                 <label class="form-check-label" style="cursor: pointer;" for="rememberMe">
                     Remember me
                 </label>
@@ -54,11 +56,12 @@
             <a href="" class="stat-link" style="font-size:16px">Forgot Password?</a>
         </div>
 
-        <button type="button" class=" btn btn-primary btn-lg btn-block w-100" style="">LOGIN</button>
+        <input type="submit" name="login" class=" btn btn-primary btn-lg btn-block w-100" value="LOGIN">
         <div style="padding-top:25px">
-            Don't have an account? <a href="Signup.html" class="stat-link" style="font-size:16px">Register here</a>
+            Don't have an account? <a href="SignupForm.php" class="stat-link" style="font-size:16px">Register here</a>
         </div>
     </div>
+    </form>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

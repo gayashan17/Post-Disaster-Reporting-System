@@ -19,7 +19,7 @@
     <form id="signupForm" method="post" action="Signup.php" onsubmit="">
     <div class="loginPanel">
         <div>
-            <img src="C:\NIBM\Final Project\Post Disaster Reporting System\pictures\Post-Disaster-Reporting-Logo.png" width="55%">
+            <img src="pictures\Post-Disaster-Reporting-Logo.png" width="55%">
         </div>
         <div class="panel-header justify-content-center">
             <div class="panel-title">
@@ -32,49 +32,66 @@
               <span class="input-group-text">
                 <i class="bi bi-person"></i>
               </span>
-            <input type="text" class="form-control border-start-0" id="username-input" placeholder="Username">
+            <input type="text" class="form-control border-start-0" name="username-input" placeholder="Username">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-person-lines-fill"></i>
               </span>
-            <input type="text" class="form-control border-start-0" id="fullname-input" placeholder="FullName">
+            <input type="text" class="form-control border-start-0" name="fullname-input" placeholder="FullName">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-person-badge"></i>
               </span>
-            <input type="text" class="form-control border-start-0" id="nic-input" placeholder="National Identity Card (NIC) Number">
+            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-house"></i>
               </span>
-            <input type="text" class="form-control border-start-0" id="address-input" placeholder="Home Address">
+            <input type="text" class="form-control border-start-0" name="address-input" placeholder="Home Address">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-phone"></i>
               </span>
-            <input type="tel" class="form-control border-start-0" id="phoneNo-input" placeholder="Mobile Number">
+            <input type="tel" class="form-control border-start-0" name="phoneNo-input" placeholder="Mobile Number">
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-envelope"></i>
               </span>
-            <input type="email" class="form-control border-start-0" id="email-input" placeholder="Email Address">
+            <input type="email" class="form-control border-start-0" name="email-input" placeholder="Email Address">
+        </div>
+
+        <label class="text-muted fw-bold " for="bDay-input">Birthday</label>
+        <div class="input-group mb-4 w-100">
+              <span class="input-group-text">
+                <i class="bi bi-calendar4-week"></i>
+              </span>
+            <input type="date" class="form-control border-start-0 text-muted" id="bDay-input" name="bDay-input">
+        </div>
+
+        <label class="text-muted fw-bold" for="gender-input">Gender</label>
+        <div class="input-group mb-5 w-100">
+            <select class="form-control text-muted" id="gender-input" name="gender-input">
+                <option value="default">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
         </div>
 
         <div class="input-group mb-4 w-100">
               <span class="input-group-text">
                 <i class="bi bi-key"></i>
               </span>
-            <input type="password" class="form-control border-start-0 " id="password-input" placeholder="Password">
+            <input type="password" class="form-control border-start-0 " name="password-input" placeholder="Choose a Strong Password">
             <span class="input-group-text bg-white  " id="togglePassword" style="cursor: pointer;">
                 <i class="bi bi-eye" id="PWeyeIcon"></i>
             </span>
@@ -84,33 +101,18 @@
               <span class="input-group-text">
                 <i class="bi bi-key"></i>
               </span>
-            <input type="password" class="form-control border-start-0 " id="confPassword-input" placeholder="Confirm Password">
+            <input type="password" class="form-control border-start-0 " name="confPassword-input" placeholder="Confirm Password">
             <span class="input-group-text bg-white  " id="toggleConfPassword" style="cursor: pointer;">
                 <i class="bi bi-eye " id="ConfPWeyeIcon"></i>
             </span>
         </div>
 
-        <label class="text-muted fw-bold " for="bDay-input">Birthday</label>
-        <div class="input-group mb-4 w-100">
-              <span class="input-group-text">
-                <i class="bi bi-calendar4-week"></i>
-              </span>
-            <input type="date" class="form-control border-start-0 text-muted" id="bDay-input">
-        </div>
 
-        <label class="text-muted fw-bold" for="gender-input">Gender</label>
-        <div class="input-group mb-3 w-100">
-            <select class="form-control text-muted" id="gender-input">
-                <option value="default">Select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-        </div>
 
         <label class="mb-1 fw-bold" style="color:white"></label>
-        <button type="submit" name="register" class=" btn btn-primary btn-lg btn-block w-100" >REGISTER</button>
+        <input type="submit" name="register" class=" btn btn-primary btn-lg btn-block w-100" value="REGISTER" >
         <div style="padding-top:25px">
-            Already have an account? <a href="Login.html" class="stat-link" style="font-size:16px">Login Here</a>
+            Already have an account? <a href="LoginForm.php" class="stat-link" style="font-size:16px">Login Here</a>
         </div>
     </div>
     </form>

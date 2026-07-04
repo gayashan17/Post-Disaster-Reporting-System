@@ -21,39 +21,37 @@
         try
         {
             $query = "INSERT INTO users (Username, Password, Full_name, Gender, NIC, Email, Phone_Number, Address)
-                      VALUES (:username, :password, :fullname, :gender, :nic, :email, :phoneNo, :address)";
+                      VALUES (?,?,?,?,?,?,?,?)";
 
-                    $stmt = $conn->prepare($query);
+                    $stmt = mysqli_prepare($con, $query);
 
-                    $query_execute = $stmt->execute([
-                        ':username' => $username,
-                        ':password' => $hashedPassword,
-                        ':fullname' => $fullname,
-                        ':gender'   => $gender,
-                        ':nic'      => $nic,
-                        ':email'    => $email,
-                        ':phoneNo'  => $phoneNo,
-                        ':address'  => $address
-                    ]);
+                    mysqli_stmt_bind_param($stmt,"ssssssss",$username,$hashedPassword,$fullname,$gender,$nic,$email,$phoneNo,$address);
+
+                    $query_execute = mysqli_stmt_execute($stmt);
 
                     if($query_execute)
                     {
                         $_SESSION['message'] = "Registration Successful!";
-                        header("Location: Login.html");
+                        header("Location: LoginForm.php");
                         die();
                     }
                     else
                     {
                         $_SESSION['message'] = "Registration failed!";
-                        header("Location: Signup.html");
+                        header("Location: SignupForm.php");
                         die();
                     }
 
         }
-        catch(Exception $e)
+        catch(mysqli_sql_exception $e)
         {
-            header("Location:Error.html");
+            $_SESSION['message'] = "Database Connection failure";
+            header("Location: Error.php");
             die();
+        }
+        finally
+        {
+            mysqli_close($con);
         }
     }
 ?>

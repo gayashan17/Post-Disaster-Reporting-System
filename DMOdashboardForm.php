@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    $username = isset($_SESSION['username']) ? $_SESSION['username'] : header("Location:LoginForm.php") ;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +19,7 @@
 <!-- SIDEBAR -->
 <nav id="sidebarDMO">
   <div class="sidebar-brand">
-    <div class="brand-icon"><img src="C:\NIBM\Final Project\Post Disaster Reporting System\pictures\Post-Disaster-Reporting-Logo-Notxt.png"></div>
+    <div class="brand-icon"><img src="pictures\Post-Disaster-Reporting-Logo-Notxt.png"></div>
     <div>
       <div class="brand-title">Post-Disaster</div>
       <div class="brand-sub">Reporting System</div>
@@ -46,7 +50,7 @@
   </button>
   <div class="user-pill" onclick="showInfo('Profile')">
     <div class="user-avatar" style="background:#064e3b"><i class="bi bi-person-fill"></i></div>
-    <span class="user-name">R. Jayawardena</span>
+    <span class="user-name"><?php echo htmlspecialchars($username);?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
   </div>
 </header>
