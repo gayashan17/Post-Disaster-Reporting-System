@@ -28,7 +28,8 @@
                     $_SESSION['gender']   = $row['Gender'];
 
 
-                    switch ($row['Role_ID']) {
+                    switch ($row['Role_ID'])
+                    {
                         case 1:
                             header("Location: AdmindashboardForm.php");
                             exit();
