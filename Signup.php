@@ -43,9 +43,9 @@
                     }
 
         }
-        catch(mysqli_sql_exception $e)
+        catch(Exception $e)
         {
-            $_SESSION['message'] = "Database Connection failure";
+            $_SESSION['message'] = "System exception: " . $e->getMessage();
             header("Location: Error.php");
             die();
         }

@@ -12,6 +12,49 @@ function showInfo(page) {
   });
 }
 
+function newReport() {
+  Swal.fire({
+    title: 'New Report',
+    text: 'Select Your Report Type',
+    input: 'select',
+    inputOptions: {
+      'damage': 'Property Damage',
+      'death': 'Death Record',
+      'injure': 'Injured Person',
+      'missing':'Missing Person Record'
+    },
+    showCancelButton: true,
+    confirmButtonColor: '#2563eb',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Okay'
+  }).then((result) => {
+     if (result.isConfirmed) {
+       let selectedType = result.value;
+
+        switch(selectedType)
+        {
+            case 'damage':
+            window.location.href = "disasterReports/disasterReportFormDmg.php?type=" + selectedType;;
+            break;
+
+            case'death':
+            window.location.href = "disasterReports/disasterReportFormDeath.php?type=" + selectedType;;
+            break;
+
+            case'injure':
+            window.location.href = "disasterReports/disasterReportFormInj.php?type=" + selectedType;;
+            break;
+
+            case'missing':
+            window.location.href = "disasterReports/disasterReportFormMissing.php?type=" + selectedType;;
+            break;
+
+        }
+
+     }
+  });
+}
+
 function viewReport(reportId) {
   Swal.fire({
     title: reportId,

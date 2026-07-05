@@ -17,7 +17,7 @@
 <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
 
     <form id="signupForm" method="post" action="Signup.php" onsubmit="">
-    <div class="loginPanel">
+    <div class="loginPanel">        1
         <div>
             <img src="pictures\Post-Disaster-Reporting-Logo.png" width="55%">
         </div>
@@ -80,7 +80,7 @@
 
         <label class="text-muted fw-bold" for="gender-input">Gender</label>
         <div class="input-group mb-5 w-100">
-            <select class="form-control text-muted" id="gender-input" name="gender-input">
+            <select class="form-select text-muted" id="gender-input" name="gender-input">
                 <option value="default">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>

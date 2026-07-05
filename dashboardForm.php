@@ -31,8 +31,8 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" onclick="showInfo('Submit Report')">
-    <i class="bi bi-file-earmark-plus"></i> Submit Report
+  <a class="nav-item" onclick="newReport()">
+    <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
   <a class="nav-item" onclick="showInfo('My Reports')">
     <i class="bi bi-file-earmark-text"></i> My Reports
@@ -359,7 +359,7 @@
           </div>
         </div>
         <div class="d-flex flex-column gap-2">
-          <a class="qa-btn" onclick="showInfo('Submit New Report')">
+          <a class="qa-btn" onclick="">
             <i class="bi bi-plus-circle-fill"></i> Submit New Report
           </a>
           <a class="qa-btn" onclick="showInfo('Track My Report')">
