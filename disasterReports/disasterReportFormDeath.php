@@ -22,7 +22,7 @@
 
                     <div class="panel-header justify-content-center">
                         <div class="panel-title">
-                                <h4 style="font-weight:bold;">Submit New Disaster Report - Property Damage</h4>
+                                <h4 style="font-weight:bold;">Submit New Disaster Report - Death Record</h4>
                         </div>
                     </div>
                     <div class="reportFormPanel2 mx-auto">
