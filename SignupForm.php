@@ -17,7 +17,7 @@
 <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
 
     <form id="signupForm" method="post" action="Signup.php" onsubmit="">
-    <div class="loginPanel">        1
+    <div class="loginPanel">
         <div>
             <img src="pictures\Post-Disaster-Reporting-Logo.png" width="55%">
         </div>
@@ -95,6 +95,11 @@
             <span class="input-group-text bg-white  " id="togglePassword" style="cursor: pointer;">
                 <i class="bi bi-eye" id="PWeyeIcon"></i>
             </span>
+            <small id="passwordHelpBlock" class="form-text text-muted mx-auto">
+                <label>Your password must be 8-20 characters long,</label>
+                <label>contain letters and numbers,</label>
+                <label>and must not contain spaces,special characters, or emoji.</label>
+            </small>
         </div>
 
         <div class="input-group mb-4 w-100">
