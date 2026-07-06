@@ -46,7 +46,7 @@
               <span class="input-group-text">
                 <i class="bi bi-person-badge"></i>
               </span>
-            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number">
+            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number" oninput="if(this.value.length > 9) this.value = this.value.slice(0,9);">
         </div>
 
         <div class="input-group mb-4 w-100">
@@ -60,7 +60,7 @@
               <span class="input-group-text">
                 <i class="bi bi-phone"></i>
               </span>
-            <input type="tel" class="form-control border-start-0" name="phoneNo-input" placeholder="Mobile Number">
+            <input type="tel" class="form-control border-start-0" name="phoneNo-input" placeholder="Mobile Number" oninput="if(this.value.length > 10) this.value = this.value.slice(0,10);">
         </div>
 
         <div class="input-group mb-4 w-100">

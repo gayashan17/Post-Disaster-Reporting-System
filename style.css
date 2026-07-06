@@ -72,10 +72,9 @@ body {
 }
 .divider {
     border: 1px;
-    border-top: 1px solid #cbd5e1;
+    border-top: 1px solid black;
     margin: 20px 0;
     width: 100%;
-    background-color: #f8fafc;
 }
 .brand-icon {
   width: 50px; height: 50px;

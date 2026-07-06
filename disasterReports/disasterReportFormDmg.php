@@ -32,6 +32,7 @@
                     <label class="text-muted fw-bold" for="disaster-input">Select Disaster</label>
                     <div class="input-group mb-4">
                         <select class="form-select text-muted" id="disaster-input" name="disaster-input">
+                            <option value="default">Select</option>
                             <option value="flood">Flood</option>
                             <option value="landslide">Landslide</option>
                             <option value="cyclone">Cyclone</option>
@@ -42,14 +43,40 @@
                         </select>
                     </div>
 
+
                     <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
                     <div class="input-group mb-4 ">
                         <input type="date" class="form-control text-muted" id="date-input" name="date-input">
                     </div>
 
+                    <label class="text-muted fw-bold" for="prReportDesc-input">Report Description</label>
+                    <div class="form-group mb-4">
+                        <textarea class="form-control" id="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
+                    </div>
+
+                    <hr class="divider">
+
+                    <label class="fw-bold mb-4" style="text-decoration:underline;" >Property Damage Information</label> <br>
+
+                    <label class="text-muted fw-bold" for="prType-input">Select Property Type</label>
+                    <div class="input-group mb-4 mx-auto">
+                        <select class="form-select text-muted" id="prType-input" name="prType-input">
+                            <option value="default">Select</option>
+                            <option value="rHouse">Residential House</option>
+                            <option value="apt">Apartment / Flat</option>
+                            <option value="comBuilding">Commercial Building</option>
+                            <option value="shop">Business Premises / Shop</option>
+                            <option value="agrLand">Agricultural Land</option>
+                            <option value="vehicle">Vehicle</option>
+                            <option value="livestock">Livestock</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
                     <label class="text-muted fw-bold" for="dmgLevel-input">Estimated Damage Level</label>
                     <div class="input-group mb-4 mx-auto">
                         <select class="form-select text-muted" id="dmgLevel-input" name="dmgLevel-input">
+                            <option value="default">Select</option>
                             <option value="minor">Minor</option>
                             <option value="moderate">Moderate</option>
                             <option value="major">Major</option>
@@ -63,12 +90,12 @@
                         <input type="number" class="form-control text-muted" id="cost-input" name="cost-input">
                     </div>
 
-                    <label class="text-muted fw-bold" for="dmgLevel-input">Report Description</label>
+                    <label class="text-muted fw-bold" for="prDmgDesc-input">Property Damage Description</label>
                     <div class="form-group mb-4">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Describe what happened"></textarea>
+                        <textarea class="form-control" id="prDmgDesc-input" rows="5" placeholder="Give a description about the property damage"></textarea>
                     </div>
 
-                    <hr class="divider">
+
 
                     <label class="text-muted fw-bold" for="evidence-input">Evidence Upload</label>
                     <div class="input-group mb-4">
