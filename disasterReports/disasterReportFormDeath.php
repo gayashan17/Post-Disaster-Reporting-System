@@ -25,6 +25,7 @@
                                 <h4 style="font-weight:bold;">Submit New Disaster Report - Death Record</h4>
                         </div>
                     </div>
+
                     <div class="reportFormPanel2 mx-auto">
 
                         <div class="mb-4">Fill the below form to submit a Property Damage report.</div>
@@ -43,6 +44,10 @@
                             </select>
                         </div>
 
+                        <label class="text-muted fw-bold" for="location-input">Location</label>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control border-start-1" name="location-input" placeholder="Disaster Location">
+                        </div>
 
                         <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
                         <div class="input-group mb-4 ">
