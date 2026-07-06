@@ -118,7 +118,7 @@ body {
 .chart-wrap { position: relative; height: 200px; }
 
 .loginPanel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 45px; align-items: center; text-align: center; width:500px; }
-.reportFormPanel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 45px; align-items: center; text-align: center; width:1000px; }
+.reportFormPanel { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 45px; align-items: center; text-align: center; width:800px; }
 
 /* Universal List Feed Notification Items */
 .notif-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid var(--border); }

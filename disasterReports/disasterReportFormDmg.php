@@ -24,10 +24,10 @@
                         <h4 style="font-weight:bold;">Submit New Disaster Report - Property Damage</h4>
                     </div>
                 </div>
-                    <div class="mb-5">Fill the below form to submit a Property Damage report.</div>
+                    <div class="mb-4">Fill the below form to submit a Property Damage report.</div>
 
-                <label class="text-muted fw-bold mb-3" for="gender-input">Select Disaster</label>
-                <div class="input-group mb-5 align-items-center" style="width: 20%;">
+                <label class="text-muted fw-bold" for="disaster-input">Select Disaster</label>
+                <div class="input-group mb-4 mx-auto" style="width: 60%">
                     <select class="form-select text-muted" id="disaster-input" name="disaster-input">
                         <option value="flood">Flood</option>
                         <option value="landslide">Landslide</option>
@@ -39,6 +39,20 @@
                     </select>
                 </div>
 
+                <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
+                <div class="input-group mb-4 mx-auto" style="width: 60%">
+                    <input type="date" class="form-control border-start-0 text-muted" id="date-input" name="date-input">
+                </div>
+
+                <label class="text-muted fw-bold" for="damage-input">Estimated Damage Level</label>
+                <div class="input-group mb-4 mx-auto" style="width: 60%">
+                    <select class="form-select text-muted" id="disaster-input" name="disaster-input">
+                        <option value="minor">Minor</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="major">Major</option>
+                        <option value="complete">Complete Destruction</option>
+                    </select>
+                </div>
 
             </div>
         </main>
