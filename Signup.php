@@ -31,9 +31,27 @@
 
                     if($query_execute)
                     {
-                        $_SESSION['message'] = "Registration Successful!";
-                        header("Location: LoginForm.php");
-                        die();
+                        // Get the auto-generated User_ID
+                        $userID = mysqli_insert_id($con);
+
+                        // Insert into citizen table
+                        $citizenQuery = "INSERT INTO citizen (User_ID) VALUES (?)";
+                        $citizenStmt = mysqli_prepare($con, $citizenQuery);
+
+                        mysqli_stmt_bind_param($citizenStmt, "i", $userID);
+
+                        if(mysqli_stmt_execute($citizenStmt))
+                        {
+                            $_SESSION['message'] = "Registration Successful!";
+                            header("Location: LoginForm.php");
+                            die();
+                        }
+                        else
+                        {
+                            $_SESSION['message'] = "Citizen record creation failed!";
+                            header("Location: SignupForm.php");
+                            die();
+                        }
                     }
                     else
                     {

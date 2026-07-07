@@ -56,15 +56,17 @@
                 }
                 else
                 {
-                    $_SESSION['message'] = "Wrong Password!";
-                    header("Location: Error.php");
+                   $_SESSION['message'] = "Password Incorrect";
+                    $_SESSION['icon'] = "error";
+                    header("Location: LoginForm.php");
                     exit();
                 }
             }
             else
             {
-                $_SESSION['message'] = "Invalid Username";
-                header("Location: Error.php");
+                $_SESSION['message'] = "Username Invalid";
+                $_SESSION['icon'] = "error";
+                header("Location: LoginForm.php");
                 exit();
             }
         }
