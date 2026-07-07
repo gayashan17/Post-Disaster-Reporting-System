@@ -53,7 +53,7 @@
                 </label>
             </div>
 
-            <a href="" class="stat-link" style="font-size:16px">Forgot Password?</a>
+            <a href="ForgotPasswordForm.php" class="stat-link" style="font-size:16px">Forgot Password?</a>
         </div>
 
         <input type="submit" name="login" class=" btn btn-primary btn-lg btn-block w-100" value="LOGIN">
@@ -69,6 +69,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
-<script src="Login.js"></script>
+<?php if(isset($_SESSION['message'])): ?>
+<script>
+    Swal.fire({
+        icon: '<?php echo $_SESSION['icon'] ?? "error"; ?>',
+        title: '<?php echo $_SESSION['message']; ?>',
+        confirmButtonColor: '#0d6efd'
+    });
+</script>
+<?php
+unset($_SESSION['message']);
+unset($_SESSION['icon']);
+endif;
+?>
+
+<script src="Log-in.js"></script>
 </body>
 </html>
