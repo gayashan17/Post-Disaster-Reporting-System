@@ -43,6 +43,7 @@
                         if(mysqli_stmt_execute($citizenStmt))
                         {
                             $_SESSION['message'] = "Registration Successful!";
+                            $_SESSION['icon'] = "success";
                             header("Location: LoginForm.php");
                             die();
                         }

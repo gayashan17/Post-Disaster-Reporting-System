@@ -77,6 +77,7 @@
         confirmButtonColor: '#0d6efd'
     });
 </script>
+
 <?php
 unset($_SESSION['message']);
 unset($_SESSION['icon']);

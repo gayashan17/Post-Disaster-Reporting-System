@@ -17,7 +17,7 @@
 <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
 
     <form id="signupForm" method="post" action="Signup.php" onsubmit="">
-    <div class="loginPanel">        1
+    <div class="loginPanel">
         <div>
             <img src="pictures\Post-Disaster-Reporting-Logo.png" width="55%">
         </div>
@@ -46,7 +46,7 @@
               <span class="input-group-text">
                 <i class="bi bi-person-badge"></i>
               </span>
-            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number">
+            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number" oninput="if(this.value.length > 12) this.value = this.value.slice(0,12)";">
         </div>
 
         <div class="input-group mb-4 w-100">
@@ -60,7 +60,7 @@
               <span class="input-group-text">
                 <i class="bi bi-phone"></i>
               </span>
-            <input type="tel" class="form-control border-start-0" name="phoneNo-input" placeholder="Mobile Number">
+            <input type="tel" class="form-control border-start-0" name="phoneNo-input" placeholder="Mobile Number" oninput="if(this.value.length > 10) this.value = this.value.slice(0,10);">
         </div>
 
         <div class="input-group mb-4 w-100">
@@ -95,6 +95,11 @@
             <span class="input-group-text bg-white  " id="togglePassword" style="cursor: pointer;">
                 <i class="bi bi-eye" id="PWeyeIcon"></i>
             </span>
+            <small id="passwordHelpBlock" class="form-text text-muted mx-auto">
+                <label>Your password must be 8-20 characters long,</label>
+                <label>contain letters and numbers,</label>
+                <label>and must not contain spaces,special characters, or emoji.</label>
+            </small>
         </div>
 
         <div class="input-group mb-4 w-100">
@@ -122,6 +127,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
+
+<?php if(isset($_SESSION['message'])): ?>
+<script>
+    Swal.fire({
+        icon: '<?php echo $_SESSION['icon'] ?? "error"; ?>',
+        title: '<?php echo $_SESSION['message']; ?>',
+        confirmButtonColor: '#0d6efd'
+    });
+</script>
+
+<?php
+unset($_SESSION['message']);
+unset($_SESSION['icon']);
+endif;
+?>
 
 <script src="Sign-up.js"></script>
 </body>
