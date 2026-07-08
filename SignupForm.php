@@ -46,7 +46,7 @@
               <span class="input-group-text">
                 <i class="bi bi-person-badge"></i>
               </span>
-            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number" oninput="if(this.value.length > 9) this.value = this.value.slice(0,9);">
+            <input type="text" class="form-control border-start-0" name="nic-input" placeholder="National Identity Card (NIC) Number" oninput="if(this.value.length > 12) this.value = this.value.slice(0,12)";">
         </div>
 
         <div class="input-group mb-4 w-100">
@@ -127,6 +127,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
+
+<?php if(isset($_SESSION['message'])): ?>
+<script>
+    Swal.fire({
+        icon: '<?php echo $_SESSION['icon'] ?? "error"; ?>',
+        title: '<?php echo $_SESSION['message']; ?>',
+        confirmButtonColor: '#0d6efd'
+    });
+</script>
+
+<?php
+unset($_SESSION['message']);
+unset($_SESSION['icon']);
+endif;
+?>
 
 <script src="Sign-up.js"></script>
 </body>
