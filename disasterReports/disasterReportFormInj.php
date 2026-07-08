@@ -14,6 +14,7 @@
 <body>
     <form method="post" id="dReportForm" action="" onsubmit="">
         <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
+
             <div class="reportFormPanel">
                 <div>
                     <img src="..\pictures\Post-Disaster-Reporting-Logo.png" width="20%">
@@ -21,14 +22,99 @@
 
                 <div class="panel-header justify-content-center">
                     <div class="panel-title">
-                        <h4 style="font-weight:bold;">Submit New Disaster Report - Injured Person</h4>
+                            <h4 style="font-weight:bold;">Submit New Disaster Report - Injured Person</h4>
                     </div>
                 </div>
+                <div class="reportFormPanel2 mx-auto">
 
+                    <div class="mb-4">Fill the below form to submit a Injured Person report.</div>
 
+                    <label class="text-muted fw-bold" for="disaster-input">Select Disaster</label>
+                    <div class="input-group mb-4">
+                        <select class="form-select text-muted" id="disaster-input" name="disaster-input">
+                            <option value="default">Select</option>
+                            <option value="flood">Flood</option>
+                            <option value="landslide">Landslide</option>
+                            <option value="cyclone">Cyclone</option>
+                            <option value="earthquake">Earthquake</option>
+                            <option value="fire">Fire</option>
+                            <option value="tsunami">Tsunami</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
 
+                    <label class="text-muted fw-bold" for="location-input">Location</label>
+                    <div class="input-group mb-4">
+                        <input type="text" class="form-control border-start-1" name="location-input" placeholder="Disaster Location">
+                    </div>
 
+                    <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
+                    <div class="input-group mb-4 ">
+                        <input type="date" class="form-control text-muted" id="date-input" name="date-input">
+                    </div>
 
+                    <label class="text-muted fw-bold" for="prReportDesc-input">Report Description</label>
+                    <div class="form-group mb-4">
+                        <textarea class="form-control" id="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
+                    </div>
+
+                    <hr class="divider">
+
+                        <label class="text-muted fw-bold" for="name-input">FullName</label>
+                        <div class="input-group mb-4">
+                            <input type="text" class="form-control border-start-1" name="name-input" placeholder="Enter Injured person's FullName">
+                        </div>
+
+                        <label class="text-muted fw-bold" for="age-input">Age</label>
+                        <div class="input-group mb-4">
+                            <input type="number" class="form-control border-start-1" name="age-input" placeholder="Enter Injured person's Age" oninput="if(this.value.length > 3) this.value = this.value.slice(0,3);">
+                        </div>
+
+                        <label class="text-muted fw-bold" for="gender-input">Gender</label>
+                        <div class="input-group mb-4 w-100">
+                            <select class="form-select text-muted" id="gender-input" name="gender-input">
+                                <option value="default">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+
+                        <label class="text-muted fw-bold" for="injuredLevel-input">Injured Level</label>
+                        <div class="input-group mb-4 mx-auto">
+                            <select class="form-select text-muted" id="injuredLevel-input" name="injuredLevel-input">
+                                <option value="default">Select</option>
+                                <option value="minor">Minor</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="major">Major</option>
+                            </select>
+                        </div>
+
+                        <label class="text-muted fw-bold" for="status-input">Status</label>
+                        <div class="input-group mb-4 mx-auto">
+                            <select class="form-select text-muted" id="status-input" name="status-input">
+                                <option value="default">Select</option>
+                                <option value="minor">Minor</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="major">Major</option>
+                            </select>
+                        </div>
+
+                        <label class="text-muted fw-bold" for="evidence-input">Evidence Upload</label>
+                        <div class="input-group mb-4">
+                            <input type="file" class="form-control border-start-0" name="evidence-input">
+                        </div>
+
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="declaration-input" name="declaration-input">
+                            <label class="form-check-label" style="cursor: pointer; text-align:left;" for="declaration-input">
+                                I declare that the information provided is true and accurate.
+                            </label>
+                        </div>
+
+                    <input type="submit" name="register" class=" btn btn-primary btn-block mb-3 w-75" value="Submit Report">
+
+                    <input type="button" name="register" class=" btn btn-danger  btn-block w-75" value="Cancel" onclick=" window.location.href='../dashboardForm.php'; ">
+                </div>
             </div>
         </main>
     </form>
