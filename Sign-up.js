@@ -8,20 +8,16 @@ document.getElementById("signupForm").addEventListener("submit", function (e) {
     const gender = document.querySelector('[name="gender-input"]').value;
     const password = document.querySelector('[name="password-input"]').value;
     const confirmPassword = document.querySelector('[name="confPassword-input"]').value;
+    const errorMessage= document.getElementById("errorMessage");
 
     // Username
-    if (username === "") {
-        alert("Please enter a username.");
+    if(username === "" || fullname === "" || nic==="" || phone==="" || email==="" || gender==="" || password==="" || confirmPassword==="")
+    {
+        errorMessage.textContent="Please fill all fields to continue";
         e.preventDefault();
         return;
     }
 
-    // Full Name
-    if (fullname === "") {
-        alert("Please enter your full name.");
-        e.preventDefault();
-        return;
-    }
 
     // Email Validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

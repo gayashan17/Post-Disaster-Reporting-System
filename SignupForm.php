@@ -82,8 +82,8 @@
         <div class="input-group mb-5 w-100">
             <select class="form-select text-muted" id="gender-input" name="gender-input">
                 <option value="default">Select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
         </div>
 
@@ -114,7 +114,7 @@
 
 
 
-        <label class="mb-1 fw-bold" style="color:white"></label>
+        <label class="mb-1 fw-bold" id="errorMessage" style="color:red"></label>
         <input type="submit" name="register" class=" btn btn-primary btn-lg btn-block w-100" value="REGISTER" >
         <div style="padding-top:25px">
             Already have an account? <a href="LoginForm.php" class="stat-link" style="font-size:16px">Login Here</a>
