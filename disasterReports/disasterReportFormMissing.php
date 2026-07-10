@@ -43,9 +43,41 @@
                         </select>
                     </div>
 
-                    <label class="text-muted fw-bold" for="location-input">Location</label>
+                    <label class="text-muted fw-bold" for="district-input">District</label>
                     <div class="input-group mb-4">
-                        <input type="text" class="form-control border-start-1" name="location-input" placeholder="Disaster Location">
+                        <select id="district-input" name="district-input" class="form-select text-muted" required>
+                            <option value="default">Select</option>
+                            <option value="Ampara">Ampara</option>
+                            <option value="Anuradhapura">Anuradhapura</option>
+                            <option value="Badulla">Badulla</option>
+                            <option value="Batticaloa">Batticaloa</option>
+                            <option value="Colombo">Colombo</option>
+                            <option value="Galle">Galle</option>
+                            <option value="Gampaha">Gampaha</option>
+                            <option value="Hambantota">Hambantota</option>
+                            <option value="Jaffna">Jaffna</option>
+                            <option value="Kalutara">Kalutara</option>
+                            <option value="Kandy">Kandy</option>
+                            <option value="Kegalle">Kegalle</option>
+                            <option value="Kilinochchi">Kilinochchi</option>
+                            <option value="Kurunegala">Kurunegala</option>
+                            <option value="Mannar">Mannar</option>
+                            <option value="Matale">Matale</option>
+                            <option value="Matara">Matara</option>
+                            <option value="Monaragala">Monaragala</option>
+                            <option value="Mullaitivu">Mullaitivu</option>
+                            <option value="Nuwara Eliya">Nuwara Eliya</option>
+                            <option value="Polonnaruwa">Polonnaruwa</option>
+                            <option value="Puttalam">Puttalam</option>
+                            <option value="Ratnapura">Ratnapura</option>
+                            <option value="Trincomalee">Trincomalee</option>
+                            <option value="Vavuniya">Vavuniya</option>
+                        </select>
+                    </div>
+
+                    <label class="text-muted fw-bold" for="stAdd-input">Street Address</label>
+                    <div class="form-group mb-4">
+                        <textarea class="form-control" id="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
                     </div>
 
                     <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
