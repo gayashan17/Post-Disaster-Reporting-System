@@ -120,9 +120,13 @@
                             <input type="text" class="form-control border-start-1" name="cause-input" placeholder="Enter The Cause of death">
                         </div>
 
-                        <label class="text-muted fw-bold" for="evidence-input">Evidence Upload</label>
-                        <div class="input-group mb-4">
-                            <input type="file" class="form-control border-start-0" name="evidence-input">
+                        <label class="text-muted fw-bold" for="report-attachments">Evidence Upload (Images or PDFs)</label>
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="report-attachments" name="report-attachments[]" accept="image/*, .pdf" multiple>
+                            </div>
+
+                            <div id="preview-container" class="d-flex flex-wrap gap-3 mt-3"></div>
                         </div>
 
                         <div class="form-check mb-4">
@@ -146,6 +150,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
-    <script src="disasterReportDeath.js"></script>
+    <script src="disasterReportUploads.js"></script>
 </body>
 </html>

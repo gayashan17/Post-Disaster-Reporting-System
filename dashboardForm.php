@@ -359,7 +359,7 @@
           </div>
         </div>
         <div class="d-flex flex-column gap-2">
-          <a class="qa-btn" onclick="">
+          <a class="qa-btn" onclick="newReport()">
             <i class="bi bi-plus-circle-fill"></i> Submit New Report
           </a>
           <a class="qa-btn" onclick="showInfo('Track My Report')">
