@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    <form method="post" id="dReportForm" action="" onsubmit="">
+    <form method="post" id="dReportForm" enctype="multipart/form-data">
         <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
 
             <div class="reportFormPanel">
@@ -128,7 +128,7 @@
 
                     <label class="text-muted fw-bold" for="prDmgDesc-input">Property Damage Description</label>
                     <div class="form-group mb-4">
-                        <textarea class="form-control" id="prDmgDesc-input" rows="5" placeholder="Give a description about the property damage"></textarea>
+                        <textarea class="form-control" id="prDmgDesc-input" name="prDmgDesc-input" rows="5" placeholder="Give a description about the property damage"></textarea>
                     </div>
 
 
@@ -138,12 +138,15 @@
                         <div class="input-group">
                             <input type="file" class="form-control" id="report-attachments" name="report-attachments[]" accept="image/*, .pdf" multiple>
                         </div>
+                        <small id="passwordHelpBlock" class="form-text text-muted mx-auto">
+                            <label>Maximum 10 files. Accepted formats: JPG, JPEG, PNG and PDF.</label>
+                        </small>
 
                         <div id="preview-container" class="d-flex flex-wrap gap-3 mt-3"></div>
                     </div>
 
                     <div class="form-check mb-4">
-                        <input class="form-check-input" type="checkbox" id="declaration-input" name="declaration-input">
+                        <input class="form-check-input" type="checkbox" id="declaration-input" name="declaration-input" required>
                         <label class="form-check-label" style="cursor: pointer; text-align:left;" for="declaration-input">
                             I declare that the information provided is true and accurate.
                         </label>

@@ -1,18 +1,11 @@
-// Store selected files
 let selectedFiles = [];
 
-// Elements
 const fileInput = document.getElementById("report-attachments");
 const previewContainer = document.getElementById("preview-container");
 const form = document.getElementById("dReportForm");
 
 // Allowed types
-const validImageTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/gif",
-    "image/webp"
-];
+const validImageTypes = ["image/jpeg","image/png","image/gif","image/webp"];
 
 const validPdfType = "application/pdf";
 
@@ -22,7 +15,24 @@ const validPdfType = "application/pdf";
 
 fileInput.addEventListener("change", function (e) {
 
+
+
+
     const files = Array.from(e.target.files);
+
+    if (selectedFiles.length + files.length > 10)  //check
+    {
+        Swal.fire({
+            icon: "warning",
+            title: "Upload Limit Reached",
+            text: `You can upload a maximum of 10 files.`
+        });
+
+        fileInput.value = "";
+        return;
+    }
+
+
 
     files.forEach(file => {
 
@@ -179,7 +189,6 @@ function addFileInfo(card, file)
 // ===========================
 
 form.addEventListener("submit", function (e) {
-
     e.preventDefault();
 
     if (selectedFiles.length === 0)
@@ -201,7 +210,7 @@ form.addEventListener("submit", function (e) {
 
     });
 
-    fetch("your-php-processor.php", {
+    fetch("disasterReportUploads.php", {
 
         method: "POST",
 
@@ -211,15 +220,6 @@ form.addEventListener("submit", function (e) {
 
     .then(res => res.text())
 
-    .then(data => {
-
-        Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: "Disaster report submitted successfully."
-        });
-
-    })
 
     .catch(err => {
 
