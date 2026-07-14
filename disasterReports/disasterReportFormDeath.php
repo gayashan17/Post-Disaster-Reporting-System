@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    $_SESSION['type'] = "death";
+    $reportType = $_SESSION['type'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,16 +99,16 @@
 
                         <hr class="divider">
 
-                        <label class="fw-bold mb-4" style="text-decoration:underline;">Death Person Information</label><br>
+                        <label class="fw-bold mb-4" style="text-decoration:underline;">Deceased Person's Information</label><br>
 
                         <label class="text-muted fw-bold" for="name-input">FullName</label>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control border-start-1" name="name-input" placeholder="Enter Death person's FullName">
+                            <input type="text" class="form-control border-start-1" name="name-input" placeholder="Enter Deceased person's FullName">
                         </div>
 
                         <label class="text-muted fw-bold" for="age-input">Age</label>
                         <div class="input-group mb-4">
-                            <input type="number" class="form-control border-start-1" name="age-input" placeholder="Enter Death person's Age" oninput="if(this.value.length > 3) this.value = this.value.slice(0,3);">
+                            <input type="number" class="form-control border-start-1" name="age-input" placeholder="Enter Deceased person's Age" oninput="if(this.value.length > 3) this.value = this.value.slice(0,3);">
                         </div>
 
                         <label class="text-muted fw-bold" for="gender-input">Gender</label>
@@ -150,6 +155,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
+    <script>const reportType = "<?php echo $_SESSION['type']; ?>";</script>
     <script src="disasterReportUploads.js"></script>
 </body>
 </html>

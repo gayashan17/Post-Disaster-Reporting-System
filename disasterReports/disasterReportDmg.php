@@ -2,15 +2,16 @@
     include '../userData.php';
     include '../DBconnection.php';
 
-
     $district = $_POST['district-input'];
     $streetAddress = $_POST['stAdd-input'];
     $disasterDate = $_POST['date-input'];
     $desc = $_POST['prReportDesc-input'];
+
     $propertyType = $_POST['prType-input'];
     $damageLevel = $_POST['dmgLevel-input'];
     $damageEstCost = $_POST['cost-input'];
     $damageDescription = $_POST['prDmgDesc-input'];
+
     $dlec   = $_POST['declaration-input'];
 
     if($_POST['disaster-input'] === "flood")
@@ -80,6 +81,21 @@
                           if(move_uploaded_file($tmpName, $destination))
                           {
                             //insert file path intodatabase evidence_files_and_reports table
+                            try
+                            {
+                                $fquery = "INSERT INTO evidence_file_and_photos (Report_ID,File_Name,File_Type,File_Path) VALUES (?,?,?,?)";
+
+                                $fstmt = mysqli_prepare($con,$fquery);
+
+                                mysqli_stmt_bind_param($fstmt,"isss",$newReportId,$newName,$fileType,$destination);
+
+                                mysqli_stmt_execute($fstmt);
+
+                            }
+                            catch(Exception $e)
+                            {
+                                echo "Failed to Insert Report Evidence: ". $e->getMessage();
+                            }
                           }
                       }
               echo"success";
@@ -87,13 +103,13 @@
         }
         catch(Exception $e)
         {
-            echo "db insert failed". $e->getMessage();
+            echo "Failed to Insert Report Data: ". $e->getMessage();
         }
 
     }
     else
     {
-
+        echo "dlecNotChecked";
     }
 
 ?>

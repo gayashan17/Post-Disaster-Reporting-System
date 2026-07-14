@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    $_SESSION['type'] = "prDmg";
+    $reportType = $_SESSION['type'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -166,6 +172,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
+    <script>const reportType = "<?php echo $_SESSION['type']; ?>";</script>
     <script src="disasterReportUploads.js"></script>
 </body>
 </html>

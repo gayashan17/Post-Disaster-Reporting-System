@@ -194,6 +194,7 @@ function addFileInfo(card, file)
 // ===========================
 
 form.addEventListener("submit", function (e) {
+
     e.preventDefault();
 
     if (selectedFiles.length === 0)
@@ -210,50 +211,79 @@ form.addEventListener("submit", function (e) {
     const formData = new FormData(form);
 
     selectedFiles.forEach(file => {
-
         formData.append("report-attachments[]", file);
-
     });
 
-    fetch("disasterReportUploads.php", {
+    let backendFile = "";
 
+    switch (reportType)
+    {
+        case "prDmg":
+            backendFile = "disasterReportDmg.php";
+            break;
+
+        case "death":
+            backendFile = "disasterReportDeath.php";
+            break;
+
+        case "inj":
+            backendFile = "disasterReportInj.php";
+            break;
+
+        case "missing":
+            backendFile = "disasterReportMissing.php";
+            break;
+
+        default:
+            window.location.href = "../dashboardForm.php";
+            return;
+    }
+
+    fetch(backendFile, {
         method: "POST",
-
         body: formData
-
     })
-
-    .then(res => res.text())
+    .then(response => response.text())
     .then(data => {
-    // prints whatever PHP echoed into browser console
-    console.log("Server Debug Info:", data);
 
-    if (data.trim() === "unauthorized") {
-        Swal.fire({
-            icon: "error",
-            title: "Session Expired",
-            text: "Please log in again to submit your report.",
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = '../LoginForm.php';
-            }
-        });
-        return;
-    }
+        console.log(data);
 
-    if (data.trim() === "success") {
-        Swal.fire("Saved!", "Report submitted successfully.", "success");
-    }
-    else {
-        Swal.fire("Error", "Something went wrong on the server.", "error");
-    }
+        if (data.trim() === "unauthorized")
+        {
+            Swal.fire({
+                icon: "error",
+                title: "Session Expired",
+                text: "Please log in again."
+            }).then(() => {
+                window.location.href = "../LoginForm.php";
+            });
+
+            return;
+        }
+
+        if (data.trim() === "success")
+        {
+            Swal.fire({
+                icon: "success",
+                title: "Report Submitted!",
+                text: "Your report has been submitted successfully."
+            }).then(() => {
+                window.location.href = "../dashboardForm.php";
+            });
+        }
+        else
+        {
+            Swal.fire({
+                icon: "error",
+                title: "Something Went Wrong",
+                text: data
+            });
+        }
+
     })
+    .catch(error => {
 
-    .catch(err => {
-
-        console.error(err);
+        console.error(error);
 
         Swal.fire({
             icon: "error",
