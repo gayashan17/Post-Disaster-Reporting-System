@@ -3,7 +3,14 @@
 
     if(isset($_SESSION['username']))
     {
-        $userId = $_SESSION['user_Id'];
+        if(isset($_SESSION['user_Id']) || $_SESSION['user_Id'] != null)
+        {
+            $userId = $_SESSION['user_Id'];
+        }
+        else
+        {
+            die("unauthorized");
+        }
         $roleId = $_SESSION['role_Id'];
         $username = $_SESSION['username'];
         $gender = $_SESSION['gender'];

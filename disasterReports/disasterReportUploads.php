@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include '../userData.php';
     include '../DBconnection.php';
 
@@ -47,56 +46,54 @@
     {
         try
         {
-              $uploadDir = "../uploads/evidence/";
-
               $query = "INSERT INTO disaster_report (District,Street_Address,Description,Damage_Level,Damage_EstCost,Damage_Description,Property_Type,Disaster_Date,User_ID,Disaster_Type_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
               $stmt = mysqli_prepare($con,$query);
 
-              mysqli_stmt_bind_param($stmt,"ssssdsssii",$district,$streetAddress,$desc,$damageLevel,$damageEstCost,$damageDescription,$propertyType,$disasterDate,$_SESSION['user_Id'],$disasterTypeId);
+              mysqli_stmt_bind_param($stmt,"ssssdsssii",$district,$streetAddress,$desc,$damageLevel,$damageEstCost,$damageDescription,$propertyType,$disasterDate,$userId,$disasterTypeId);
 
               $query_execute = mysqli_stmt_execute($stmt);
 
+
               if($query_execute)
               {
-                  fwrite(STDOUT, "This prints directly to the terminal console.\n");
-                  foreach($_FILES['report-attachments']['tmp_name'] as $key => $tmpName)
-                  {
-
-                      $originalName = $_FILES['report-attachments']['name'][$key];
-
-                      $fileType = $_FILES['report-attachments']['type'][$key];
-
-                      $fileSize = $_FILES['report-attachments']['size'][$key];
-
-                      // Generate unique filename
-                      $newName = $_SESSION['user_Id'] . "_" . uniqid() . "_" . basename($originalName);
-
-                      $destination = $uploadDir . $newName;
-
-                      if(move_uploaded_file($tmpName, $destination))
+                      $newReportId = mysqli_stmt_insert_id($stmt);
+                      $uploadDir = "../uploads/evidence/ReportID_" . $newReportId . "/";
+                      foreach($_FILES['report-attachments']['tmp_name'] as $key => $tmpName)
                       {
+                         if (!is_dir($uploadDir))
+                         {
+                                 mkdir($uploadDir, 0777, true);
+                         }
 
+                          $originalName = $_FILES['report-attachments']['name'][$key];
+
+                          $fileType = $_FILES['report-attachments']['type'][$key];
+
+                          $fileSize = $_FILES['report-attachments']['size'][$key];
+
+                          // Generate unique filename
+                          $newName = $userId . "_" . uniqid() . "_" . basename($originalName);
+
+                          $destination = $uploadDir . $newName;
+
+                          if(move_uploaded_file($tmpName, $destination))
+                          {
+                            //insert file path intodatabase evidence_files_and_reports table
+                          }
                       }
-                  }
-              }
-              else
-              {
-                echo"data insert failed";
-
+              echo"success";
               }
         }
         catch(Exception $e)
         {
-            $_SESSION['message']="db insert failed". $e->getMessage();
-            header('Location:../Error.php');
-            die();
+            echo "db insert failed". $e->getMessage();
         }
 
     }
     else
     {
-        
+
     }
 
 ?>

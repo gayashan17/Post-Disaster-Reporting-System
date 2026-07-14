@@ -1,3 +1,8 @@
+
+//======================
+//Notes - Add confirmation sweet alert to display input data and then insert into database
+//======================
+
 let selectedFiles = [];
 
 const fileInput = document.getElementById("report-attachments");
@@ -219,7 +224,32 @@ form.addEventListener("submit", function (e) {
     })
 
     .then(res => res.text())
+    .then(data => {
+    // prints whatever PHP echoed into browser console
+    console.log("Server Debug Info:", data);
 
+    if (data.trim() === "unauthorized") {
+        Swal.fire({
+            icon: "error",
+            title: "Session Expired",
+            text: "Please log in again to submit your report.",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '../LoginForm.php';
+            }
+        });
+        return;
+    }
+
+    if (data.trim() === "success") {
+        Swal.fire("Saved!", "Report submitted successfully.", "success");
+    }
+    else {
+        Swal.fire("Error", "Something went wrong on the server.", "error");
+    }
+    })
 
     .catch(err => {
 
