@@ -7,99 +7,119 @@
     $disasterDate = $_POST['date-input'];
     $desc = $_POST['prReportDesc-input'];
 
-    $dFullName = $_POST['prType-input'];
-    $damageLevel = $_POST['dmgLevel-input'];
-    $damageEstCost = $_POST['cost-input'];
-    $damageDescription = $_POST['prDmgDesc-input'];
+    $reportType = "Death Record";
+    $dName = $_POST['name-input'];
+    $dAge = $_POST['age-input'];
+    $dGender = $_POST['gender-input'];
+    $dCause = $_POST['cause-input'];
 
     $dlec   = $_POST['declaration-input'];
 
-    if($_POST['disaster-input'] === "flood")
-    {
-        $disasterTypeId = 22;
-    }
-    if($_POST['disaster-input'] === "landslide")
-    {
-        $disasterTypeId = 23;
-    }
-    if($_POST['disaster-input'] === "cyclone")
-    {
-        $disasterTypeId = 24;
-    }
-    if($_POST['disaster-input'] === "earthquake")
-    {
-        $disasterTypeId = 25;
-    }
-    if($_POST['disaster-input'] === "fire")
-    {
-        $disasterTypeId = 26;
-    }
-    if($_POST['disaster-input'] === "tsunami")
-    {
-        $disasterTypeId = 27;
-    }
-    if($_POST['disaster-input'] === "other")
-    {
-        $disasterTypeId = 28;
+    switch ($_POST['disaster-input']) {
+        case 'flood':
+            $disasterTypeId = 22;
+            break;
+        case 'landslide':
+            $disasterTypeId = 23;
+            break;
+        case 'cyclone':
+            $disasterTypeId = 24;
+            break;
+        case 'earthquake':
+            $disasterTypeId = 25;
+            break;
+        case 'fire':
+            $disasterTypeId = 26;
+            break;
+        case 'tsunami':
+            $disasterTypeId = 27;
+            break;
+        case 'other':
+        default:
+            $disasterTypeId = 28;
+            break;
     }
 
     if(isset($_POST['declaration-input']))
     {
         try
         {
-              $query = "INSERT INTO disaster_report (District,Street_Address,Description,Damage_Level,Damage_EstCost,Damage_Description,Property_Type,Disaster_Date,User_ID,Disaster_Type_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+          $query = "INSERT INTO disaster_report (User_ID,Disaster_Type_ID,Report_Type,District,Street_Address,Description) VALUES (?,?,?,?,?,?)";
 
-              $stmt = mysqli_prepare($con,$query);
+          $stmt = mysqli_prepare($con,$query);
 
-              mysqli_stmt_bind_param($stmt,"ssssdsssii",$district,$streetAddress,$desc,$damageLevel,$damageEstCost,$damageDescription,$propertyType,$disasterDate,$userId,$disasterTypeId);
+          mysqli_stmt_bind_param($stmt,"iissss",$userId,$disasterTypeId,$reportType,$district,$streetAddress,$desc);
 
-              $query_execute = mysqli_stmt_execute($stmt);
+          $query_execute = mysqli_stmt_execute($stmt);
 
+          if($query_execute)
+          {
+                $newReportId = mysqli_stmt_insert_id($stmt);
 
-              if($query_execute)
-              {
-                      $newReportId = mysqli_stmt_insert_id($stmt);
-                      $uploadDir = "../uploads/evidence/ReportID_" . $newReportId . "/";
-                      foreach($_FILES['report-attachments']['tmp_name'] as $key => $tmpName)
-                      {
-                         if (!is_dir($uploadDir))
-                         {
-                                 mkdir($uploadDir, 0777, true);
-                         }
+                $query2 = "INSERT INTO death_record (Report_ID,Full_Name,Age,Gender,Cause_Of_Death) VALUES (?,?,?,?,?)";
 
-                          $originalName = $_FILES['report-attachments']['name'][$key];
+                $stmt2 = mysqli_prepare($con,$query2);
 
-                          $fileType = $_FILES['report-attachments']['type'][$key];
+                mysqli_stmt_bind_param($stmt2,"issss",$newReportId,$dName,$dAge,$dGender,$dCause);
 
-                          $fileSize = $_FILES['report-attachments']['size'][$key];
+                $query2_query_execute = mysqli_stmt_execute($stmt2);
 
-                          // Generate unique filename
-                          $newName = $userId . "_" . uniqid() . "_" . basename($originalName);
-
-                          $destination = $uploadDir . $newName;
-
-                          if(move_uploaded_file($tmpName, $destination))
+                 if($query2_query_execute)
+                  {
+                          $uploadDir = "../uploads/evidence/ReportID_" . $newReportId . "/";
+                          foreach($_FILES['report-attachments']['tmp_name'] as $key => $tmpName)
                           {
-                            //insert file path intodatabase evidence_files_and_reports table
-                            try
-                            {
-                                $fquery = "INSERT INTO evidence_file_and_photos (Report_ID,File_Name,File_Type,File_Path) VALUES (?,?,?,?)";
+                             if (!is_dir($uploadDir))
+                             {
+                                     mkdir($uploadDir, 0777, true);
+                             }
 
-                                $fstmt = mysqli_prepare($con,$fquery);
+                              $originalName = $_FILES['report-attachments']['name'][$key];
 
-                                mysqli_stmt_bind_param($fstmt,"isss",$newReportId,$newName,$fileType,$destination);
+                              $fileType = $_FILES['report-attachments']['type'][$key];
 
-                                mysqli_stmt_execute($fstmt);
+                              $fileSize = $_FILES['report-attachments']['size'][$key];
 
-                            }
-                            catch(Exception $e)
-                            {
-                                echo "Failed to Insert Report Evidence: ". $e->getMessage();
-                            }
+                              // Generate unique filename
+                              $newName = $userId . "_" . uniqid() . "_" . basename($originalName);
+
+                              $destination = $uploadDir . $newName;
+
+                              if(move_uploaded_file($tmpName, $destination))
+                              {
+                                //insert file path intodatabase evidence_files_and_reports table
+                                try
+                                {
+                                    $fquery = "INSERT INTO evidence_file_and_photos (Report_ID,File_Name,File_Type,File_Path) VALUES (?,?,?,?)";
+
+                                    $fstmt = mysqli_prepare($con,$fquery);
+
+                                    mysqli_stmt_bind_param($fstmt,"isss",$newReportId,$newName,$fileType,$destination);
+
+                                    mysqli_stmt_execute($fstmt);
+
+                                    echo"success";
+
+                                }
+                                catch(Exception $e)
+                                {
+                                    echo "Failed to Insert Report Evidence: ". $e->getMessage();
+                                }
+                              }
                           }
-                      }
-              echo"success";
-              }
+                  }
+                else
+                {
+                    echo "failed to insert into property_damage";
+                }
+
+          }
+          else
+          {
+            echo "failed to insert into disaster_report";
+          }
+
+
         }
         catch(Exception $e)
         {
@@ -109,7 +129,7 @@
     }
     else
     {
-        echo "dlecNotChecked";
+        echo "unauthorized";
     }
 
 ?>

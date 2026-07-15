@@ -27,7 +27,7 @@
 
                 <div class="panel-header justify-content-center">
                     <div class="panel-title">
-                            <h4 style="font-weight:bold;">Submit New Disaster Report - Injured Person</h4>
+                            <h4 style="font-weight:bold;">Submit New Disaster Report - Missing Person Record</h4>
                     </div>
                 </div>
                 <div class="reportFormPanel2 mx-auto">
@@ -82,7 +82,7 @@
 
                     <label class="text-muted fw-bold" for="stAdd-input">Street Address</label>
                     <div class="form-group mb-4">
-                        <textarea class="form-control" id="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
+                        <textarea class="form-control" id="stAdd-input" name="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
                     </div>
 
                     <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
@@ -92,7 +92,7 @@
 
                     <label class="text-muted fw-bold" for="prReportDesc-input">Report Description</label>
                     <div class="form-group mb-4">
-                        <textarea class="form-control" id="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
+                        <textarea class="form-control" id="prReportDesc-input" name="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
                     </div>
 
                     <hr class="divider">
@@ -121,19 +121,9 @@
                             <input type="text" class="form-control border-start-1" name="rel-input" placeholder="Enter Your Relationship with this person">
                         </div>
 
-                        <label class="text-muted fw-bold" for="status-input">Status</label>
-                        <div class="input-group mb-4 mx-auto">
-                            <select class="form-select text-muted" id="status-input" name="status-input">
-                                <option value="default">Select</option>
-                                <option value="minor">Minor</option>
-                                <option value="moderate">Moderate</option>
-                                <option value="major">Major</option>
-                            </select>
-                        </div>
-
-                        <label class="text-muted fw-bold" for="rel-input">Last Seen Location </label>
+                        <label class="text-muted fw-bold" for="lastSeen-input">Last Seen Location </label>
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control border-start-1" name="rel-input" placeholder="Enter person's last seen location ">
+                            <input type="text" class="form-control border-start-1" name="lastSeen-input" placeholder="Enter person's last seen location ">
                         </div>
 
                         <label class="text-muted fw-bold" for="lastDate-input">Last Seen Date </label>

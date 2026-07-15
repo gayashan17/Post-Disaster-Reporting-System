@@ -82,7 +82,7 @@
 
                     <label class="text-muted fw-bold" for="stAdd-input">Street Address</label>
                     <div class="form-group mb-4">
-                        <textarea class="form-control" id="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
+                        <textarea class="form-control" id="stAdd-input" name="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
                     </div>
 
                     <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
@@ -92,7 +92,7 @@
 
                     <label class="text-muted fw-bold" for="prReportDesc-input">Report Description</label>
                     <div class="form-group mb-4">
-                        <textarea class="form-control" id="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
+                        <textarea class="form-control" id="prReportDesc-input" name="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
                     </div>
 
                     <hr class="divider">
@@ -116,34 +116,25 @@
                             </select>
                         </div>
 
-                        <label class="text-muted fw-bold" for="injuredLevel-input">Injured Level</label>
+                        <label class="text-muted fw-bold" for="injuryLevel-input">Injury Level</label>
                         <div class="input-group mb-4 mx-auto">
-                            <select class="form-select text-muted" id="injuredLevel-input" name="injuredLevel-input">
+                            <select class="form-select text-muted" id="injuryLevel-input" name="injuryLevel-input">
                                 <option value="default">Select</option>
                                 <option value="minor">Minor</option>
                                 <option value="moderate">Moderate</option>
-                                <option value="major">Major</option>
-                            </select>
-                        </div>
-
-                        <label class="text-muted fw-bold" for="status-input">Status</label>
-                        <div class="input-group mb-4 mx-auto">
-                            <select class="form-select text-muted" id="status-input" name="status-input">
-                                <option value="default">Select</option>
-                                <option value="minor">Minor</option>
-                                <option value="moderate">Moderate</option>
-                                <option value="major">Major</option>
+                                <option value="severe">Severe</option>
+                                <option value="critical">Critical</option>
                             </select>
                         </div>
 
                         <label class="text-muted fw-bold" for="report-attachments">Evidence Upload (Images or PDFs)</label>
-                                            <div class="mb-4">
-                                                <div class="input-group">
-                                                    <input type="file" class="form-control" id="report-attachments" name="report-attachments[]" accept="image/*, .pdf" multiple>
-                                                </div>
+                        <div class="mb-4">
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="report-attachments" name="report-attachments[]" accept="image/*, .pdf" multiple>
+                            </div>
 
-                                                <div id="preview-container" class="d-flex flex-wrap gap-3 mt-3"></div>
-                                            </div>
+                            <div id="preview-container" class="d-flex flex-wrap gap-3 mt-3"></div>
+                        </div>
 
                         <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" id="declaration-input" name="declaration-input">

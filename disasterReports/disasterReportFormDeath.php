@@ -83,7 +83,7 @@
 
                         <label class="text-muted fw-bold" for="stAdd-input">Street Address</label>
                         <div class="form-group mb-4">
-                            <textarea class="form-control" id="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
+                            <textarea class="form-control" id="stAdd-input" name="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
                         </div>
 
 
@@ -94,7 +94,7 @@
 
                         <label class="text-muted fw-bold" for="prReportDesc-input">Report Description</label>
                         <div class="form-group mb-4">
-                            <textarea class="form-control" id="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
+                            <textarea class="form-control" id="prReportDesc-input" name="prReportDesc-input" rows="5" placeholder="Write a brief description on what happened"></textarea>
                         </div>
 
                         <hr class="divider">

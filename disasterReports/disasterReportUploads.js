@@ -271,13 +271,16 @@ form.addEventListener("submit", function (e) {
                 window.location.href = "../dashboardForm.php";
             });
         }
+
         else
         {
             Swal.fire({
                 icon: "error",
-                title: "Something Went Wrong",
-                text: data
-            });
+                title: "Report Submission Failed",
+                text: "Something went wrong while trying to submit your report."
+
+            })
+            console.log(data.trim());
         }
 
     })

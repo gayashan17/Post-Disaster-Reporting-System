@@ -7,11 +7,14 @@
     $disasterDate = $_POST['date-input'];
     $desc = $_POST['prReportDesc-input'];
 
-    $reportType = "Property Damage";
-    $propertyType = $_POST['prType-input'];
-    $damageLevel = $_POST['dmgLevel-input'];
-    $damageEstCost = $_POST['cost-input'];
-    $damageDescription = $_POST['prDmgDesc-input'];
+    $reportType = "Missing Person Record";
+    $mName = $_POST['name-input'];
+    $mAge = $_POST['age-input'];
+    $mGender = $_POST['gender-input'];
+    $mRel = $_POST['rel-input'];
+    $mLastSeen = $_POST['lastSeen-input'];
+    $mLastDate = $_POST['lastDate-input'];
+    $mLastTime = $_POST['lastTime-input'];
 
     $dlec   = $_POST['declaration-input'];
 
@@ -56,11 +59,11 @@
           {
                 $newReportId = mysqli_stmt_insert_id($stmt);
 
-                $query2 = "INSERT INTO property_damage (Report_ID,Property_Type,Damage_Level,Damage_Description,Estimated_Cost) VALUES (?,?,?,?,?)";
+                $query2 = "INSERT INTO missing_person_record (Report_ID,Full_Name,Age,Gender,Last_Seen_Location,Last_Seen_Date,Last_Seen_Time,Relationship_to_Person) VALUES (?,?,?,?,?,?,?,?)";
 
                 $stmt2 = mysqli_prepare($con,$query2);
 
-                mysqli_stmt_bind_param($stmt2,"issss",$newReportId,$propertyType,$damageLevel,$damageDescription,$damageEstCost);
+                mysqli_stmt_bind_param($stmt2,"isssssss",$newReportId,$mName,$mAge,$mGender,$mLastSeen,$mLastDate,$mLastTime,$mRel);
 
                 $query2_query_execute = mysqli_stmt_execute($stmt2);
 

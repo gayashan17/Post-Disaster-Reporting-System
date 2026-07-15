@@ -7,11 +7,11 @@
     $disasterDate = $_POST['date-input'];
     $desc = $_POST['prReportDesc-input'];
 
-    $reportType = "Property Damage";
-    $propertyType = $_POST['prType-input'];
-    $damageLevel = $_POST['dmgLevel-input'];
-    $damageEstCost = $_POST['cost-input'];
-    $damageDescription = $_POST['prDmgDesc-input'];
+    $reportType = "Injured Person";
+    $injName = $_POST['name-input'];
+    $injAge = $_POST['age-input'];
+    $injGender = $_POST['gender-input'];
+    $injLevel = $_POST['injuryLevel-input'];
 
     $dlec   = $_POST['declaration-input'];
 
@@ -56,11 +56,11 @@
           {
                 $newReportId = mysqli_stmt_insert_id($stmt);
 
-                $query2 = "INSERT INTO property_damage (Report_ID,Property_Type,Damage_Level,Damage_Description,Estimated_Cost) VALUES (?,?,?,?,?)";
+                $query2 = "INSERT INTO injured_person (Report_ID,Full_Name,Age,Gender,Injured_Level) VALUES (?,?,?,?,?)";
 
                 $stmt2 = mysqli_prepare($con,$query2);
 
-                mysqli_stmt_bind_param($stmt2,"issss",$newReportId,$propertyType,$damageLevel,$damageDescription,$damageEstCost);
+                mysqli_stmt_bind_param($stmt2,"issss",$newReportId,$injName,$injAge,$injGender,$injLevel);
 
                 $query2_query_execute = mysqli_stmt_execute($stmt2);
 
