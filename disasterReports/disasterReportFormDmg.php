@@ -20,7 +20,6 @@
 <body>
     <form method="post" id="dReportForm" enctype="multipart/form-data">
         <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
-
             <div class="reportFormPanel">
                 <div>
                     <img src="..\pictures\Post-Disaster-Reporting-Logo.png" width="20%">

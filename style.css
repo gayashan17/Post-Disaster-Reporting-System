@@ -364,3 +364,264 @@ footer {
     line-height:0;
     font-weight:bold;
 }
+
+
+
+
+
+/* ==========================================================================
+   1. ADMIN ARCHITECTURE & CUSTOM THEME OVERRIDES
+   ========================================================================== */
+.sidebar-admin {
+    background-color: #0c152b; /* Darker navy tailored specifically for admin control */
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    z-index: 1000;
+}
+
+/* Unique theme highlights for the Super Admin account badge profiles */
+.brand-icon.admin {
+    background: var(--rose);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.admin-accent {
+    color: var(--rose) !important;
+    font-weight: 700;
+}
+
+.nav-item.admin-active {
+    background: var(--rose) !important;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4) !important;
+}
+
+.user-avatar.admin-avatar {
+    background: var(--rose);
+}
+
+
+/* ==========================================================================
+   2. DASHBOARD STAT CARDS & UTILITY INTERFACES
+   ========================================================================== */
+.stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Base context theme variables mapped to custom dashboard nodes */
+.stat-icon.admin-icon-red { background: #fef2f2; color: var(--rose); }
+.stat-icon.green          { background: #ecfdf5; color: var(--emerald); }
+.stat-icon.amber          { background: #fffbeb; color: var(--gold); }
+.stat-icon.admin-icon-ban  { background: #f8fafc; color: var(--muted); }
+
+.stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin: 2px 0 4px;
+}
+
+.stat-link.admin-link {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+}
+.stat-link.admin-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ==========================================================================
+   3. MANAGEMENT PANELS & FEED LAYOUT FEEDBACK
+   ========================================================================== */
+/* System Alerts Panel Overrides */
+.notif-icon.admin-icon-notif-red {
+    background: #fef2f2;
+    color: var(--rose);
+}
+
+/* User management specific interactive components */
+.admin-btn-primary {
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+    font-weight: 500;
+    font-size: 13.5px;
+    padding: 6px 14px;
+    transition: background 0.2s;
+}
+.admin-btn-primary:hover {
+    background-color: #1d4ed8;
+    color: #ffffff;
+}
+
+.admin-input {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13.5px;
+}
+.admin-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 237, 0.15);
+}
+
+
+/* ==========================================================================
+   4. DATA LISTS & DATATABLES CUSTOM WRAPPERS
+   ========================================================================== */
+.user-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+}
+
+.user-row-info {
+    flex: 1;
+}
+
+.user-row-name {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.user-row-meta {
+    font-size: 11.5px;
+    color: var(--muted);
+}
+
+/* Circular Letter Avatars */
+.user-row-avatar, .table-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.blue-av   { background-color: #3b82f6; }
+.green-av  { background-color: #10b981; }
+.purple-av { background-color: #8b5cf6; }
+.amber-av  { background-color: #f59e0b; }
+.rose-av   { background-color: #ef4444; }
+
+/* Interactive filter row styling layout blocks */
+.role-tabs {
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+}
+
+.role-tab {
+    background: transparent;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.15s;
+}
+.role-tab:hover {
+    background: var(--border);
+    color: var(--text);
+}
+.role-tab.active {
+    background: var(--navy);
+    color: #ffffff;
+}
+
+/* Action Control Icons */
+.icon-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    background: transparent;
+    transition: background 0.15s;
+}
+.icon-btn.blue  { color: var(--accent); }
+.icon-btn.blue:hover  { background: #eff6ff; }
+.icon-btn.red   { color: var(--rose); }
+.icon-btn.red:hover   { background: #fef2f2; }
+.icon-btn.green { color: var(--emerald); }
+.icon-btn.green:hover { background: #ecfdf5; }
+
+/* Status Labels & Badges Mapping */
+.badge-approved { background-color: #d1fae5; color: #065f46; border-radius: 6px; padding: 4px 8px; }
+.badge-pending  { background-color: #fef3c7; color: #92400e; border-radius: 6px; padding: 4px 8px; }
+
+/* Role Badges Pills inside Data Matrix Columns */
+.role-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+}
+.role-pill.citizen { background: #eff6ff; color: #1e40af; }
+.role-pill.la      { background: #ecfdf5; color: #065f46; }
+.role-pill.dmo     { background: #f5f3ff; color: #5b21b6; }
+.role-pill.fin     { background: #fff1f2; color: #9f1239; }
+
+/* Footer Copyright Configuration */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 16px 0;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+}

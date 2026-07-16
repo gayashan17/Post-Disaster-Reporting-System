@@ -87,7 +87,6 @@
 
                               if(move_uploaded_file($tmpName, $destination))
                               {
-                                //insert file path intodatabase evidence_files_and_reports table
                                 try
                                 {
                                     $fquery = "INSERT INTO evidence_file_and_photos (Report_ID,File_Name,File_Type,File_Path) VALUES (?,?,?,?)";

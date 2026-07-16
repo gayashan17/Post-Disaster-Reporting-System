@@ -120,6 +120,8 @@ function confirmLogout() {
         confirmButtonColor: '#2563eb',
         timer: 1800,
         showConfirmButton: false
+      }).then(()=>{
+        window.location.href = "LoginForm.php";
       });
     }
   });

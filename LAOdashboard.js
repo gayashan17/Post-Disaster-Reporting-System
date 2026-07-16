@@ -66,7 +66,15 @@ function confirmLogout() {
     confirmButtonText: 'Yes, logout',
     cancelButtonText: 'Stay'
   }).then(r => {
-    if (r.isConfirmed) Swal.fire({ title: 'Logged out', icon: 'success', timer: 1500, showConfirmButton: false });
+    if (r.isConfirmed)
+    Swal.fire({
+        title: 'Logged out',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+    }).then(()=>{
+       window.location.href = "LoginForm.php";
+    });;
   });
 }
 
