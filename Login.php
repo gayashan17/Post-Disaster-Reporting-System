@@ -31,7 +31,7 @@
                     switch ($row['Role_ID'])
                     {
                         case 1:
-                            header("Location: AdmindashboardForm.php");
+                            header("Location: admin/AdmindashboardForm.php");
                             exit();
                         case 2:
                             header("Location: DMOdashboardForm.php");

@@ -34,19 +34,19 @@ function newReport() {
         switch(selectedType)
         {
             case 'damage':
-            window.location.href = "disasterReports/disasterReportFormDmg.php?type=" + selectedType;;
+            window.location.href = "disasterReports/disasterReportFormDmg.php?type=" + selectedType;
             break;
 
             case'death':
-            window.location.href = "disasterReports/disasterReportFormDeath.php?type=" + selectedType;;
+            window.location.href = "disasterReports/disasterReportFormDeath.php?type=" + selectedType;
             break;
 
             case'injure':
-            window.location.href = "disasterReports/disasterReportFormInj.php?type=" + selectedType;;
+            window.location.href = "disasterReports/disasterReportFormInj.php?type=" + selectedType;
             break;
 
             case'missing':
-            window.location.href = "disasterReports/disasterReportFormMissing.php?type=" + selectedType;;
+            window.location.href = "disasterReports/disasterReportFormMissing.php?type=" + selectedType;
             break;
 
         }
