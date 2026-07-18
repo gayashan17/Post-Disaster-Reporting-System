@@ -1,76 +1,78 @@
 <?php
-    session_start();
-    include 'DBconnection.php';
+session_start();
 
-    if(isset($_POST['register'])){
-        $username = $_POST['username-input'];
-        $fullname = $_POST['fullname-input'];
-        $nic = $_POST['nic-input'];
-        $address = $_POST['address-input'];
-        $phoneNo = $_POST['phoneNo-input'];
-        $email = $_POST['email-input'];
-        $password = $_POST['password-input'];
-        $confPassword = $_POST['confPassword-input'];
-        $bday = $_POST['bDay-input'];
-        $gender = $_POST['gender-input'];
+include 'DBconnection.php';
+include 'classes/Users.php'; // File containing User and Citizen classes
 
-        if ($password != $confPassword){die("Passwords does not match!");}
+if(isset($_POST['register']))
+{
+    $username = $_POST['username-input'];
+    $fullname = $_POST['fullname-input'];
+    $nic = $_POST['nic-input'];
+    $address = $_POST['address-input'];
+    $phoneNo = $_POST['phoneNo-input'];
+    $email = $_POST['email-input'];
+    $password = $_POST['password-input'];
+    $confPassword = $_POST['confPassword-input'];
+    $gender = $_POST['gender-input'];
 
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        try
-        {
-            $query = "INSERT INTO users (Username, Password, Full_Name, Gender, NIC, Email, Phone_Number, Address,Role_ID)
-                      VALUES (?,?,?,?,?,?,?,?,3)";
-
-                    $stmt = mysqli_prepare($con, $query);
-
-                    mysqli_stmt_bind_param($stmt,"ssssssss",$username,$hashedPassword,$fullname,$gender,$nic,$email,$phoneNo,$address);
-
-                    $query_execute = mysqli_stmt_execute($stmt);
-
-                    if($query_execute)
-                    {
-                        // Get the auto-generated User_ID
-                        $userID = mysqli_insert_id($con);
-
-                        // Insert into citizen table
-                        $citizenQuery = "INSERT INTO citizen (User_ID) VALUES (?)";
-                        $citizenStmt = mysqli_prepare($con, $citizenQuery);
-
-                        mysqli_stmt_bind_param($citizenStmt, "i", $userID);
-
-                        if(mysqli_stmt_execute($citizenStmt))
-                        {
-                            $_SESSION['message'] = "Registration Successful!";
-                            $_SESSION['icon'] = "success";
-                            header("Location: LoginForm.php");
-                            die();
-                        }
-                        else
-                        {
-                            $_SESSION['message'] = "Citizen record creation failed!";
-                            header("Location: SignupForm.php");
-                            die();
-                        }
-                    }
-                    else
-                    {
-                        $_SESSION['message'] = "Registration failed!";
-                        header("Location: SignupForm.php");
-                        die();
-                    }
-
-        }
-        catch(Exception $e)
-        {
-            $_SESSION['message'] = "System exception: " . $e->getMessage();
-            header("Location: Error.php");
-            die();
-        }
-        finally
-        {
-            mysqli_close($con);
-        }
+    if($password != $confPassword)
+    {
+        die("Passwords do not match!");
     }
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    try
+    {
+        $citizen = new Citizen();
+
+        $citizen->setUserName($username);
+        $citizen->setPassword($hashedPassword);
+        $citizen->setFullName($fullname);
+        $citizen->setGender($gender);
+        $citizen->setNIC($nic);
+        $citizen->setEmail($email);
+        $citizen->setPhoneNo($phoneNo);
+        $citizen->setAddress($address);
+        $citizen->setRoleID(3);
+
+        ////// check duplicakte email.....
+
+        if($citizen->emailExists($con, $email))
+        {
+            throw new Exception("This email address is already registered.");
+        }
+
+        
+        $userID = $citizen->addUser($con);
+
+        if(!$userID)
+        {
+            throw new Exception("User registration failed.");
+        }
+
+        if(!$citizen->addCitizen($con))
+        {
+            throw new Exception("Citizen record creation failed.");
+        }
+
+        $_SESSION['message'] = "Registration Successful!";
+        $_SESSION['icon'] = "success";
+
+        header("Location: LoginForm.php");
+        exit();
+    }
+    catch(Exception $e)
+    {
+        $_SESSION['message'] = $e->getMessage();
+
+        header("Location: SignupForm.php");
+        exit();
+    }
+    finally
+    {
+        mysqli_close($con);
+    }
+}
 ?>

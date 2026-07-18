@@ -130,11 +130,11 @@
 
 <?php if(isset($_SESSION['message'])): ?>
 <script>
-    Swal.fire({
-        icon: '<?php echo $_SESSION['icon'] ?? "error"; ?>',
-        title: '<?php echo $_SESSION['message']; ?>',
-        confirmButtonColor: '#0d6efd'
-    });
+  Swal.fire({
+      icon: <?php echo json_encode($_SESSION['icon'] ?? 'error'); ?>,
+      title: <?php echo json_encode($_SESSION['message']); ?>,
+      confirmButtonColor: '#0d6efd'
+  });
 </script>
 
 <?php
