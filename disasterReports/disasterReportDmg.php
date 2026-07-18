@@ -1,4 +1,6 @@
 <?php
+    require_once '../classes/DisasterReports.php';
+    require_once '../classes/EvidenceFile.php';
     include '../userData.php';
     include '../DBconnection.php';
 
@@ -44,82 +46,33 @@
     {
         try
         {
-          $query = "INSERT INTO disaster_report (User_ID,Disaster_Type_ID,Report_Type,District,Street_Address,Description) VALUES (?,?,?,?,?,?)";
+            $report = new PropertyDamage();
 
-          $stmt = mysqli_prepare($con,$query);
+            // Parent class data
+            $report->setUserId($userId);
+            $report->setDisasterTypeId($disasterTypeId);
+            $report->setDistrict($_POST['district-input']);
+            $report->setStreetAddress($_POST['stAdd-input']);
+            $report->setDescription($_POST['prReportDesc-input']);
+            $report->setReportType("Property Damage");
 
-          mysqli_stmt_bind_param($stmt,"iissss",$userId,$disasterTypeId,$reportType,$district,$streetAddress,$desc);
+            // Child class data
+            $report->setPropertyType($_POST['prType-input']);
+            $report->setDamageLevel($_POST['dmgLevel-input']);
+            $report->setDamageDescription($_POST['prDmgDesc-input']);
+            $report->setEstimatedCost($_POST['cost-input']);
 
-          $query_execute = mysqli_stmt_execute($stmt);
+            // Insert main report
+            $reportId = $report->insertReport($con);
 
-          if($query_execute)
-          {
-                $newReportId = mysqli_stmt_insert_id($stmt);
+            // Insert property damage details
+            $report->insertPropertyDamage($con, $reportId);
 
-                $query2 = "INSERT INTO property_damage (Report_ID,Property_Type,Damage_Level,Damage_Description,Estimated_Cost) VALUES (?,?,?,?,?)";
+            // Upload evidence
+            $evidence = new EvidenceFile();
+            $evidence->uploadFiles($con, $reportId, $userId);
 
-                $stmt2 = mysqli_prepare($con,$query2);
-
-                mysqli_stmt_bind_param($stmt2,"issss",$newReportId,$propertyType,$damageLevel,$damageDescription,$damageEstCost);
-
-                $query2_query_execute = mysqli_stmt_execute($stmt2);
-
-                 if($query2_query_execute)
-                  {
-                          $uploadDir = "../uploads/evidence/ReportID_" . $newReportId . "/";
-                          foreach($_FILES['report-attachments']['tmp_name'] as $key => $tmpName)
-                          {
-                             if (!is_dir($uploadDir))
-                             {
-                                     mkdir($uploadDir, 0777, true);
-                             }
-
-                              $originalName = $_FILES['report-attachments']['name'][$key];
-
-                              $fileType = $_FILES['report-attachments']['type'][$key];
-
-                              $fileSize = $_FILES['report-attachments']['size'][$key];
-
-                              // Generate unique filename
-                              $newName = $userId . "_" . uniqid() . "_" . basename($originalName);
-
-                              $destination = $uploadDir . $newName;
-
-                              if(move_uploaded_file($tmpName, $destination))
-                              {
-                                //insert file path intodatabase evidence_files_and_reports table
-                                try
-                                {
-                                    $fquery = "INSERT INTO evidence_file_and_photos (Report_ID,File_Name,File_Type,File_Path) VALUES (?,?,?,?)";
-
-                                    $fstmt = mysqli_prepare($con,$fquery);
-
-                                    mysqli_stmt_bind_param($fstmt,"isss",$newReportId,$newName,$fileType,$destination);
-
-                                    mysqli_stmt_execute($fstmt);
-
-                                    echo"success";
-
-                                }
-                                catch(Exception $e)
-                                {
-                                    echo "Failed to Insert Report Evidence: ". $e->getMessage();
-                                }
-                              }
-                          }
-                  }
-                else
-                {
-                    echo "failed to insert into property_damage";
-                }
-
-          }
-          else
-          {
-            echo "failed to insert into disaster_report";
-          }
-
-
+            echo "success";
         }
         catch(Exception $e)
         {
