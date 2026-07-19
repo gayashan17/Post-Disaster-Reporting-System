@@ -16,7 +16,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="..\style.css" rel="stylesheet" />
 
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
 </head>
+
 <body>
     <form method="post" id="dReportForm" enctype="multipart/form-data">
         <main id="main"  class="login-wrapper d-flex justify-content-center align-items-center min-vh-100">
@@ -85,10 +95,46 @@
                         <textarea class="form-control" id="stAdd-input" name="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>
                     </div>
 
-                    <label class="text-muted fw-bold " for="date-input">Date of Incident</label>
-                    <div class="input-group mb-4 ">
-                        <input type="date" class="form-control text-muted" id="date-input" name="date-input">
+                    <label class="text-muted fw-bold">Location</label>
+
+                    <div class="mb-3">
+
+                        <button type="button"
+                            class="btn btn-outline-primary me-2"
+                            id="btnCurrentLocation">
+
+                            <i class="bi bi-geo-alt-fill"></i>
+                            Use My Current Location
+
+                        </button>
+
+                        <button type="button"
+                            class="btn btn-outline-success"
+                            id="btnMapLocation">
+
+                            <i class="bi bi-map"></i>
+                            Choose on Map
+
+                        </button>
+
                     </div>
+
+                    <div class="alert alert-light border mb-4">
+
+                        <strong>
+                            <i class="bi bi-pin-map"></i>
+                            Selected Location
+                        </strong>
+
+                        <div id="locationText" class="text-danger">
+                            <i class="bi bi-exclamation-circle"></i>
+                            Location not selected
+                        </div>
+
+                    </div>
+
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
 
                     <label class="text-muted fw-bold" for="prReportDesc-input">Report Description</label>
                     <div class="form-group mb-4">
@@ -173,5 +219,148 @@
 
     <script>const reportType = "<?php echo $_SESSION['type']; ?>";</script>
     <script src="disasterReportUploads.js"></script>
+
+    <script>
+    document.getElementById("btnCurrentLocation").addEventListener("click", function () {
+
+        if (!navigator.geolocation) {
+            alert("Geolocation is not supported by your browser.");
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+
+            function(position) {
+
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+
+                document.getElementById("latitude").value = lat;
+                document.getElementById("longitude").value = lng;
+
+                document.getElementById("locationText").innerHTML =
+                    '<span class="text-success">' +
+                    '<i class="bi bi-check-circle-fill"></i> ' +
+                    'Latitude: ' + lat + '<br>' +
+                    'Longitude: ' + lng +
+                    '</span>';
+            },
+
+            function(error) {
+
+                document.getElementById("locationText").innerHTML =
+                    '<span class="text-danger">' +
+                    'Unable to retrieve location.' +
+                    '</span>';
+            }
+
+        );
+    });
+    </script>
+
+    <div class="modal fade" id="mapModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Select Disaster Location
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div id="map"
+                        style="height:500px;">
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    const mapModal = new bootstrap.Modal(
+        document.getElementById('mapModal')
+    );
+
+    document.getElementById('btnMapLocation')
+    .addEventListener('click', function () {
+
+        mapModal.show();
+
+    });
+
+    </script>
+
+    <script>
+
+    let map;
+    let marker;
+
+    document.getElementById('mapModal')
+    .addEventListener('shown.bs.modal', function () {
+
+        if (!map) {
+
+            map = L.map('map').setView(
+                [7.8731, 80.7718], // Sri Lanka center
+                8
+            );
+
+            L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    maxZoom: 19
+                }
+            ).addTo(map);
+
+            map.on('click', function (e) {
+
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+
+                marker = L.marker([lat, lng]).addTo(map);
+
+                document.getElementById("latitude").value = lat;
+                document.getElementById("longitude").value = lng;
+
+                document.getElementById("locationText").innerHTML =
+                    '<span class="text-success">' +
+                    '<i class="bi bi-check-circle-fill"></i> ' +
+                    'Latitude: ' + lat.toFixed(6) + '<br>' +
+                    'Longitude: ' + lng.toFixed(6) +
+                    '</span>';
+
+                mapModal.hide();
+            });
+        }
+
+        map.invalidateSize();
+
+    });
+
+    </script>
 </body>
 </html>
