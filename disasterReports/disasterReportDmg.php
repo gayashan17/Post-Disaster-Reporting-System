@@ -6,8 +6,10 @@
 
     $district = $_POST['district-input'];
     $streetAddress = $_POST['stAdd-input'];
-    $disasterDate = $_POST['date-input'];
     $desc = $_POST['prReportDesc-input'];
+
+    $latitude = $_POST['latitude'] ?? null;
+    $longitude = $_POST['longitude'] ?? null;
 
     $reportType = "Property Damage";
     $propertyType = $_POST['prType-input'];
@@ -61,6 +63,8 @@
             $report->setDamageLevel($_POST['dmgLevel-input']);
             $report->setDamageDescription($_POST['prDmgDesc-input']);
             $report->setEstimatedCost($_POST['cost-input']);
+            $report->setLatitude($_POST['latitude'] ?? null);
+            $report->setLongitude($_POST['longitude'] ?? null);
 
             // Insert main report
             $reportId = $report->insertReport($con);

@@ -82,6 +82,21 @@ class User
             throw new Exception("User registration failed: " . $e->getMessage());
         }
     }
+
+    /////// check email already exists
+    public function emailExists($con, $email)
+    {
+        $query = "SELECT User_ID FROM users WHERE Email = ?";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        return mysqli_num_rows($result) > 0;
+    }
+
 }
 
 // ================================================================//
