@@ -121,7 +121,7 @@ function confirmLogout() {
         timer: 1800,
         showConfirmButton: false
       }).then(()=>{
-        window.location.href = "LoginForm.php";
+        window.location.href = "/Post-Disaster-Reporting-System/LoginForm.php";
       });
     }
   });

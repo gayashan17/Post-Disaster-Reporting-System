@@ -97,6 +97,109 @@ class User
         return mysqli_num_rows($result) > 0;
     }
 
+    /////// get data from Users table  (FIXED: $conn -> $con to match DBconnection.php)
+    public function getUserById($userID)
+    {
+        try {
+            include '../DBconnection.php'; // creates $con via mysqli_connect
+
+            $sql = "SELECT User_ID, Username, Full_Name, Gender, NIC,
+                        Email, Phone_Number, Address, Role_ID
+                    FROM users
+                    WHERE User_ID = ?";
+
+            $stmt = mysqli_prepare($con, $sql);
+
+            if (!$stmt) {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt, "i", $userID);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                return mysqli_fetch_assoc($result);
+            } else {
+                throw new Exception("User not found.");
+            }
+
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "message" => $e->getMessage()
+            ];
+        } finally {
+            if (isset($stmt)) {
+                mysqli_stmt_close($stmt);
+            }
+            if (isset($con)) {
+                mysqli_close($con);
+            }
+        }
+    }
+
+    ///// Update existing user's profile (new method, mirrors addUser style)
+    public function updateUser($con)
+    {
+        try
+        {
+            // If a new password was set, update it too; otherwise leave password untouched
+            if ($this->password !== null && $this->password !== '') {
+                $query = "UPDATE users SET
+                            Full_Name = ?, Gender = ?, NIC = ?, Email = ?,
+                            Phone_Number = ?, Address = ?, Password = ?
+                        WHERE User_ID = ?";
+
+                $stmt = mysqli_prepare($con, $query);
+
+                mysqli_stmt_bind_param(
+                    $stmt,
+                    "sssssssi",
+                    $this->fullName,
+                    $this->gender,
+                    $this->NIC,
+                    $this->email,
+                    $this->phoneNo,
+                    $this->address,
+                    $this->password,
+                    $this->userID
+                );
+            } else {
+                $query = "UPDATE users SET
+                            Full_Name = ?, Gender = ?, NIC = ?, Email = ?,
+                            Phone_Number = ?, Address = ?
+                        WHERE User_ID = ?";
+
+                $stmt = mysqli_prepare($con, $query);
+
+                mysqli_stmt_bind_param(
+                    $stmt,
+                    "ssssssi",
+                    $this->fullName,
+                    $this->gender,
+                    $this->NIC,
+                    $this->email,
+                    $this->phoneNo,
+                    $this->address,
+                    $this->userID
+                );
+            }
+
+            if (mysqli_stmt_execute($stmt)) {
+                mysqli_stmt_close($stmt);
+                return true;
+            }
+
+            mysqli_stmt_close($stmt);
+            return false;
+        }
+        catch(Exception $e)
+        {
+            throw new Exception("Profile update failed: " . $e->getMessage());
+        }
+    }
 }
 
 // ================================================================//

@@ -50,7 +50,7 @@
   <a class="nav-item active" href="#">
     <i class="bi bi-speedometer2"></i> Dashboard
   </a>
-  <a class="nav-item" onclick="showInfo('Profile')">
+  <a class="nav-item" href="http://localhost/Post-Disaster-Reporting-System/profile/profileForm.php">
     <i class="bi bi-person"></i> Profile
   </a>
   <a class="nav-item" onclick="showInfo('Settings')">
@@ -81,11 +81,11 @@
     <span class="notif-badge">3</span>
   </button>
 
-  <div class="user-pill" onclick="showInfo('Profile')">
+  <a class="nav-item" href="http://localhost/Post-Disaster-Reporting-System/profile/profileForm.php">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
     <span class="user-name"><?php echo htmlspecialchars($username);?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
-  </div>
+  </a>
 </header>
 
 <!-- main -->
