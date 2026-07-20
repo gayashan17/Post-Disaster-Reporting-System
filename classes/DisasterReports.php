@@ -1,22 +1,21 @@
 <?php
-
+    include '../userData.php';  //user data is stored here
+    include '../DBconnection.php';
 // ================================================================//
 //                        DisasterReport CLASS                     //
 // ================================================================//
 
 class DisasterReport
 {
-    protected $userId;
     protected $disasterTypeId;
     protected $district;
     protected $streetAddress;
     protected $description;
     protected $reportType;
+    protected $reportCount;
 
     ////setters
-    
-    public function setUserId($userId)
-        {$this->userId = $userId;}
+
     public function setDisasterTypeId($disasterTypeId)
         {$this->disasterTypeId = $disasterTypeId;}
     public function setDistrict($district)
@@ -29,8 +28,11 @@ class DisasterReport
         {$this->reportType = $reportType;}
 
 
-    ///// Insert to Disaster Report Table
 
+
+
+
+    ///// Insert to Disaster Report Table
     public function insertReport($con)
     {
         try

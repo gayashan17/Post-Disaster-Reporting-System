@@ -12,6 +12,10 @@ function showInfo(page) {
   });
 }
 
+function setStatCards(total) {
+    animateCounter('stat-total',total);
+}
+
 function newReport() {
   Swal.fire({
     title: 'New Report',
@@ -192,9 +196,4 @@ window.addEventListener('load', () => {
     });
   }
 
-  // 3. Animate Metric Counters
-  animateCounter('stat-total', 12);
-  animateCounter('stat-pending', 4);
-  animateCounter('stat-approved', 6);
-  animateCounter('stat-payment', 2);
 });

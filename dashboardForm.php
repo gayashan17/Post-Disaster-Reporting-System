@@ -1,7 +1,49 @@
 <?php
     session_start();
     include 'userData.php';
+    include 'DBconnection.php';
+    try
+    {
+        $query = "SELECT COUNT(Report_ID) AS total,
+        SUM(Report_Status IN ('submitted', 'under review')) AS pending,
+        SUM(Report_Status IN ('compensation approved')) AS approved,
+        SUM(Report_Status IN ('payment completed')) AS pCompleted
+        FROM disaster_report WHERE User_ID = ?";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        if($row = mysqli_fetch_assoc($result))
+        {
+            $totReportCount = (int)$row['total'];
+            $pendigReportCount = (int)$row['pending'];
+            $approvedReportCount = (int)$row['approved'];
+            $pCompletedReportCount = (int)$row['pCompleted'];
+        }
+        else
+        {
+            $reportCount = 0;
+        }
+    }
+    catch(Exception $e)
+    {
+        error_log($e->getMessage());
+        $reportCount = 0;
+    }
+    finally
+    {
+        if(isset($stmt) && $stmt !== false)
+        {
+        mysqli_stmt_close($stmt);
+        }
+        mysqli_close($con);
+    }
 ?>
+
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -81,7 +123,7 @@
     <span class="notif-badge">3</span>
   </button>
 
-  <a class="nav-item" href="http://localhost/Post-Disaster-Reporting-System/profile/profileForm.php">
+  <a class="nav-item" href="profile/profileForm.php">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
     <span class="user-name"><?php echo htmlspecialchars($username);?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
@@ -92,7 +134,14 @@
 <main id="main">
 
   <!-- Stat Cards -->
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            animateCounter('stat-total', <?php echo (int)$totReportCount; ?>);
+            animateCounter('stat-pending', <?php echo (int)$pendigReportCount; ?>);
+            animateCounter('stat-approved', <?php echo (int)$approvedReportCount; ?>);
+            animateCounter('stat-payment', <?php echo (int)$pCompletedReportCount; ?>);
+        });
+    </script>
 
     <div class="row g-3 mb-4">
 
