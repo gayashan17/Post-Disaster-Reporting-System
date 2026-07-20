@@ -2,6 +2,8 @@
     session_start();
     include 'userData.php';
     include 'DBconnection.php';
+
+    // 1. get Summary Counts
     try
     {
         $query = "SELECT COUNT(Report_ID) AS total,
@@ -25,31 +27,89 @@
         }
         else
         {
-            $reportCount = 0;
+            $totReportCount = 0;
+            $pendigReportCount = 0;
+            $approvedReportCount = 0;
+            $pCompletedReportCount = 0;
         }
     }
     catch(Exception $e)
     {
         error_log($e->getMessage());
-        $reportCount = 0;
+        $totReportCount = 0;
+        $pendigReportCount = 0;
+        $approvedReportCount = 0;
+        $pCompletedReportCount = 0;
     }
-    finally
+
+    // Initialize Chart Count Variables
+    $deathReportCount = 0;
+    $injReportCount = 0;
+    $missingReportCount = 0;
+    $prDmgReportCount = 0;
+
+    // 2. get Report Types Count
+    try
     {
-        if(isset($stmt) && $stmt !== false)
+        $query = "SELECT Report_Type, COUNT(Report_ID) as type_count FROM disaster_report WHERE User_ID = ? GROUP BY Report_Type";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        while($row = mysqli_fetch_assoc($result))
         {
-        mysqli_stmt_close($stmt);
+            $count = (int)$row['type_count'];
+            switch ($row['Report_Type'])
+            {
+                case 'Death Record':
+                case 'Death Report':
+                    $deathReportCount = $count;
+                    break;
+                case 'Injured Person':
+                    $injReportCount = $count;
+                    break;
+                case 'Missing Person Record':
+                case 'Missing Person':
+                    $missingReportCount = $count;
+                    break;
+                case 'Property Damage':
+                    $prDmgReportCount = $count;
+                    break;
+            }
         }
-        mysqli_close($con);
+    }
+    catch(Exception $e)
+    {
+        error_log($e->getMessage());
+    }
+
+    // 3. get Table Data
+    try
+    {
+        $query = "SELECT Report_ID, Report_Type, District, Report_Status, Report_Date FROM disaster_report WHERE User_ID = ?";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $userId);
+        mysqli_stmt_execute($stmt);
+
+        $tableResult = mysqli_stmt_get_result($stmt);
+    }
+    catch(Exception $e)
+    {
+        error_log($e->getMessage());
+        $tableResult = false;
     }
 ?>
 
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Post-Disaster Reporting System</title>
-
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
@@ -60,12 +120,10 @@
 </head>
 <body>
 
-
-<!-- Summary Strip -->
+<!-- Navigation Sidebar -->
 <nav id="sidebar">
-
   <div class="sidebar-brand">
-    <div class="brand-icon"><img src="pictures\Post-Disaster-Reporting-Logo-Notxt.png"></div>
+    <div class="brand-icon"><img src="pictures/Post-Disaster-Reporting-Logo-Notxt.png" alt="Logo"></div>
     <div>
       <div class="brand-title">Post-Disaster</div>
       <div class="brand-sub">Reporting System</div>
@@ -92,7 +150,7 @@
   <a class="nav-item active" href="#">
     <i class="bi bi-speedometer2"></i> Dashboard
   </a>
-  <a class="nav-item" href="http://localhost/Post-Disaster-Reporting-System/profile/profileForm.php">
+  <a class="nav-item" href="profile/profileForm.php">
     <i class="bi bi-person"></i> Profile
   </a>
   <a class="nav-item" onclick="showInfo('Settings')">
@@ -104,18 +162,16 @@
       <i class="bi bi-box-arrow-left"></i> Logout
     </a>
   </div>
-
 </nav>
 
-<!-- topbar -->
+<!-- Topbar -->
 <header id="topbar">
   <button id="menu-toggle" onclick="toggleSidebar()">
     <i class="bi bi-list"></i>
   </button>
 
   <div class="topbar-title">
-  Welcome, 
-  <span>Citizen</span>
+    Welcome, <span>Citizen</span>
   </div>
 
   <button class="notif-btn" onclick="showNotifications()" title="Notifications">
@@ -125,76 +181,65 @@
 
   <a class="nav-item" href="profile/profileForm.php">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
-    <span class="user-name"><?php echo htmlspecialchars($username);?></span>
+    <span class="user-name"><?php echo htmlspecialchars($username ?? 'User'); ?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
   </a>
 </header>
 
-<!-- main -->
+<!-- Main Dashboard Container -->
 <main id="main">
 
   <!-- Stat Cards -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            animateCounter('stat-total', <?php echo (int)$totReportCount; ?>);
-            animateCounter('stat-pending', <?php echo (int)$pendigReportCount; ?>);
-            animateCounter('stat-approved', <?php echo (int)$approvedReportCount; ?>);
-            animateCounter('stat-payment', <?php echo (int)$pCompletedReportCount; ?>);
-        });
-    </script>
+  <div class="row g-3 mb-4">
+      <div class="col-6 col-xl-3">
+          <div class="stat-card">
+              <div class="stat-icon blue"><i class="bi bi-file-earmark-text-fill"></i></div>
+              <div>
+                  <div class="stat-label">Total Reports</div>
+                  <div class="stat-value" id="stat-total">0</div>
+                  <a class="stat-link" onclick="showInfo('Total Reports')">View Details &rsaquo;</a>
+              </div>
+          </div>
+      </div>
 
-    <div class="row g-3 mb-4">
+      <div class="col-6 col-xl-3">
+          <div class="stat-card">
+              <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
+              <div>
+                  <div class="stat-label">Pending</div>
+                  <div class="stat-value" id="stat-pending">0</div>
+                  <a class="stat-link" onclick="showInfo('Pending Reports')">View Details &rsaquo;</a>
+              </div>
+          </div>
+      </div>
 
-        <div class="col-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon blue"><i class="bi bi-file-earmark-text-fill"></i></div>
-                <div>
-                    <div class="stat-label">Total Reports</div>
-                    <div class="stat-value" id="stat-total">0</div>
-                    <a class="stat-link" onclick="showInfo('Total Reports')">View Details &rsaquo;</a>
-                </div>
-            </div>
-        </div>
+      <div class="col-6 col-xl-3">
+          <div class="stat-card">
+              <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
+              <div>
+                  <div class="stat-label">Approved</div>
+                  <div class="stat-value" id="stat-approved">0</div>
+                  <a class="stat-link" onclick="showInfo('Approved Reports')">View Details &rsaquo;</a>
+              </div>
+          </div>
+      </div>
 
-        <div class="col-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon amber"><i class="bi bi-hourglass-split"></i></div>
-                <div>
-                    <div class="stat-label">Pending</div>
-                    <div class="stat-value" id="stat-pending">0</div>
-                    <a class="stat-link" onclick="showInfo('Pending Reports')">View Details &rsaquo;</a>
-                </div>
-            </div>
-        </div>
+      <div class="col-6 col-xl-3">
+          <div class="stat-card">
+              <div class="stat-icon purple"><i class="bi bi-credit-card-fill"></i></div>
+              <div>
+                  <div class="stat-label">Payments Completed</div>
+                  <div class="stat-value" id="stat-payment">0</div>
+                  <a class="stat-link" onclick="showInfo('Payments')">View Details &rsaquo;</a>
+              </div>
+          </div>
+      </div>
+  </div>
 
-        <div class="col-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon green"><i class="bi bi-check-circle-fill"></i></div>
-                <div>
-                    <div class="stat-label">Approved</div>
-                    <div class="stat-value" id="stat-approved">0</div>
-                    <a class="stat-link" onclick="showInfo('Approved Reports')">View Details &rsaquo;</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-xl-3">
-            <div class="stat-card">
-                <div class="stat-icon purple"><i class="bi bi-credit-card-fill"></i></div>
-                <div>
-                    <div class="stat-label">Payments Completed</div>
-                    <div class="stat-value" id="stat-payment">0</div>
-                    <a class="stat-link" onclick="showInfo('Payments')">View Details &rsaquo;</a>
-                </div>
-            </div>
-        </div>
-
-    </div> <div class="row g-3 mb-4">
-
-  <!-- recent reports and notifications -->
+  <!-- Recent Reports and Notifications -->
   <div class="row g-3 mb-4">
 
-    <!-- reports Table -->
+    <!-- Reports Table -->
     <div class="col-lg-8">
       <div class="panel h-100">
         <div class="panel-header">
@@ -215,89 +260,41 @@
                 <th>Location</th>
                 <th>Status</th>
                 <th>Date</th>
-                <th></th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><strong>RPT-2024-0012</strong></td>
-                <td>Property Damage</td>
-                <td><i class="bi bi-geo-alt text-muted me-1"></i>Kandy</td>
-                <td><span class="badge-status badge-pending">Pending</span></td>
-                <td>2024-05-20</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('RPT-2024-0012')">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>RPT-2024-0011</strong></td>
-                <td>Missing Person</td>
-                <td><i class="bi bi-geo-alt text-muted me-1"></i>Galle</td>
-                <td><span class="badge-status badge-approved">Approved</span></td>
-                <td>2024-05-18</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('RPT-2024-0011')">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>RPT-2024-0010</strong></td>
-                <td>Property Damage</td>
-                <td><i class="bi bi-geo-alt text-muted me-1"></i>Matara</td>
-                <td><span class="badge-status badge-pending">Pending</span></td>
-                <td>2024-05-15</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('RPT-2024-0010')">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>RPT-2024-0009</strong></td>
-                <td>Death Report</td>
-                <td><i class="bi bi-geo-alt text-muted me-1"></i>Nuwara Eliya</td>
-                <td><span class="badge-status badge-payment">Payment Completed</span></td>
-                <td>2024-05-10</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('RPT-2024-0009')">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>RPT-2024-0008</strong></td>
-                <td>Property Damage</td>
-                <td><i class="bi bi-geo-alt text-muted me-1"></i>Colombo</td>
-                <td><span class="badge-status badge-approved">Approved</span></td>
-                <td>2024-05-08</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('RPT-2024-0008')">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>RPT-2024-0007</strong></td>
-                <td>Flood Damage</td>
-                <td><i class="bi bi-geo-alt text-muted me-1"></i>Ratnapura</td>
-                <td><span class="badge-status badge-verify">Under Verification</span></td>
-                <td>2024-05-05</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('RPT-2024-0007')">
-                    <i class="bi bi-eye"></i>
-                  </button>
-                </td>
-              </tr>
+            <?php if ($tableResult && mysqli_num_rows($tableResult) > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($tableResult)): ?>
+                <tr>
+                    <td><strong><?php echo htmlspecialchars($row['Report_ID']); ?></strong></td>
+                    <td><?php echo htmlspecialchars($row['Report_Type']); ?></td>
+                    <td><i class="bi bi-geo-alt text-muted me-1"></i><?php echo htmlspecialchars($row['District']); ?></td>
+                    <td>
+                      <span class="badge-status badge-pending">
+                        <?php echo htmlspecialchars($row['Report_Status']); ?>
+                      </span>
+                    </td>
+                    <td><?php echo htmlspecialchars($row['Report_Date']); ?></td>
+                    <td>
+                      <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('<?php echo htmlspecialchars($row['Report_ID']); ?>')">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                    </td>
+                </tr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6" class="text-center text-muted">No reports found.</td>
+                </tr>
+            <?php endif; ?>
             </tbody>
           </table>
         </div>
       </div>
     </div>
 
-    <!-- notifications -->
+    <!-- Notifications Panel -->
     <div class="col-lg-4">
       <div class="panel h-100">
         <div class="panel-header">
@@ -336,13 +333,12 @@
           </div>
           <div class="notif-time">3d ago</div>
         </div>
-
       </div>
     </div>
 
   </div>
 
-  <!-- Status Flow , Chart , Quick Actions -->
+  <!-- Status Flow, Chart, Quick Actions -->
   <div class="row g-3 mb-4">
 
     <!-- Status Flow -->
@@ -423,6 +419,7 @@
         </div>
       </div>
     </div>
+
   </div>
 
 </main>
@@ -435,6 +432,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
 <script src="dashboard.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof animateCounter === 'function') {
+            animateCounter('stat-total', <?php echo (int)$totReportCount; ?>);
+            animateCounter('stat-pending', <?php echo (int)$pendigReportCount; ?>);
+            animateCounter('stat-approved', <?php echo (int)$approvedReportCount; ?>);
+            animateCounter('stat-payment', <?php echo (int)$pCompletedReportCount; ?>);
+        }
+
+        const chartLabels = ['Property Damage', 'Missing Person', 'Death Report', 'Injured Person'];
+        const chartData = [
+            <?php echo (int)$prDmgReportCount; ?>,
+            <?php echo (int)$missingReportCount; ?>,
+            <?php echo (int)$deathReportCount; ?>,
+            <?php echo (int)$injReportCount; ?>
+        ];
+
+        if (typeof renderReportChart === 'function') {
+            renderReportChart(chartLabels, chartData);
+        }
+    });
+</script>
 
 </body>
 </html>

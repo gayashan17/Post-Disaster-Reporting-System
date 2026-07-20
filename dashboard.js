@@ -149,7 +149,6 @@ function animateCounter(id, val) {
 }
 
 window.addEventListener('load', () => {
-
   // 1. DataTables Setup
   if ($.fn.DataTable && $('#reports-table').length) {
     $('#reports-table').DataTable({
@@ -166,23 +165,33 @@ window.addEventListener('load', () => {
       }
     });
   }
-
+});
   // 2. Doughnut Chart Setup
+function renderReportChart(labels, data)
+{
   const chartElement = document.getElementById('report-chart');
-  if (chartElement && typeof Chart !== 'undefined') {
+  if (chartElement && typeof Chart !== 'undefined')
+  {
     const chartCtx = chartElement.getContext('2d');
-    new Chart(chartCtx, {
+
+    // Modern color palette matching your design
+    const colors = ['#2563eb', '#7c3aed', '#ef4444', '#f59e0b', '#10b981', '#06b6d4'];
+
+    new Chart(chartCtx,
+    {
       type: 'doughnut',
-      data: {
-        labels: ['Property Damage', 'Missing Person', 'Death Report', 'Flood Damage', 'Other'],
+      data:
+      {
+        labels: labels,
         datasets: [{
-          data: [7, 1, 1, 2, 1],
-          backgroundColor: ['#2563eb', '#10b981', '#ef4444', '#f59e0b', '#7c3aed'],
+          data: data,
+          backgroundColor: colors.slice(0, labels.length),
           borderWidth: 0,
           hoverOffset: 6
         }]
       },
-      options: {
+      options:
+      {
         cutout: '65%',
         responsive: true,
         maintainAspectRatio: false,
@@ -195,5 +204,4 @@ window.addEventListener('load', () => {
       }
     });
   }
-
-});
+}
