@@ -7,6 +7,7 @@
 
 class DisasterReport
 {
+    protected $userId;
     protected $disasterTypeId;
     protected $district;
     protected $streetAddress;
@@ -16,6 +17,8 @@ class DisasterReport
 
     ////setters
 
+    public function setUserId($userId)
+        {$this->userId = $userId;}
     public function setDisasterTypeId($disasterTypeId)
         {$this->disasterTypeId = $disasterTypeId;}
     public function setDistrict($district)
