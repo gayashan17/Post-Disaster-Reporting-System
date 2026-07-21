@@ -21,7 +21,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- one level up since this page lives inside /Profile -->
-  <link href="../style.css" rel="stylesheet" />
+  <link href="/Post-Disaster-Reporting-System/assets/css/style.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -211,9 +211,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
 <!-- reuse dashboard.js for toggleSidebar()/confirmLogout(), one level up -->
-<script src="../dashboard.js"></script>
+<script src="\Post-Disaster-Reporting-System\assets\js\dashboard.js"></script>
 
-<script src="profile.js"></script>
+<script src="\Post-Disaster-Reporting-System\assets\js\profile.js"></script>
 
 </body>
 </html>
