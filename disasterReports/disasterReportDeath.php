@@ -1,5 +1,6 @@
 <?php
-    require_once '../classes/DisasterReports.php';
+    require_once '../classes/DisasterReport.php';
+    require_once '../classes/DeathRecord.php';
     require_once '../classes/EvidenceFile.php';
     include '../userData.php';
     include '../DBconnection.php';
