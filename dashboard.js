@@ -59,15 +59,17 @@ function newReport() {
   });
 }
 
-function viewReport(reportId) {
+function viewReport(reportId,type,district,status,date)
+{
+
   Swal.fire({
-    title: reportId,
+    title: 'Report ID: ' + reportId,
     html: `
       <div style="text-align:left; font-size:13px; line-height:2.2">
-        <p><b>Type:</b> Property Damage</p>
-        <p><b>Location:</b> Colombo</p>
-        <p><b>Status:</b> <span style="color:#2563eb; font-weight:600">Under Review</span></p>
-        <p><b>Submitted:</b> 2024-05-20</p>
+        <p><b>Type:</b>${type}</p>
+        <p><b>Location:</b>${district}</p>
+        <p><b>Status:</b> <span style="color:#2563eb; font-weight:600">${status}</span></p>
+        <p><b>Submitted:</b>${date} </p>
         <p><b>Assigned Officer:</b> Local Authority Officer</p>
       </div>
     `,

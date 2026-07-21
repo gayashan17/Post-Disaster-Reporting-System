@@ -277,7 +277,15 @@
                     </td>
                     <td><?php echo htmlspecialchars($row['Report_Date']); ?></td>
                     <td>
-                      <button class="btn btn-sm btn-outline-secondary rounded-2" onclick="viewReport('<?php echo htmlspecialchars($row['Report_ID']); ?>')">
+                      <button class="btn btn-sm btn-outline-secondary rounded-2"
+                        onclick="viewReport
+                        (
+                        '<?php echo htmlspecialchars($row['Report_ID']) ?>,',
+                        '<?php echo htmlspecialchars($row['Report_Type']) ?>,',
+                        '<?php echo htmlspecialchars($row['District']) ?>,',
+                        '<?php echo htmlspecialchars($row['Report_Status']) ?>,',
+                        '<?php echo htmlspecialchars($row['Report_Date']) ?>,',
+                        )">
                         <i class="bi bi-eye"></i>
                       </button>
                     </td>
