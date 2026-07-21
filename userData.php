@@ -7,7 +7,7 @@
 
     if(isset($_SESSION['username']))
     {
-        if(isset($_SESSION['user_Id']) || $_SESSION['user_Id'] != null)
+        if(isset($_SESSION['user_Id']) && $_SESSION['user_Id'] != null)
         {
             $userId = $_SESSION['user_Id'];
         }

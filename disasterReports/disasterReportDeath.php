@@ -49,7 +49,6 @@
             $report = new DeathRecord();
 
             // Parent Class Data
-            $report->setUserID($userId);
             $report->setDisasterTypeID($disasterTypeId);
             $report->setReportType($reportType);
             $report->setDistrict($district);
@@ -63,7 +62,7 @@
             $report->setCauseOfDeath($dCause);
 
             // Insert into disaster_report
-            $reportId = $report->insertReport($con);
+            $reportId = $report->insertReport($con,$userId);
 
             // Insert into death_record
             $report->insertDeathRecord($con, $reportId);
