@@ -7,6 +7,7 @@
 
 class DisasterReport
 {
+
     protected $disasterTypeId;
     protected $district;
     protected $streetAddress;
@@ -33,7 +34,7 @@ class DisasterReport
 
 
     ///// Insert to Disaster Report Table
-    public function insertReport($con)
+    public function insertReport($con,$userId)
     {
         try
         {
@@ -51,7 +52,7 @@ class DisasterReport
             mysqli_stmt_bind_param(
                 $stmt,
                 "iissss",
-                $this->userId,
+                $userId,
                 $this->disasterTypeId,
                 $this->reportType,
                 $this->district,
@@ -61,7 +62,7 @@ class DisasterReport
 
             if(!mysqli_stmt_execute($stmt))
             {
-                throw new Exception("Failed to execute query.");
+                throw new Exception("MySQL Error: " . mysqli_stmt_error($stmt));
             }
 
             return mysqli_insert_id($con);
@@ -72,6 +73,26 @@ class DisasterReport
             return false;
         }
     }
+
+    public static function getUnassignedReports($con)
+    {
+        $query = "SELECT
+                    dr.Report_ID,
+                    dr.Report_Type,
+                    dr.District,
+                    dr.Street_Address,
+                    dr.Created_At,
+                    dt.Type_Name AS Disaster_Type
+                  FROM disaster_report dr
+                  LEFT JOIN disaster_type dt ON dr.Disaster_Type_ID = dt.Disaster_Type_ID
+                  WHERE dr.Officer_ID IS NULL
+                     OR dr.Assignment_Status = 'Unassigned'
+                  ORDER BY dr.Created_At DESC";
+
+    }
+
+
+
 }
 
 // ================================================================//
@@ -181,7 +202,7 @@ class DeathRecord extends DisasterReport
 
             if(!mysqli_stmt_execute($stmt))
             {
-                throw new Exception("Failed to insert death record.");
+                throw new Exception("MySQL Error: " . mysqli_stmt_error($stmt));
             }
 
             return true;

@@ -19,10 +19,6 @@ const validPdfType = "application/pdf";
 // ===========================
 
 fileInput.addEventListener("change", function (e) {
-
-
-
-
     const files = Array.from(e.target.files);
 
     if (selectedFiles.length + files.length > 10)  //check

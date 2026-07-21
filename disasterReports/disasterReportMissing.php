@@ -70,7 +70,7 @@
             $report->setRelationshipToPerson($mRel);
 
             // Insert into disaster_report
-            $reportId = $report->insertReport($con);
+            $reportId = $report->insertReport($con,$userId);
 
             // Insert into missing_person_record
             $report->insertMissingPersonRecord($con, $reportId);

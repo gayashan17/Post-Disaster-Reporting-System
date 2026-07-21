@@ -52,7 +52,6 @@
             $report = new PropertyDamage();
 
             // Parent class data
-            $report->setUserId($userId);
             $report->setDisasterTypeId($disasterTypeId);
             $report->setDistrict($_POST['district-input']);
             $report->setStreetAddress($_POST['stAdd-input']);
@@ -68,7 +67,7 @@
             $report->setLongitude($_POST['longitude'] ?? null);
 
             // Insert main report
-            $reportId = $report->insertReport($con);
+            $reportId = $report->insertReport($con,$userId);
 
             // Insert property damage details
             $report->insertPropertyDamage($con, $reportId);
