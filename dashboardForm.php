@@ -117,7 +117,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link href="style.css" rel="stylesheet" />
+  <link href="/Post-Disaster-Reporting-System/assets/css/style.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -440,7 +440,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
-<script src="dashboard.js"></script>
+<script src="\Post-Disaster-Reporting-System\assets\js\dashboard.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
