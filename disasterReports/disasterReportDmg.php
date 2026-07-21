@@ -1,6 +1,7 @@
 <?php
     require_once '../classes/DisasterReports.php';
     require_once '../classes/EvidenceFile.php';
+    require_once '../classes/Notification.php';
     include '../userData.php';
     include '../DBconnection.php';
 
@@ -76,6 +77,7 @@
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
 
+            Notification::createNotification($con,$userId,$reportId,"New Report Requires Verification","A new property damage report has been submitted and requires authenticity verification.","Report Submitted");
             echo "success";
         }
         catch(Exception $e)

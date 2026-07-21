@@ -1,5 +1,9 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) // to fix session already started error
+    {
+        session_start();
+    }
+
 
     if(isset($_SESSION['username']))
     {
