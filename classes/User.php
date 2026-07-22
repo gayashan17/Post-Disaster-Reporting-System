@@ -433,6 +433,110 @@ class User
         }
     }
 
+    /////// get User profile pic id from table
+
+    public function getUserProfilePicture($userID)
+    {
+        try {
+            include '../DBconnection.php';
+
+            $sql = "SELECT Profile_Picture
+                    FROM users
+                    WHERE User_ID = ?";
+
+            $stmt = mysqli_prepare($con, $sql);
+
+            if (!$stmt) {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt, "i", $userID);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                return $row['Profile_Picture'];
+            } else {
+                throw new Exception("User not found.");
+            }
+
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "message" => $e->getMessage()
+            ];
+        } finally {
+            if (isset($stmt)) {
+                mysqli_stmt_close($stmt);
+            }
+            if (isset($con)) {
+                mysqli_close($con);
+            }
+        }
+    }
+
+    ///// Insert profile pic
+    public function updateProfilePicture($userID, $file)
+    {
+        try {
+            include '../DBconnection.php';
+
+            $extension = strtolower(
+                pathinfo($file['name'], PATHINFO_EXTENSION)
+            );
+
+            $fileName =
+                $userID . "_" .
+                date("Ymd_His") . "." .
+                $extension;
+
+            $uploadPath = "../uploads/Profile_Pic/" . $fileName;
+
+            if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                throw new Exception("Failed to upload image.");
+            }
+
+            $sql = "UPDATE users
+                    SET Profile_Picture = ?
+                    WHERE User_ID = ?";
+
+            $stmt = mysqli_prepare($con, $sql);
+
+            if (!$stmt) {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt, "si", $fileName, $userID);
+
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Failed to update profile picture.");
+            }
+
+            return [
+                "success" => true,
+                "fileName" => $fileName
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "success" => false,
+                "message" => $e->getMessage()
+            ];
+
+        } finally {
+
+            if (isset($stmt)) {
+                mysqli_stmt_close($stmt);
+            }
+
+            if (isset($con)) {
+                mysqli_close($con);
+            }
+        }
+    }
 }
 
 ?>

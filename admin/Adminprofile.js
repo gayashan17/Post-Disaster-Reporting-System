@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Saving...';
 
-    fetch('profile.php', {
+    fetch('Adminprofile.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -102,5 +102,57 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     return valid;
+  }
+});
+
+/* ==========================================================================
+   Profile picture upload — Facebook-style click-to-upload
+   Clicking the camera icon opens the file picker (via the <label for=...>).
+   Picking a file validates it client-side, then auto-submits the small
+   #profilePicForm, which posts to updateProfilePicture.php and reloads
+   the page with a ?pic=success / ?pic=error flag.
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', function () {
+  const picInput = document.getElementById('profilePicInput');
+  const picForm = document.getElementById('profilePicForm');
+
+  if (picInput && picForm) {
+    picInput.addEventListener('change', function () {
+      if (!this.files || !this.files[0]) return;
+
+      const file = this.files[0];
+      const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+
+      if (!allowedTypes.includes(file.type)) {
+        Swal.fire('Invalid file', 'Please select a PNG, JPG, or WEBP image.', 'error');
+        this.value = '';
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        Swal.fire('File too large', 'Please select an image under 5MB.', 'error');
+        this.value = '';
+        return;
+      }
+
+      picForm.submit();
+    });
+  }
+
+  // Show a flash message after the redirect from updateProfilePicture.php
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('pic') === 'success') {
+    Swal.fire({
+      icon: 'success',
+      title: 'Profile Picture Updated',
+      confirmButtonColor: '#0d6efd'
+    });
+    window.history.replaceState({}, document.title, window.location.pathname);
+  } else if (params.get('pic') === 'error') {
+    Swal.fire({
+      icon: 'error',
+      title: 'Update Failed',
+      text: params.get('msg') || 'Something went wrong while updating your profile picture.'
+    });
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
 });
