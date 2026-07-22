@@ -19,6 +19,10 @@ const validPdfType = "application/pdf";
 // ===========================
 
 fileInput.addEventListener("change", function (e) {
+
+
+
+
     const files = Array.from(e.target.files);
 
     if (selectedFiles.length + files.length > 10)  //check
@@ -231,7 +235,7 @@ form.addEventListener("submit", function (e) {
             break;
 
         default:
-            window.location.href = "../dashboardForm.php";
+            window.location.href = "../citizen/CitizendashboardForm.php";
             return;
     }
 
@@ -264,7 +268,7 @@ form.addEventListener("submit", function (e) {
                 title: "Report Submitted!",
                 text: "Your report has been submitted successfully."
             }).then(() => {
-                window.location.href = "../dashboardForm.php";
+                window.location.href = "../citizen/CitizendashboardForm.php";
             });
         }
 

@@ -10,7 +10,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
+    <link href="../style.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -19,7 +19,7 @@
     <form id="signupForm" method="post" action="Signup.php" onsubmit="">
     <div class="loginPanel">
         <div>
-            <img src="pictures\Post-Disaster-Reporting-Logo.png" width="55%">
+            <img src="../pictures\Post-Disaster-Reporting-Logo.png" width="55%">
         </div>
         <div class="panel-header justify-content-center">
             <div class="panel-title">
@@ -117,7 +117,7 @@
         <label class="mb-1 fw-bold" id="errorMessage" style="color:red"></label>
         <input type="submit" name="register" class=" btn btn-primary btn-lg btn-block w-100" value="REGISTER" >
         <div style="padding-top:25px">
-            Already have an account? <a href="LoginForm.php" class="stat-link" style="font-size:16px">Login Here</a>
+            Already have an account? <a href="../LoginForm.php" class="stat-link" style="font-size:16px">Login Here</a>
         </div>
     </div>
     </form>

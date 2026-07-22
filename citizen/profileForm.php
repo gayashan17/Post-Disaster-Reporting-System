@@ -1,6 +1,6 @@
 <?php
     include '../userData.php';   // gives $userId, $roleId, $username, $role, $email, $gender (from session)
-    include '../classes/Users.php';
+    include '../classes/User.php';
 
     $user = new User();
     $userRecord = $user->getUserById($userId);

@@ -1,5 +1,6 @@
 <?php
-    require_once '../classes/DisasterReports.php';
+    require_once '../classes/DisasterReport.php';
+    require_once '../classes/InjuredPerson.php';
     require_once '../classes/EvidenceFile.php';
     include '../userData.php';
     include '../DBconnection.php';
@@ -63,7 +64,7 @@
             $report->setInjuredLevel($injLevel);
 
             // Insert into disaster_report
-            $reportId = $report->insertReport($con,$userId);
+            $reportId = $report->insertReport($con);
 
             // Insert into injured_person
             $report->insertInjuredPerson($con, $reportId);

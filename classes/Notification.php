@@ -19,9 +19,9 @@ class Notification
 
             return mysqli_stmt_execute($stmt);
         }
-        catch(Exception $e)
+        catch(Exception e)
         {
-            throw $e;
+            throw $e
             return false;
         }
     }

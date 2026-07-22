@@ -1,6 +1,8 @@
 /* ==========================================================================
    1. NAVIGATION, SIDEBAR & DASHBOARD INTERACTION ACTIONS
    ========================================================================== */
+let roleChart = null;
+let activityChart = null;
 
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
@@ -206,71 +208,259 @@ window.addEventListener('load', () => {
     });
   }
 
-  // 2. Users by Role Pie Chart Initialization
-  const roleChartEl = document.getElementById('role-chart');
-  if (roleChartEl && typeof Chart !== 'undefined') {
-    const chartCtx = roleChartEl.getContext('2d');
-    new Chart(chartCtx, {
-      type: 'pie',
-      data: {
-        labels: ['Citizens', 'Local Authority', 'DMO Officers', 'Financial Officers'],
-        datasets: [{
-          data: [4, 2, 1, 1],
-          backgroundColor: ['#2563eb', '#10b981', '#7c3aed', '#ef4444'],
-          borderWidth: 2,
-          borderColor: '#ffffff'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { font: { family: 'Inter', size: 11 }, boxWidth: 12 }
-          }
-        }
-      }
-    });
-  }
-
   // 3. Monthly Activity Bar Chart Initialization
-  const activityChartEl = document.getElementById('activity-chart');
-  if (activityChartEl && typeof Chart !== 'undefined') {
-    const chartCtx = activityChartEl.getContext('2d');
-    new Chart(chartCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [{
-          label: 'Disaster Reports Filed',
-          data: [12, 19, 3, 5, 24, 15],
-          backgroundColor: '#f59e0b',
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            grid: { color: '#e2e8f0' }
-          },
-          x: {
-            grid: { display: false }
-          }
-        }
-      }
-    });
-  }
 
   // 4. Run Metric Counters matching your main panel template IDs
-  animateCounter('stat-users', 7);
-  animateCounter('stat-active', 6);
-  animateCounter('stat-reports', 24);
-  animateCounter('stat-banned', 2);
+  loadDashboardStats()
+
 });
+
+
+// ================================================================//
+//                         Load Dashboard                          //
+// ================================================================//
+
+/////// load dashboard status
+
+function loadDashboardStats()
+{
+fetch("Admindashboard.php")
+    .then(response => response.text())
+    .then(data => {
+        console.log("Server Response:", data);
+
+        try {
+            const jsonData = JSON.parse(data);
+
+            if (!jsonData.success) {
+                console.error(jsonData.message);
+                return;
+            }
+
+            document.getElementById("stat-users").textContent = jsonData.totalUsers;
+            document.getElementById("stat-active").textContent = jsonData.activeUsers;
+            document.getElementById("stat-banned").textContent = jsonData.bannedUsers;
+            document.getElementById("stat-reports").textContent = jsonData.totalReports;
+
+            loadRoleChart(jsonData.roleCounts);
+
+            loadActivityChart(jsonData.monthlyReportActivity);
+
+            loadRecentRegistrations(jsonData.recentRegistrations);
+        }
+        catch (error) {
+            console.error("Invalid JSON received from PHP:", error);
+            console.log(data);
+        }
+    })
+    .catch(error => {
+        console.error("Fetch Error:", error);
+    });
+}
+
+/////////// Role data
+
+function loadRoleChart(roleCounts)
+{
+    const roleChartEl = document.getElementById('role-chart');
+
+    if (!roleChartEl)
+    {
+        return;
+    }
+
+    const chartCtx = roleChartEl.getContext('2d');
+
+    if(roleChart)
+    {
+        roleChart.destroy();
+    }
+
+    roleChart = new Chart(chartCtx,
+    {
+        type: 'pie',
+        data:
+        {
+            labels:
+            [
+                'Admin',
+                'Citizen',
+                'Local Authority Officer',
+                'Disaster Management Officer',
+                'District Secretary',
+                'Finance Officer'
+            ],
+            datasets:
+            [{
+                data:
+                [
+                    roleCounts.Admin,
+                    roleCounts.Citizen,
+                    roleCounts["Local Authority Officer"],
+                    roleCounts["Disaster Management Officer"],
+                    roleCounts["District Secretary"],
+                    roleCounts["Finance Officer"]
+                ],
+                backgroundColor:
+                [
+                    '#ef4444',
+                    '#2563eb',
+                    '#10b981',
+                    '#7c3aed',
+                    '#f59e0b',
+                    '#ec4899'
+                ],
+                borderWidth: 2,
+                borderColor: '#ffffff'
+            }]
+        },
+        options:
+        {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins:
+            {
+                legend:
+                {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+  
+}
+
+////////// Activity chart
+
+function loadActivityChart(monthlyData)
+{
+    const activityChartEl = document.getElementById('activity-chart');
+
+    if (!activityChartEl)
+    {
+        return;
+    }
+
+    const chartCtx = activityChartEl.getContext('2d');
+
+    if(activityChart)
+    {
+        activityChart.destroy();
+    }
+
+    activityChart = new Chart(chartCtx,
+    {
+        type: 'bar',
+        data:
+        {
+            labels:
+            [
+                'Jan', 'Feb', 'Mar', 'Apr',
+                'May', 'Jun', 'Jul', 'Aug',
+                'Sep', 'Oct', 'Nov', 'Dec'
+            ],
+            datasets:
+            [{
+                label: 'Disaster Reports Filed',
+                data: monthlyData,
+                backgroundColor: '#f59e0b',
+                borderRadius: 6
+            }]
+        },
+        options:
+        {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins:
+            {
+                legend:
+                {
+                    display: false
+                }
+            },
+
+            scales:
+            {
+                y:
+                {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+////////// Recent Registration 
+
+function loadRecentRegistrations(users)
+{
+    const container = document.getElementById("recent-registrations");
+
+    if (!container)
+    {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    users.forEach(user =>
+    {
+        const statusClass =
+            user.User_Status === "Active"
+                ? "badge-approved"
+                : "badge-rejected";
+
+        const roleClassMap = {
+            "Citizen": "citizen",
+            "Local Authority Officer": "lao",
+            "Disaster Management Officer": "dmo",
+            "District Secretary": "ds",
+            "Finance Officer": "finance",
+            "Admin": "admin"
+        };
+
+        const avatarClassMap = {
+              "Citizen": "blue-av",
+              "Local Authority Officer": "green-av",
+              "Disaster Management Officer": "purple-av",
+              "District Secretary": "rose-av",
+              "Finance Officer": "amber-av",
+              "Admin": "teal-av"
+        };
+
+        const roleClass = roleClassMap[user.Role] || "admin";
+        const avatarClass = avatarClassMap[user.Role] || "blue-av";
+
+        container.innerHTML += `
+            <div class="user-row">
+
+                  <div class="user-row-avatar ${avatarClass}">
+                      ${user.Full_Name.charAt(0).toUpperCase()}
+                  </div>
+
+                <div class="user-row-info">
+
+                    <div class="user-row-name">
+                        ${user.Full_Name}
+                    </div>
+
+                    <div class="user-row-meta">
+                        <span class="role-pill ${roleClass}">
+                            ${user.Role}
+                        </span>
+                        • ${user.Email}
+                        • Joined ${user.Created_Date}
+                    </div>
+
+                </div>
+
+                <span class="badge-status ${statusClass}">
+                    ${user.User_Status}
+                </span>
+
+            </div>
+        `;
+    });
+}

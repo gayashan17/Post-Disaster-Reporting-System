@@ -3,7 +3,7 @@ session_start();
 header('Content-Type: application/json');
 
 include '../DBconnection.php';
-include '../classes/Users.php';
+include '../classes/User.php';
 
 // --- Auth check -------------------------------------------------
 if (!isset($_SESSION['user_Id'])) {

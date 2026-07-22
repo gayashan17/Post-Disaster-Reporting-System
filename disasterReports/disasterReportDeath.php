@@ -1,5 +1,6 @@
 <?php
-    require_once '../classes/DisasterReports.php';
+    require_once '../classes/DisasterReport.php';
+    require_once '../classes/DeathRecord.php';
     require_once '../classes/EvidenceFile.php';
     include '../userData.php';
     include '../DBconnection.php';
@@ -49,6 +50,7 @@
             $report = new DeathRecord();
 
             // Parent Class Data
+            $report->setUserID($userId);
             $report->setDisasterTypeID($disasterTypeId);
             $report->setReportType($reportType);
             $report->setDistrict($district);
@@ -62,7 +64,7 @@
             $report->setCauseOfDeath($dCause);
 
             // Insert into disaster_report
-            $reportId = $report->insertReport($con,$userId);
+            $reportId = $report->insertReport($con);
 
             // Insert into death_record
             $report->insertDeathRecord($con, $reportId);

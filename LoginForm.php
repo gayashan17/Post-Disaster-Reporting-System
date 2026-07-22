@@ -53,12 +53,12 @@
                 </label>
             </div>
 
-            <a href="ForgotPasswordForm.php" class="stat-link" style="font-size:16px">Forgot Password?</a>
+            <a href="forgotPassword/ForgotPasswordForm.php" class="stat-link" style="font-size:16px">Forgot Password?</a>
         </div>
 
         <input type="submit" name="login" class=" btn btn-primary btn-lg btn-block w-100" value="LOGIN">
         <div style="padding-top:25px">
-            Don't have an account? <a href="SignupForm.php" class="stat-link" style="font-size:16px">Register here</a>
+            Don't have an account? <a href="signUp/SignupForm.php" class="stat-link" style="font-size:16px">Register here</a>
         </div>
     </div>
     </form>

@@ -1,8 +1,9 @@
 <?php
 session_start();
 
-include 'DBconnection.php';
-include 'classes/Users.php'; // contains User and Citizen classes
+require_once '../DBconnection.php';
+require_once '../classes/User.php';
+require_once '../classes/Citizen.php';
 
 if(isset($_POST['register']))
 {
@@ -59,7 +60,7 @@ if(isset($_POST['register']))
         $_SESSION['message'] = "Registration Successful!";
         $_SESSION['icon'] = "success";
 
-        header("Location: LoginForm.php");
+        header("Location: ../LoginForm.php");
         exit();
     }
     catch(Exception $e)

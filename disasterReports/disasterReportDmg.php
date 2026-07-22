@@ -1,5 +1,6 @@
 <?php
-    require_once '../classes/DisasterReports.php';
+    require_once '../classes/DisasterReport.php';
+    require_once '../classes/PropertyDamage.php';
     require_once '../classes/EvidenceFile.php';
     require_once '../classes/Notification.php';
     include '../userData.php';
@@ -52,6 +53,7 @@
             $report = new PropertyDamage();
 
             // Parent class data
+            $report->setUserId($userId);
             $report->setDisasterTypeId($disasterTypeId);
             $report->setDistrict($_POST['district-input']);
             $report->setStreetAddress($_POST['stAdd-input']);
@@ -67,7 +69,7 @@
             $report->setLongitude($_POST['longitude'] ?? null);
 
             // Insert main report
-            $reportId = $report->insertReport($con,$userId);
+            $reportId = $report->insertReport($con);
 
             // Insert property damage details
             $report->insertPropertyDamage($con, $reportId);

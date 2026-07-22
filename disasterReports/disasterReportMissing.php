@@ -1,5 +1,6 @@
 <?php
-    require_once '../classes/DisasterReports.php';
+    require_once '../classes/DisasterReport.php';
+    require_once '../classes/MissingPerson.php';
     require_once '../classes/EvidenceFile.php';
     include '../userData.php';
     include '../DBconnection.php';
@@ -70,7 +71,7 @@
             $report->setRelationshipToPerson($mRel);
 
             // Insert into disaster_report
-            $reportId = $report->insertReport($con,$userId);
+            $reportId = $report->insertReport($con);
 
             // Insert into missing_person_record
             $report->insertMissingPersonRecord($con, $reportId);

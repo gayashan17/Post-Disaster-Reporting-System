@@ -143,7 +143,7 @@
 
                         <input type="submit" name="register" class=" btn btn-primary btn-block mb-3 w-75" value="Submit Report">
 
-                        <input type="button" name="register" class=" btn btn-danger  btn-block w-75" value="Cancel" onclick=" window.location.href='../dashboardForm.php'; ">
+                        <input type="button" name="register" class=" btn btn-danger  btn-block w-75" value="Cancel" onclick="window.location.href='../citizen/CitizendashboardForm.php';">
                     </div>
                 </div>
             </main>

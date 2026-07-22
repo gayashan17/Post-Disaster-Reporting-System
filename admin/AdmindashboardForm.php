@@ -168,57 +168,8 @@
                     </div>
                     <div class="d-flex flex-column gap-2">
 
-                        <div class="user-row">
-                            <div class="user-row-avatar blue-av">D</div>
-                            <div class="user-row-info">
-                                <div class="user-row-name">Dilini Perera</div>
-                                <div class="user-row-meta">Citizen &bull; Colombo &bull; Joined 2024-05-20</div>
-                            </div>
-                            <span class="badge-status badge-approved">Active</span>
-                            <div class="user-row-actions">
-                                <button class="icon-btn blue" title="Edit" onclick="editUser('Dilini Perera')"><i class="bi bi-pencil"></i></button>
-                                <button class="icon-btn red" title="Ban" onclick="banUser('Dilini Perera')"><i class="bi bi-slash-circle"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="user-row">
-                            <div class="user-row-avatar green-av">N</div>
-                            <div class="user-row-info">
-                                <div class="user-row-name">Nimal Fernando</div>
-                                <div class="user-row-meta">Local Authority Officer &bull; Kandy &bull; Joined 2024-05-18</div>
-                            </div>
-                            <span class="badge-status badge-approved">Active</span>
-                            <div class="user-row-actions">
-                                <button class="icon-btn blue" title="Edit" onclick="editUser('Nimal Fernando')"><i class="bi bi-pencil"></i></button>
-                                <button class="icon-btn red" title="Ban" onclick="banUser('Nimal Fernando')"><i class="bi bi-slash-circle"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="user-row">
-                            <div class="user-row-avatar purple-av">K</div>
-                            <div class="user-row-info">
-                                <div class="user-row-name">Kamala Silva</div>
-                                <div class="user-row-meta">DMO Officer &bull; Galle &bull; Joined 2024-05-15</div>
-                            </div>
-                            <span class="badge-status badge-approved">Active</span>
-                            <div class="user-row-actions">
-                                <button class="icon-btn blue" title="Edit" onclick="editUser('Kamala Silva')"><i class="bi bi-pencil"></i></button>
-                                <button class="icon-btn red" title="Ban" onclick="banUser('Kamala Silva')"><i class="bi bi-slash-circle"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="user-row">
-                            <div class="user-row-avatar amber-av">S</div>
-                            <div class="user-row-info">
-                                <div class="user-row-name">Sunil Bandara</div>
-                                <div class="user-row-meta">Financial Officer &bull; Matara &bull; Joined 2024-05-12</div>
-                            </div>
-                            <span class="badge-status badge-pending">Pending</span>
-                            <div class="user-row-actions">
-                                <button class="icon-btn blue" title="Edit" onclick="editUser('Sunil Bandara')"><i class="bi bi-pencil"></i></button>
-                                <button class="icon-btn red" title="Ban" onclick="banUser('Sunil Bandara')"><i class="bi bi-slash-circle"></i></button>
-                            </div>
-                        </div>
+                    <div id="recent-registrations" class="d-flex flex-column gap-2">
+                    </div>
 
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 <?php
     session_start();
-    include 'userData.php';
+    include '../userData.php';
+    include '../DBconnection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,14 +15,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-    <link href="style.css" rel="stylesheet" />
+      <link href="../style.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- SIDEBAR -->
 <nav id="sidebarDMO">
     <div class="sidebar-brand">
-        <div class="brand-icon"><img src="pictures\Post-Disaster-Reporting-Logo-Notxt.png"></div>
+        <div class="brand-icon"><img src="../pictures/Post-Disaster-Reporting-Logo-Notxt.png" alt="Logo"></div>
         <div>
             <div class="brand-title">Post-Disaster</div>
             <div class="brand-sub">Reporting System</div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'DBconnection.php';
+include '../DBconnection.php';
         try
         {
             if ($_SERVER["REQUEST_METHOD"] == "POST")
