@@ -4,6 +4,7 @@
         session_start();
     }
 
+    include_once __DIR__ . '/classes/User.php';
 
     if(isset($_SESSION['username']))
     {
@@ -19,6 +20,13 @@
         $username = $_SESSION['username'];
         $gender = $_SESSION['gender'];
         $email = $_SESSION['email'];
+
+        // --- Profile picture, now that $userId is available ---
+        $userForPic = new User();
+        $profilePicResult = $userForPic->getUserProfilePicture($userId);
+        $profilePicFile = (is_array($profilePicResult) && isset($profilePicResult['success']) && $profilePicResult['success'] === false)
+            ? null
+            : $profilePicResult;
 
         if(isset($_SESSION['role_Id']))
         {

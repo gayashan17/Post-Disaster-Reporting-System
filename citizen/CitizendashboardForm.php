@@ -153,7 +153,7 @@
   <a class="nav-item active" href="#">
     <i class="bi bi-speedometer2"></i> Dashboard
   </a>
-  <a class="nav-item" href="profileForm.php">
+  <a class="nav-item" href="CitizenprofileForm.php">
     <i class="bi bi-person"></i> Profile
   </a>
   <a class="nav-item" onclick="showInfo('Settings')">
@@ -182,11 +182,17 @@
     <span class="notif-badge">3</span>
   </button>
 
-  <a class="nav-item" href="profileForm.php">
-    <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
-    <span class="user-name"><?php echo htmlspecialchars($username ?? 'User'); ?></span>
-    <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
-  </a>
+    <div class="user-pill" onclick="window.location.href='CitizenProfileForm.php';">
+        <div class="user-avatar admin-avatar">
+            <?php if (!empty($profilePicFile)): ?>
+                <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            <?php else: ?>
+                <i class="bi bi-person-fill"></i>
+            <?php endif; ?>
+        </div>
+        <span class="user-name">User</span>
+        <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
+    </div>
 </header>
 
 <!-- Main Dashboard Container -->

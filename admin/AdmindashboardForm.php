@@ -1,3 +1,6 @@
+<?php
+    include '../userData.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +31,8 @@
     </a>
 
     <div class="nav-section-label">User Management</div>
-    <a class="nav-item" href="#" onclick="showSection('users')">
-        <i class="bi bi-people"></i> All Users
+    <a class="nav-item" href="AllUsersForm.php">
+        <i class="bi bi-person"></i> All Users
     </a>
     <a class="nav-item" href="#" onclick="addUser()">
         <i class="bi bi-person-plus"></i> Add New User
@@ -53,7 +56,8 @@
     <a class="nav-item" href="#" onclick="showInfo('Notifications')">
         <i class="bi bi-bell"></i> Notifications
     </a>
-    <a class="nav-item" href="#" onclick="showInfo('Profile')">
+ 
+    <a class="nav-item" href="AdminprofileForm.php">
         <i class="bi bi-person"></i> Profile
     </a>
 
@@ -70,9 +74,15 @@
         <i class="bi bi-bell"></i>
         <span class="notif-badge">5</span>
     </button>
-    <div class="user-pill" onclick="showInfo('Profile')">
-        <div class="user-avatar admin-avatar"><i class="bi bi-person-fill"></i></div>
-        <span class="user-name">Super Admin</span>
+    <div class="user-pill" onclick="window.location.href='AdminProfileForm.php';">
+        <div class="user-avatar admin-avatar">
+            <?php if (!empty($profilePicFile)): ?>
+                <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            <?php else: ?>
+                <i class="bi bi-person-fill"></i>
+            <?php endif; ?>
+        </div>
+        <span class="user-name">Admin</span>
         <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
     </div>
 </header>

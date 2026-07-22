@@ -1,18 +1,80 @@
 <?php
-session_start();
-header('Content-Type: application/json');
+if (session_status() === PHP_SESSION_NONE) // to fix session already started error
+{
+    session_start();
+}
 
-include '../DBconnection.php';
 include '../classes/User.php';
 
 // --- Auth check -------------------------------------------------
-if (!isset($_SESSION['user_Id'])) {
+// Picture upload is a plain form POST (redirects back on failure),
+// profile-details update is AJAX (returns JSON on failure)
+if (!isset($_SESSION['username']) || !isset($_SESSION['user_Id']) || $_SESSION['user_Id'] == null) {
+    if (isset($_FILES['profile_picture'])) {
+        header('Location: ../LoginForm.php');
+        exit;
+    }
+    header('Content-Type: application/json');
     http_response_code(401);
     echo json_encode(['success' => false, 'message' => 'Not logged in.']);
     exit;
 }
 
-// --- Read JSON body -----------------------------------------------
+$userID = $_SESSION['user_Id'];
+
+/* ==========================================================================
+   BRANCH 1: Profile picture upload
+   Triggered by the small #profilePicForm (multipart/form-data, plain POST,
+   full page reload) — distinguished by the presence of $_FILES['profile_picture']
+   ========================================================================== */
+if (isset($_FILES['profile_picture'])) {
+
+    if ($_FILES['profile_picture']['error'] !== UPLOAD_ERR_OK) {
+        header('Location: AdminprofileForm.php?pic=error&msg=' . urlencode('No file was uploaded, or the upload failed.'));
+        exit;
+    }
+
+    $file = $_FILES['profile_picture'];
+
+    // Server-side validation (never trust the client)
+    $allowedMimeTypes = ['image/png', 'image/jpeg', 'image/webp'];
+    $maxSize = 5 * 1024 * 1024; // 5MB
+
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mimeType = finfo_file($finfo, $file['tmp_name']);
+    finfo_close($finfo);
+
+    if (!in_array($mimeType, $allowedMimeTypes, true)) {
+        header('Location: AdminprofileForm.php?pic=error&msg=' . urlencode('Invalid file type. Please upload a PNG, JPG, or WEBP image.'));
+        exit;
+    }
+
+    if ($file['size'] > $maxSize) {
+        header('Location: AdminprofileForm.php?pic=error&msg=' . urlencode('File is too large. Maximum size is 5MB.'));
+        exit;
+    }
+
+    // Delegate to your existing User class method (it opens/closes its own DB connection)
+    $user = new User();
+    $result = $user->updateProfilePicture($userID, $file);
+
+    if (isset($result['success']) && $result['success'] === true) {
+        header('Location: AdminprofileForm.php?pic=success');
+    } else {
+        $msg = $result['message'] ?? 'Failed to update profile picture.';
+        header('Location: AdminprofileForm.php?pic=error&msg=' . urlencode($msg));
+    }
+    exit;
+}
+
+/* ==========================================================================
+   BRANCH 2: Profile details update
+   Triggered by #profile-form via fetch() with a JSON body
+   ========================================================================== */
+header('Content-Type: application/json');
+
+include '../DBconnection.php';
+
 $input = json_decode(file_get_contents('php://input'), true);
 
 if (!$input) {
@@ -21,12 +83,10 @@ if (!$input) {
     exit;
 }
 
-// --- Helper --------------------------------------------------------
 function clean($value) {
     return htmlspecialchars(trim($value ?? ''), ENT_QUOTES, 'UTF-8');
 }
 
-// --- Sanitize incoming fields ---------------------------------------
 $fullName = clean($input['fullName'] ?? '');
 $gender   = clean($input['gender'] ?? '');
 $NIC      = clean($input['NIC'] ?? '');
@@ -37,7 +97,6 @@ $address  = clean($input['address'] ?? '');
 $newPassword     = $input['newPassword'] ?? '';
 $confirmPassword = $input['confirmPassword'] ?? '';
 
-// --- Server-side validation ------------------------------------------
 $errors = [];
 
 if ($fullName === '') $errors[] = 'Full name is required.';
@@ -63,7 +122,7 @@ if (!empty($errors)) {
 
 // --- Update via the User class ----------------------------------------
 $user = new User();
-$user->setUserID($_SESSION['user_Id']);
+$user->setUserID($userID);
 $user->setFullName($fullName);
 $user->setGender($gender);
 $user->setNIC($NIC);

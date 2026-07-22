@@ -1,6 +1,5 @@
 <?php
     include '../userData.php';   // gives $userId, $roleId, $username, $role, $email, $gender (from session)
-    include '../classes/User.php';
 
     $user = new User();
     $userRecord = $user->getUserById($userId);
@@ -9,7 +8,9 @@
     if (isset($userRecord['success']) && $userRecord['success'] === false) {
         die("Unable to load profile: " . htmlspecialchars($userRecord['message']));
     }
+
 ?>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -22,79 +23,151 @@
 
   <!-- one level up since this page lives inside /Profile -->
   <link href="../style.css" rel="stylesheet" />
+
+  <style>
+      /* TODO: move these into style.css once you're happy with them */
+      .profile-avatar-wrap {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+      }
+      .profile-avatar-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 50%;
+      }
+      .avatar-edit-btn {
+          position: absolute;
+          bottom: 2px;
+          right: 2px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: var(--admin, #b91c1c);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+          cursor: pointer;
+          border: 3px solid #fff;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          transition: transform 0.15s ease, background 0.15s ease;
+      }
+      .avatar-edit-btn:hover {
+          transform: scale(1.08);
+          background: #9a1818;
+      }
+  </style>
 </head>
 <body>
 
-<!-- Sidebar -->
-<nav id="sidebar">
-
-  <div class="sidebar-brand">
-    <div class="brand-icon"><img src="../pictures/Post-Disaster-Reporting-Logo-Notxt.png"></div>
-    <div>
-      <div class="brand-title">Post-Disaster</div>
-      <div class="brand-sub">Reporting System</div>
+<!-- ══════════════════ SIDEBAR ══════════════════ -->
+<nav id="sidebar" class="sidebar-admin">
+    <div class="sidebar-brand">
+        <div class="brand-icon admin"><i class="bi bi-shield-lock-fill"></i></div>
+        <div>
+            <div class="brand-title">Post-Disaster</div>
+            <div class="brand-sub">Admin Panel</div>
+        </div>
     </div>
-  </div>
 
-  <div class="nav-section-label">Reports</div>
-  <a class="nav-item" href="../dashboardForm.php">
-    <i class="bi bi-file-earmark-plus"></i> Submit New Report
-  </a>
-  <a class="nav-item" href="../dashboardForm.php">
-    <i class="bi bi-file-earmark-text"></i> My Reports
-  </a>
-  <a class="nav-item" href="../dashboardForm.php">
-    <i class="bi bi-search"></i> Track Report
-  </a>
-
-  <div class="nav-section-label">Notifications</div>
-  <a class="nav-item" href="../dashboardForm.php">
-    <i class="bi bi-bell"></i> Notifications
-  </a>
-
-  <div class="nav-section-label">Account</div>
-  <a class="nav-item" href="../dashboardForm.php">
-    <i class="bi bi-speedometer2"></i> Dashboard
-  </a>
-  <a class="nav-item active" href="profileForm.php">
-    <i class="bi bi-person"></i> Profile
-  </a>
-  <a class="nav-item" href="../dashboardForm.php">
-    <i class="bi bi-gear"></i> Settings
-  </a>
-
-  <div class="sidebar-footer">
-    <a class="nav-item" onclick="confirmLogout()">
-      <i class="bi bi-box-arrow-left"></i> Logout
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item" href="AdminDashboardForm.php">
+        <i class="bi bi-speedometer2"></i> Dashboard
     </a>
-  </div>
 
+    <div class="nav-section-label">User Management</div>
+    <a class="nav-item" href="AllUsersForm.php">
+        <i class="bi bi-people"></i> All Users
+    </a>
+    <a class="nav-item" href="#" onclick="openAddUserModal()">
+        <i class="bi bi-person-plus"></i> Add New User
+    </a>
+    <a class="nav-item" href="BannedUsersForm.php">
+        <i class="bi bi-slash-circle"></i> Banned Users
+    </a>
+
+    <div class="nav-section-label">System</div>
+    <a class="nav-item" href="#" onclick="showInfo('Reports Overview')">
+        <i class="bi bi-file-earmark-bar-graph"></i> Reports Overview
+    </a>
+    <a class="nav-item" href="#" onclick="showInfo('System Logs')">
+        <i class="bi bi-journal-text"></i> System Logs
+    </a>
+    <a class="nav-item" href="#" onclick="showInfo('Settings')">
+        <i class="bi bi-gear"></i> Settings
+    </a>
+
+    <div class="nav-section-label">Account</div>
+    <a class="nav-item" href="#" onclick="showInfo('Notifications')">
+        <i class="bi bi-bell"></i> Notifications
+    </a>
+    <a class="nav-item active admin-active" href="AdminprofileForm.php">
+        <i class="bi bi-people"></i> Profile
+    </a>
+
+    <div class="sidebar-footer">
+        <a class="nav-item" onclick="confirmLogout()"><i class="bi bi-box-arrow-left"></i> Logout</a>
+    </div>
 </nav>
 
-<!-- Topbar -->
+<!-- ══════════════════ TOPBAR ══════════════════ -->
 <header id="topbar">
-  <button id="menu-toggle" onclick="toggleSidebar()">
-    <i class="bi bi-list"></i>
-  </button>
-
-  <div class="topbar-title">
-    My <span>Profile</span>
-  </div>
-
-  <div class="user-pill" href="profileForm.php">
-    <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
-    <span class="user-name"><?php echo htmlspecialchars($username); ?></span>
-  </div>
+    <button id="menu-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+    <div class="topbar-title">Admin <span class="admin-accent">Profile</span></div>
+    <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
+        <i class="bi bi-bell"></i>
+        <span class="notif-badge">5</span>
+    </button>
+    <div class="user-pill" onclick="window.location.href='AdminProfileForm.php';">
+        <div class="user-avatar admin-avatar">
+            <?php if (!empty($profilePicFile)): ?>
+                <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            <?php else: ?>
+                <i class="bi bi-person-fill"></i>
+            <?php endif; ?>
+        </div>
+        <span class="user-name">Admin</span>
+        <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
+    </div>
 </header>
 
-<!-- Main content -->
+<!-- ══════════════════ Main content ══════════════════ -->
 <main id="main">
 
 <div class="panel">
     <div class="panel-header justify-content-center flex-column text-center py-4">
-      <div class="profile-avatar-lg mb-3">
-        <i class="bi bi-person-fill"></i>
-      </div>
+
+      <!-- Separate small form just for the picture, so it posts independently
+           of the main profile-details form below -->
+      <form action="Adminprofile.php" method="POST" enctype="multipart/form-data" id="profilePicForm">
+
+          <div class="profile-avatar-lg mb-3 profile-avatar-wrap">
+
+              <?php if (!empty($profilePicFile)): ?>
+                  <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>"
+                       alt="Profile Picture" class="profile-avatar-img">
+              <?php else: ?>
+                  <i class="bi bi-person-fill"></i>
+              <?php endif; ?>
+
+              <!-- Camera overlay, Facebook-style -->
+              <label for="profilePicInput" class="avatar-edit-btn" title="Update profile picture">
+                  <i class="bi bi-camera-fill"></i>
+              </label>
+
+              <input type="file"
+                     name="profile_picture"
+                     id="profilePicInput"
+                     accept="image/png, image/jpeg, image/jpg, image/webp"
+                     hidden>
+          </div>
+
+      </form>
+
       <div class="panel-title justify-content-center">
         <?php echo htmlspecialchars($userRecord['Full_Name']); ?>
       </div>
@@ -211,9 +284,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
 <!-- reuse dashboard.js for toggleSidebar()/confirmLogout(), one level up -->
-<script src="../dashboard.js"></script>
+<script src="Admindashboard.js"></script>
 
-<script src="profile.js"></script>
+<script src="Adminprofile.js"></script>
 
 </body>
 </html>
