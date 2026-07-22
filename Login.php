@@ -34,19 +34,19 @@
                             header("Location: admin/AdmindashboardForm.php");
                             exit();
                         case 2:
-                            header("Location: DMOdashboardForm.php");
+                            header("Location: disasterManagementOfficer/DMOdashboardForm.php");
                             exit();
                         case 3:
-                            header("Location: dashboardForm.php");
+                            header("Location: citizen/CitizendashboardForm.php");
                             exit();
                         case 4:
-                            header("Location: LAOdashboardForm.php");
+                            header("Location: localAuthorityOfficer/LAOdashboardForm.php");
                             exit();
                         case 5:
-                            header("Location: DSdashboardForm.php");
+                            header("Location: districtSecretary/DSdashboardForm.php");
                             exit();
                         case 6:
-                            header("Location: FOdashboardForm.php");
+                            header("Location: financeOfficer/FOdashboardForm.php");
                             exit();
                         default:
                             $_SESSION['message'] = "Invalid user role";

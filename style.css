@@ -550,6 +550,7 @@ footer {
 .purple-av { background-color: #8b5cf6; }
 .amber-av  { background-color: #f59e0b; }
 .rose-av   { background-color: #ef4444; }
+.teal-av   { background-color: #14b8a6; }
 
 /* Interactive filter row styling layout blocks */
 .role-tabs {
@@ -601,7 +602,7 @@ footer {
 
 /* Status Labels & Badges Mapping */
 .badge-approved { background-color: #d1fae5; color: #065f46; border-radius: 6px; padding: 4px 8px; }
-.badge-pending  { background-color: #fef3c7; color: #92400e; border-radius: 6px; padding: 4px 8px; }
+.badge-rejected  { background-color: #fef3c7; color: #920e0e; border-radius: 6px; padding: 4px 8px; }
 
 /* Role Badges Pills inside Data Matrix Columns */
 .role-pill {
@@ -611,10 +612,13 @@ footer {
     border-radius: 20px;
     display: inline-block;
 }
-.role-pill.citizen { background: #eff6ff; color: #1e40af; }
-.role-pill.la      { background: #ecfdf5; color: #065f46; }
-.role-pill.dmo     { background: #f5f3ff; color: #5b21b6; }
-.role-pill.fin     { background: #fff1f2; color: #9f1239; }
+
+.role-pill.citizen {background: #eff6ff; color: #1e40af;}
+.role-pill.lao {background: #ecfdf5; color: #065f46;}
+.role-pill.dmo {background: #f5f3ff; color: #5b21b6;}
+.role-pill.finance {background: #fff7ed; color: #c2410c;}
+.role-pill.ds {background: #fef2f2; color: #b91c1c;}
+.role-pill.admin {background: #f8fafc; color: #334155;}
 
 /* Footer Copyright Configuration */
 footer {

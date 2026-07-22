@@ -75,7 +75,65 @@ class DisasterReport
             return false;
         }
     }
-}
 
+    //////////////// Total Reports
+    public function getTotalReports($con)
+    {
+        try
+        {
+            $query = "SELECT COUNT(*) AS TotalReports FROM disaster_report";
+
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_assoc($result);
+
+            return (int)$row['TotalReports'];
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+            return false;
+        }
+    }
+
+
+    ////////////// Monthly report count
+    public function getMonthlyReportActivity($con)
+    {
+        try
+        {
+            $query = "SELECT MONTH(Report_Date) AS MonthNumber,
+                            COUNT(*) AS TotalReports
+                    FROM disaster_report
+                    WHERE YEAR(Report_Date) = YEAR(CURDATE())
+                    GROUP BY MONTH(Report_Date)
+                    ORDER BY MONTH(Report_Date)";
+
+            $stmt = mysqli_prepare($con, $query);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            $monthlyData = array_fill(0, 12, 0);
+
+            while($row = mysqli_fetch_assoc($result))
+            {
+                $monthIndex = $row['MonthNumber'] - 1;
+                $monthlyData[$monthIndex] = (int)$row['TotalReports'];
+            }
+
+            return $monthlyData;
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+            return false;
+        }        
+
+    }
+
+}
 
 ?>

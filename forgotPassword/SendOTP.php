@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-include 'DBconnection.php';
+include '../DBconnection.php';
 
-require 'src/Exception.php';
-require 'src/PHPMailer.php';
-require 'src/SMTP.php';
+require '../src/Exception.php';
+require '../src/PHPMailer.php';
+require '../src/SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

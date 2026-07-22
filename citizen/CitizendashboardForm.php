@@ -1,7 +1,7 @@
 <?php
     session_start();
-    include 'userData.php';
-    include 'DBconnection.php';
+    include '../userData.php';
+    include '../DBconnection.php';
 
 
     // 1. get Summary Counts
@@ -117,14 +117,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link href="style.css" rel="stylesheet" />
+  <link href="../style.css" rel="stylesheet">
 </head>
 <body>
 
 <!-- Navigation Sidebar -->
 <nav id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon"><img src="pictures/Post-Disaster-Reporting-Logo-Notxt.png" alt="Logo"></div>
+    <div class="brand-icon">
+        <img src="../pictures/Post-Disaster-Reporting-Logo-Notxt.png" alt="Logo">
+    </div>
     <div>
       <div class="brand-title">Post-Disaster</div>
       <div class="brand-sub">Reporting System</div>
@@ -151,7 +153,7 @@
   <a class="nav-item active" href="#">
     <i class="bi bi-speedometer2"></i> Dashboard
   </a>
-  <a class="nav-item" href="profile/profileForm.php">
+  <a class="nav-item" href="profileForm.php">
     <i class="bi bi-person"></i> Profile
   </a>
   <a class="nav-item" onclick="showInfo('Settings')">
@@ -180,7 +182,7 @@
     <span class="notif-badge">3</span>
   </button>
 
-  <a class="nav-item" href="profile/profileForm.php">
+  <a class="nav-item" href="profileForm.php">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
     <span class="user-name"><?php echo htmlspecialchars($username ?? 'User'); ?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
@@ -440,7 +442,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
-<script src="dashboard.js"></script>
+<script src="Citizendashboard.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

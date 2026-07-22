@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'DBconnection.php';
+include '../DBconnection.php';
 
 if (!isset($_SESSION['otp_verified']) || !isset($_SESSION['reset_user_id']))
 {
@@ -65,7 +65,7 @@ if (!isset($_SESSION['otp_verified']) || !isset($_SESSION['reset_user_id']))
                 $_SESSION['message'] = "Password Reset Successful";
                 $_SESSION['icon'] = "success";
 
-                header("Location: LoginForm.php");
+                header("Location: ../LoginForm.php");
                 exit();
             }
             else
