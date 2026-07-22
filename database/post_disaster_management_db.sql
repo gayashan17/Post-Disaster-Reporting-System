@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2026 at 03:00 PM
+-- Generation Time: Jul 22, 2026 at 03:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -77,7 +77,9 @@ INSERT INTO `citizen` (`User_ID`, `Beneficiary_Name`, `Beneficiary_Bank`, `Benef
 (41, '', '', ''),
 (42, '', '', ''),
 (43, '', '', ''),
-(44, '', '', '');
+(44, '', '', ''),
+(45, '', '', ''),
+(46, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -118,7 +120,14 @@ CREATE TABLE `death_record` (
 INSERT INTO `death_record` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Cause_Of_Death`) VALUES
 (35, '', 0, 'default', ''),
 (42, '', 0, 'default', ''),
-(43, '', 0, 'default', '');
+(43, '', 0, 'default', ''),
+(50, '', 0, 'default', ''),
+(53, '', 0, 'default', ''),
+(54, '', 0, 'default', ''),
+(55, '', 0, 'default', ''),
+(56, '', 0, 'default', ''),
+(57, '', 0, 'default', ''),
+(58, '', 0, 'default', '');
 
 -- --------------------------------------------------------
 
@@ -168,7 +177,19 @@ INSERT INTO `disaster_report` (`Report_ID`, `User_ID`, `Disaster_Type_ID`, `Repo
 (43, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 02:48:38'),
 (44, 32, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-19 02:58:39'),
 (45, 32, 28, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 03:02:23'),
-(46, 32, 23, 'Property Damage', 'Submitted', 'Galle', NULL, 'asdfghj', 'uytfds', '2026-07-19 07:27:02');
+(46, 32, 23, 'Property Damage', 'Submitted', 'Galle', NULL, 'asdfghj', 'uytfds', '2026-07-19 07:27:02'),
+(47, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:02:51'),
+(48, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:05:01'),
+(49, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:22:29'),
+(50, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-21 19:59:50'),
+(51, 32, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-21 20:00:06'),
+(52, 32, 28, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-21 20:00:32'),
+(53, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:22:52'),
+(54, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:29:36'),
+(55, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:39:46'),
+(56, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:40:05'),
+(57, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:40:43'),
+(58, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 19:09:30');
 
 -- --------------------------------------------------------
 
@@ -597,7 +618,19 @@ INSERT INTO `evidence_file_and_photos` (`File_ID`, `Report_ID`, `File_Name`, `Fi
 (19, 43, '32_6a5bedaed4861_9074a68f86e0f006a9ec7183530e66c0.jpg', 'image/jpeg', '../uploads/evidence/ReportID_43/32_6a5bedaed4861_9074a68f86e0f006a9ec7183530e66c0.jpg', '2026-07-18 21:18:38'),
 (20, 44, '32_6a5bf00784771_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_44/32_6a5bf00784771_videoframe_4502.png', '2026-07-18 21:28:39'),
 (21, 45, '32_6a5bf0e7c98fc_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_45/32_6a5bf0e7c98fc_videoframe_4502.png', '2026-07-18 21:32:23'),
-(22, 46, '32_6a5c2eee7a0b3_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_46/32_6a5c2eee7a0b3_1689416305401.jpg', '2026-07-19 01:57:02');
+(22, 46, '32_6a5c2eee7a0b3_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_46/32_6a5c2eee7a0b3_1689416305401.jpg', '2026-07-19 01:57:02'),
+(23, 47, '32_6a5f58e30912f_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_47/32_6a5f58e30912f_1689416305401.jpg', '2026-07-21 11:32:51'),
+(24, 48, '32_6a5f59650e4da_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_48/32_6a5f59650e4da_1689416305401.jpg', '2026-07-21 11:35:01'),
+(25, 49, '32_6a5f5d7da5ba8_9074a68f86e0f006a9ec7183530e66c0.jpg', 'image/jpeg', '../uploads/evidence/ReportID_49/32_6a5f5d7da5ba8_9074a68f86e0f006a9ec7183530e66c0.jpg', '2026-07-21 11:52:29'),
+(26, 50, '32_6a5f825e5a568_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_50/32_6a5f825e5a568_1689416305401.jpg', '2026-07-21 14:29:50'),
+(27, 51, '32_6a5f826e84385_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_51/32_6a5f826e84385_videoframe_4502.png', '2026-07-21 14:30:06'),
+(28, 52, '32_6a5f82884f54f_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_52/32_6a5f82884f54f_1689416305401.jpg', '2026-07-21 14:30:32'),
+(29, 53, '32_6a60a104327c8_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_53/32_6a60a104327c8_1689416305401.jpg', '2026-07-22 10:52:52'),
+(30, 54, '32_6a60a29853457_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_54/32_6a60a29853457_videoframe_4502.png', '2026-07-22 10:59:36'),
+(31, 55, '32_6a60a4fa1b3a6_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_55/32_6a60a4fa1b3a6_videoframe_4502.png', '2026-07-22 11:09:46'),
+(32, 56, '32_6a60a50d2e916_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_56/32_6a60a50d2e916_videoframe_4502.png', '2026-07-22 11:10:05'),
+(33, 57, '32_6a60a533401af_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_57/32_6a60a533401af_videoframe_4502.png', '2026-07-22 11:10:43'),
+(34, 58, '32_6a60c8128fe56_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_58/32_6a60c8128fe56_1689416305401.jpg', '2026-07-22 13:39:30');
 
 -- --------------------------------------------------------
 
@@ -633,7 +666,8 @@ CREATE TABLE `injured_person` (
 
 INSERT INTO `injured_person` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Injured_Level`) VALUES
 (37, '', 0, 'default', 'Moderate'),
-(44, '', 0, 'default', '');
+(44, '', 0, 'default', ''),
+(51, '', 0, 'default', '');
 
 -- --------------------------------------------------------
 
@@ -644,7 +678,8 @@ INSERT INTO `injured_person` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Injure
 CREATE TABLE `local_authority_officer` (
   `User_ID` int(11) NOT NULL,
   `Local_Officer_ID` varchar(20) DEFAULT NULL,
-  `Position` varchar(100) DEFAULT NULL
+  `Position` varchar(100) DEFAULT NULL,
+  `Assigned_divisional_secretariat` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -671,7 +706,8 @@ CREATE TABLE `missing_person_record` (
 
 INSERT INTO `missing_person_record` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Last_Seen_Location`, `Last_Seen_Date`, `Last_Seen_Time`, `Status`, `Relationship_to_Person`) VALUES
 (36, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, ''),
-(45, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, '');
+(45, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, ''),
+(52, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -705,7 +741,8 @@ INSERT INTO `password_reset_otp` (`otp_id`, `user_id`, `otp_code`, `expiry_time`
 (10, 6, '832972', '2026-07-07 02:19:03', 0, '2026-07-07 00:14:03'),
 (11, 6, '677207', '2026-07-08 03:49:15', 1, '2026-07-08 01:44:15'),
 (12, 6, '198329', '2026-07-16 03:11:08', 1, '2026-07-16 01:06:08'),
-(13, 6, '830909', '2026-07-16 06:13:52', 1, '2026-07-16 04:08:52');
+(13, 6, '830909', '2026-07-16 06:13:52', 1, '2026-07-16 04:08:52'),
+(14, 6, '908020', '2026-07-22 14:29:30', 1, '2026-07-22 12:24:30');
 
 -- --------------------------------------------------------
 
@@ -732,7 +769,10 @@ INSERT INTO `property_damage` (`Report_ID`, `Property_Type`, `Damage_Level`, `Da
 (39, 'default', '', '', 0.00, NULL, NULL),
 (40, 'default', '', '', 0.00, NULL, NULL),
 (41, 'default', '', '', 0.00, NULL, NULL),
-(46, 'rHouse', 'Moderate', '', 231332.00, 6.04043514, 80.22849507);
+(46, 'rHouse', 'Moderate', '', 231332.00, 6.04043514, 80.22849507),
+(47, 'default', '', '', 0.00, 0.00000000, 0.00000000),
+(48, 'default', '', '', 0.00, 0.00000000, 0.00000000),
+(49, 'default', '', '', 0.00, 0.00000000, 0.00000000);
 
 -- --------------------------------------------------------
 
@@ -773,37 +813,41 @@ CREATE TABLE `users` (
   `Email` varchar(100) NOT NULL,
   `Phone_Number` varchar(20) DEFAULT NULL,
   `Address` varchar(255) DEFAULT NULL,
-  `Role_ID` int(11) NOT NULL
+  `Role_ID` int(11) NOT NULL,
+  `User_Status` enum('Active','Banned') NOT NULL DEFAULT 'Active',
+  `Created_Date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `NIC`, `Email`, `Phone_Number`, `Address`, `Role_ID`) VALUES
-(6, 'Admin', '$2y$10$DercPFLL6Y1sQGuLKTEILuuy90xVMhxtJJBUSP2z0rpmPRviGr4Qe', 'Malisha Madhusith', 'Male', '200304811656', 'malishashadowflame99@gmail.com', '0766511220', 'Galle', 1),
-(9, 'MM@17', '$2y$10$vCXQHNooJBiH4qvxsOyMaemZIfsl7xxxv4paYtPrLIE/WPPiw7zfe', 'Malisha Madhusith', 'Male', '200304811656', 'malisha99@gmail.com', '0766511220', 'Malavigewatta,', 1),
-(11, 'ABC', '$2y$10$FIITcBMLwPFDQeNkCIhSye8s6oyA39XImPvOrU9VbHW8BUNcMgNIW', 'abc', 'Male', '200304811655', 'malishashado@gmail.com', '0766511220', 'galle', 3),
-(14, 'as', '$2y$10$YENTnCSD27sazAzT7SftUuANVsgEcpE7zTSYUdrO9cU/dl4AgOoqG', 'as', '', '', '', '', '', 3),
-(19, 'Kasun@123', '$2y$10$L9.Ml8AbgFQUbhhUauwYxOOhysxbK2iz63akTE3X9XCPTeGYlFXde', 'Kasun Dananjaya', 'Male', '200304811656', 'AAAAA@gmail.com', '0766511220', 'Colombo', 3),
-(20, 'Madu@123', '$2y$10$Afuvp17dwAB1EK3V/DDR0OhQEC1NdEk.aNLZbiEnL8SXNhDx6X1im', 'Madushi Kalansoooriya', 'Female', '200304811656', 'AAA@gmail.com', '0766511220', 'Colombo', 3),
-(21, 'ASD123', '$2y$10$Cjk7CsqrShTnnsabPAB1g.cgMx0VawPWikzlKf8RxZr/rRGKLTsA2', 'Asanka Sampath Dananjaya', 'Male', '200304568596', 'AsankaSD@gmail.com', '0778899665', 'Kurunegala', 3),
-(22, 'charin', '$2y$10$jwJxmkgI9BBLns5BXJMnd.uDSbforiJCCQ3QIfuUj0tCtcbFrYf4y', 'charindu gayashan', 'Male', '200512700610', 'charindu@gmail.com', '0762352086', 'galle', 3),
-(26, 'charindu', '$2y$10$TxVu6.HZBGZNYJr9.N4wAOFGpSAVdgZZaznXeaUZJvs9F.5Vze6Eq', 'Charindu Gayashan', 'Male', '200512700610', 'charindugayashan00@gmail.com', '0762352086', 'galle', 3),
-(27, 'AAA', '$2y$10$zr22onqR0GJAgs.y2M5z5.5mk3nhPKqK0p9O7mC9qbXKBio4qDBsW', 'AAA', 'Male', '200304811654', 'asda@gmail.com', '0766511223', 'Galle', 3),
-(28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 3),
-(29, 'LOF', '$2y$10$cdD18ckAbSJDasQ7WTUF0eEwdkBj8U29XI2K9.uuwG4EYZKR6jBPO', 'Local Authority Officer', 'Male', '200546568956', 'LOF@gmail.com', '0456633221', 'Galle', 4),
-(30, 'DMO', '$2y$10$sYlC/BotKLirMNOTkiVLIOtc9wJz67I4FYFbibhhB1q7BAqyPg1hy', 'Disaster Managment Officer', 'Male', '200563254123', 'DMO@gmail.com', '0766588552', 'Galle', 3),
-(31, 'FO', '$2y$10$OIWerh3Mt2DpNoJO.aYEQuGI2nwVDFywXcNVwmpDzz48w3PD/WwZS', 'Financial Officer', 'Male', '200345889966', 'FO@gmail.com', '0766544882', 'Galle', 3),
-(32, 'CT', '$2y$10$vXZ5gdY3pgKurzULxMmLH.m3Tanh13Ll1XnXfatDSb8Wn8obxLwnK', 'Citizen', 'Male', '200304589966', 'CT@gmail.com', '0755899667', 'Galle', 3),
-(34, 'adcas', '$2y$10$4A2YTBjhGrz.s.LLY.PU2uIfNRu9ZlipvWtojggYjpGdNsRg6stAu', 'ascasc', 'Male', '200304556633', 'aoudhaisoasiai@gmail.com', '0758966332', 'ascasc', 3),
-(36, 'asdaad', '$2y$10$WjiVr5a9sARcFBghKR130ea7g3lLDyDAE7JUKzCbTrHPOacZVa28G', 'asdad', 'Male', '200356889977', 'aoudasoasiai@gmail.com', '0758966337', 'asasasa', 3),
-(37, 'asda', '$2y$10$yxttHGmScCxZIiB5f1US0OriqVaAe8AK6TAApSmBSfwV52DYGPd16', 'asdads', 'Male', '200304556633', 'asqwqqasda@gmail.com', '0777777777', 'acasc', 3),
-(38, 'asdada', '$2y$10$/w/u3M1o/VT0Ag050oYzbuyKAC18Wb9WLNtNAw7hFLi.SLhKavUpW', 'sdasdasd', 'Male', '200304556633', 'CT@gmail.coma', '0000000000', 'acasc', 3),
-(41, 'dw', '$2y$10$rH8XAnaBuzB9ApmV5PGUSO30zRNAZOWTVVEl8olYbwfRVYDelVR4m', 'Malisha Madhusith', 'Female', '200304811693', 'malishamadhusith72@gmail.coma', '0766511220', 'asasasa', 3),
-(42, 'dasd', '$2y$10$N2gRi1mjBpWOncB0.tGyYeVFldvBFNzyRmhNJ10iiRumjPzROoAsS', 'asdsa', 'Male', '200304811693', 'malisashamadhusith72@gmail.com', '0766511220', 'asasasa', 3),
-(43, 'j65', '$2y$10$Q5fiidYslGFDjL1c5ptFWuPSpUlgva2BDh0.xyvo25bkbWZqaSGAq', 'Malisha Madhusith', 'Male', '200304811693', 'maishamadhusith72@gmail.com', '0766511220', 'asasasa', 3),
-(44, 'ugytd', '$2y$10$ALmPYyT2eoKwIKi.oyu1cO3xkxq3Pnr4ffXLmaMpeY6RiUG0zQNMC', 'asdsaasdasdasdaasdadsadadadaad', 'Male', '200304811693', 'malishusith72@gmail.com', '0766511220', 'asasasa', 3);
+INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `NIC`, `Email`, `Phone_Number`, `Address`, `Role_ID`, `User_Status`, `Created_Date`) VALUES
+(6, 'Admin', '$2y$10$wYr7YpeuBI7bFXltOqi2CuzNgYRJUDfcO4dH/5/17o08xlSJznxKy', 'Malisha Madhusith', 'Male', '200304811656', 'malishashadowflame99@gmail.com', '0766511220', 'Galle', 1, 'Active', '2026-07-22 12:12:34'),
+(9, 'MM@17', '$2y$10$vCXQHNooJBiH4qvxsOyMaemZIfsl7xxxv4paYtPrLIE/WPPiw7zfe', 'Malisha Madhusith', 'Male', '200304811656', 'malisha99@gmail.com', '0766511220', 'Malavigewatta,', 1, 'Active', '2026-07-22 12:12:34'),
+(11, 'ABC', '$2y$10$FIITcBMLwPFDQeNkCIhSye8s6oyA39XImPvOrU9VbHW8BUNcMgNIW', 'abc', 'Male', '200304811655', 'malishashado@gmail.com', '0766511220', 'galle', 3, 'Active', '2026-07-22 12:12:34'),
+(14, 'as', '$2y$10$YENTnCSD27sazAzT7SftUuANVsgEcpE7zTSYUdrO9cU/dl4AgOoqG', 'as', '', '', '', '', '', 3, 'Active', '2026-07-22 12:12:34'),
+(19, 'Kasun@123', '$2y$10$L9.Ml8AbgFQUbhhUauwYxOOhysxbK2iz63akTE3X9XCPTeGYlFXde', 'Kasun Dananjaya', 'Male', '200304811656', 'AAAAA@gmail.com', '0766511220', 'Colombo', 3, 'Active', '2026-07-22 12:12:34'),
+(20, 'Madu@123', '$2y$10$Afuvp17dwAB1EK3V/DDR0OhQEC1NdEk.aNLZbiEnL8SXNhDx6X1im', 'Madushi Kalansoooriya', 'Female', '200304811656', 'AAA@gmail.com', '0766511220', 'Colombo', 3, 'Active', '2026-07-22 12:12:34'),
+(21, 'ASD123', '$2y$10$Cjk7CsqrShTnnsabPAB1g.cgMx0VawPWikzlKf8RxZr/rRGKLTsA2', 'Asanka Sampath Dananjaya', 'Male', '200304568596', 'AsankaSD@gmail.com', '0778899665', 'Kurunegala', 3, 'Active', '2026-07-22 12:12:34'),
+(22, 'charin', '$2y$10$jwJxmkgI9BBLns5BXJMnd.uDSbforiJCCQ3QIfuUj0tCtcbFrYf4y', 'charindu gayashan', 'Male', '200512700610', 'charindu@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34'),
+(26, 'charindu', '$2y$10$TxVu6.HZBGZNYJr9.N4wAOFGpSAVdgZZaznXeaUZJvs9F.5Vze6Eq', 'Charindu Gayashan', 'Male', '200512700610', 'charindugayashan00@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34'),
+(27, 'AAA', '$2y$10$zr22onqR0GJAgs.y2M5z5.5mk3nhPKqK0p9O7mC9qbXKBio4qDBsW', 'AAA', 'Male', '200304811654', 'asda@gmail.com', '0766511223', 'Galle', 3, 'Active', '2026-07-22 12:12:34'),
+(28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 5, 'Active', '2026-07-22 12:12:34'),
+(29, 'LOF', '$2y$10$cdD18ckAbSJDasQ7WTUF0eEwdkBj8U29XI2K9.uuwG4EYZKR6jBPO', 'Local Authority Officer', 'Male', '200546568956', 'LOF@gmail.com', '0456633221', 'Galle', 4, 'Active', '2026-07-22 12:12:34'),
+(30, 'DMO', '$2y$10$sYlC/BotKLirMNOTkiVLIOtc9wJz67I4FYFbibhhB1q7BAqyPg1hy', 'Disaster Managment Officer', 'Male', '200563254123', 'DMO@gmail.com', '0766588552', 'Galle', 2, 'Active', '2026-07-22 12:12:34'),
+(31, 'FO', '$2y$10$OIWerh3Mt2DpNoJO.aYEQuGI2nwVDFywXcNVwmpDzz48w3PD/WwZS', 'Financial Officer', 'Male', '200345889966', 'FO@gmail.com', '0766544882', 'Galle', 6, 'Active', '2026-07-22 12:12:34'),
+(32, 'CT', '$2y$10$vXZ5gdY3pgKurzULxMmLH.m3Tanh13Ll1XnXfatDSb8Wn8obxLwnK', 'Citizen', 'Female', '200304589966', 'CT@gmail.com', '0755899667', 'Colombo', 3, 'Active', '2026-07-22 12:12:34'),
+(34, 'adcas', '$2y$10$4A2YTBjhGrz.s.LLY.PU2uIfNRu9ZlipvWtojggYjpGdNsRg6stAu', 'ascasc', 'Male', '200304556633', 'aoudhaisoasiai@gmail.com', '0758966332', 'ascasc', 3, 'Active', '2026-07-22 12:12:34'),
+(36, 'asdaad', '$2y$10$WjiVr5a9sARcFBghKR130ea7g3lLDyDAE7JUKzCbTrHPOacZVa28G', 'asdad', 'Male', '200356889977', 'aoudasoasiai@gmail.com', '0758966337', 'asasasa', 3, 'Active', '2026-07-22 12:12:34'),
+(37, 'asda', '$2y$10$yxttHGmScCxZIiB5f1US0OriqVaAe8AK6TAApSmBSfwV52DYGPd16', 'asdads', 'Male', '200304556633', 'asqwqqasda@gmail.com', '0777777777', 'acasc', 3, 'Active', '2026-07-22 12:12:34'),
+(38, 'asdada', '$2y$10$/w/u3M1o/VT0Ag050oYzbuyKAC18Wb9WLNtNAw7hFLi.SLhKavUpW', 'sdasdasd', 'Male', '200304556633', 'CT@gmail.coma', '0000000000', 'acasc', 3, 'Active', '2026-07-22 12:12:34'),
+(41, 'dw', '$2y$10$rH8XAnaBuzB9ApmV5PGUSO30zRNAZOWTVVEl8olYbwfRVYDelVR4m', 'Malisha Madhusith', 'Female', '200304811693', 'malishamadhusith72@gmail.coma', '0766511220', 'asasasa', 3, 'Active', '2026-07-22 12:12:34'),
+(42, 'dasd', '$2y$10$N2gRi1mjBpWOncB0.tGyYeVFldvBFNzyRmhNJ10iiRumjPzROoAsS', 'asdsa', 'Male', '200304811693', 'malisashamadhusith72@gmail.com', '0766511220', 'asasasa', 3, 'Active', '2026-07-22 12:12:34'),
+(43, 'j65', '$2y$10$Q5fiidYslGFDjL1c5ptFWuPSpUlgva2BDh0.xyvo25bkbWZqaSGAq', 'Malisha Madhusith', 'Male', '200304811693', 'maishamadhusith72@gmail.com', '0766511220', 'asasasa', 3, 'Banned', '2026-07-22 12:12:34'),
+(44, 'ugytd', '$2y$10$ALmPYyT2eoKwIKi.oyu1cO3xkxq3Pnr4ffXLmaMpeY6RiUG0zQNMC', 'asdsaasdasdasdaasdadsadadadaad', 'Male', '200304811693', 'malishusith72@gmail.com', '0766511220', 'asasasa', 3, 'Banned', '2026-07-22 12:12:34'),
+(45, 'asas', '$2y$10$sBdgJ9tYoMb7yIDyPFyz4uLAvxnmn3xTZ0JEPicTeb5BelLkbGLo6', 'Malisha Madhusith', 'Male', '200304811656', 'malishasamadhkjhusith72@gmail.com', '0777777777', 'asdasd', 5, 'Banned', '2026-07-22 12:12:34'),
+(46, 'asdasd', '$2y$10$HeVGRPS3aLmsiquf.A3crOwhV1Yq90IXxzAqSXaRA7s0kcmqFkUt6', 'Citizen', 'Male', '200304556633', 'Galle@gmail.com', '0777788996', 'Galle', 3, 'Active', '2026-07-22 17:39:25');
 
 -- --------------------------------------------------------
 
@@ -913,7 +957,8 @@ ALTER TABLE `injured_person`
 --
 ALTER TABLE `local_authority_officer`
   ADD PRIMARY KEY (`User_ID`),
-  ADD UNIQUE KEY `Local_Officer_ID` (`Local_Officer_ID`);
+  ADD UNIQUE KEY `Local_Officer_ID` (`Local_Officer_ID`),
+  ADD KEY `fk_local_authority_officer_ds` (`Assigned_divisional_secretariat`);
 
 --
 -- Indexes for table `missing_person_record`
@@ -971,7 +1016,7 @@ ALTER TABLE `compensation_report`
 -- AUTO_INCREMENT for table `disaster_report`
 --
 ALTER TABLE `disaster_report`
-  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `disaster_type`
@@ -989,19 +1034,19 @@ ALTER TABLE `divisional_secretariat`
 -- AUTO_INCREMENT for table `evidence_file_and_photos`
 --
 ALTER TABLE `evidence_file_and_photos`
-  MODIFY `File_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `File_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `password_reset_otp`
 --
 ALTER TABLE `password_reset_otp`
-  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `verification_report`
@@ -1086,6 +1131,7 @@ ALTER TABLE `injured_person`
 -- Constraints for table `local_authority_officer`
 --
 ALTER TABLE `local_authority_officer`
+  ADD CONSTRAINT `fk_local_authority_officer_ds` FOREIGN KEY (`Assigned_divisional_secretariat`) REFERENCES `divisional_secretariat` (`DS_ID`),
   ADD CONSTRAINT `local_authority_officer_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`) ON DELETE CASCADE;
 
 --
