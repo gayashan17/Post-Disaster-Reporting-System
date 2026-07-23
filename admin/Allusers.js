@@ -142,19 +142,37 @@ async function loadUsers() {
                     </span>
                 </td>
 
+
                 <td>
                     <div class="d-flex gap-1">
                         <button class="icon-btn blue"
-                                onclick="viewUser('${user.Full_Name}')"
+                                onclick="viewUser(${user.User_ID})"
                                 title="View">
                             <i class="bi bi-eye"></i>
                         </button>
 
                         <button class="icon-btn blue"
-                                onclick="editUser('${user.Full_Name}')"
+                                onclick="editUser(${user.User_ID})"
                                 title="Edit">
                             <i class="bi bi-pencil"></i>
                         </button>
+
+                        ${user.User_Status === 'Banned'
+                            ? `
+                            <button class="icon-btn green"
+                                    onclick="unbanUser(${user.User_ID})"
+                                    title="Unban">
+                                <i class="bi bi-check-circle"></i>
+                            </button>
+                            `
+                            : `
+                            <button class="icon-btn red"
+                                    onclick="banUser(${user.User_ID})"
+                                    title="Ban">
+                                <i class="bi bi-slash-circle"></i>
+                            </button>
+                            `
+                        }
                     </div>
                 </td>
             `;
@@ -261,4 +279,251 @@ if (typeof viewUser !== 'function') {
             icon: 'info'
         });
     }
+}
+
+///// ban/unban user
+function banUser(userId) {
+    Swal.fire({
+        title: 'Ban User?',
+        text: 'Are you sure you want to ban this user?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc2626',
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            fetch('AllUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `action=updateStatus&user_id=${userId}&status=Banned`
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.success) {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User Banned',
+                        text: 'The user has been banned successfully.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+
+                    // Refresh table
+                    loadUsers();
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+
+                }
+
+            })
+            .catch(error => {
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong.'
+                });
+
+                console.error(error);
+
+            });
+
+        }
+    });
+}
+
+function unbanUser(userId) {
+    Swal.fire({
+        title: 'Unban User?',
+        text: 'Are you sure you want to activate this user again?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#16a34a',
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+
+        if (result.isConfirmed) {
+
+            fetch('AllUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `action=updateStatus&user_id=${userId}&status=Active`
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.success) {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User Activated',
+                        text: 'The user has been activated successfully.'
+                    }).then(() => {
+                        loadUsers();
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+
+                }
+
+            })
+            .catch(error => {
+
+                console.error(error);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong.'
+                });
+
+            });
+
+        }
+
+    });
+}
+
+///////////// View userdata
+
+function viewUser(userId) {
+
+    fetch('AllUser.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=viewUser&user_id=${userId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (!data.success) {
+            Swal.fire('Error', data.message, 'error');
+            return;
+        }
+
+        const u = data.user;
+
+        const photo = u.Profile_Pic
+            ? `../uploads/Profile_Pic/${u.Profile_Pic}`
+            : '../images/default-user.png';
+
+        // Status badge color
+        const statusColors = {
+            'Active': '#16a34a',
+            'Inactive': '#dc2626',
+            'Pending': '#d97706'
+        };
+        const statusColor = statusColors[u.User_Status] || '#6b7280';
+
+        Swal.fire({
+            title: '',
+            width: 650,
+            padding: '2rem',
+            confirmButtonText: 'Close',
+            confirmButtonColor: '#3085d6',
+            html: `
+                <div class="text-center">
+
+                    <img src="${photo}" 
+                         alt="Profile Picture"
+                         style="
+                            width:110px;
+                            height:110px;
+                            border-radius:50%;
+                            object-fit:cover;
+                            border:4px solid #e5e7eb;
+                            box-shadow:0 2px 8px rgba(0,0,0,0.1);
+                         ">
+
+                    <h4 class="mt-3 mb-1">${u.Full_Name}</h4>
+
+                    <div class="text-muted mb-2">
+                        ${u.Role_Name}
+                    </div>
+
+                    <span style="
+                        display:inline-block;
+                        padding:4px 14px;
+                        border-radius:20px;
+                        font-size:12px;
+                        font-weight:600;
+                        color:#fff;
+                        background:${statusColor};
+                        margin-bottom:20px;
+                    ">
+                        ${u.User_Status}
+                    </span>
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:1fr 1fr;
+                        gap:12px 20px;
+                        text-align:left;
+                        margin-top:10px;
+                        border-top:1px solid #e5e7eb;
+                        padding-top:16px;
+                    ">
+                        <div>
+                            <div style="font-size:12px;color:#9ca3af;font-weight:600;">USER ID</div>
+                            <div style="font-size:14px;color:#111827;">${u.User_ID}</div>
+                        </div>
+                        <div>
+                            <div style="font-size:12px;color:#9ca3af;font-weight:600;">USERNAME</div>
+                            <div style="font-size:14px;color:#111827;">${u.Username}</div>
+                        </div>
+                        <div>
+                            <div style="font-size:12px;color:#9ca3af;font-weight:600;">NIC</div>
+                            <div style="font-size:14px;color:#111827;">${u.NIC}</div>
+                        </div>
+                        <div>
+                            <div style="font-size:12px;color:#9ca3af;font-weight:600;">PHONE</div>
+                            <div style="font-size:14px;color:#111827;">${u.Phone_Number}</div>
+                        </div>
+                        <div>
+                            <div style="font-size:12px;color:#9ca3af;font-weight:600;">EMAIL</div>
+                            <div style="font-size:14px;color:#111827;word-break:break-word;">${u.Email}</div>
+                        </div>
+                        <div style="grid-column:1 / -1;">
+                            <div style="font-size:12px;color:#9ca3af;font-weight:600;">ADDRESS</div>
+                            <div style="font-size:14px;color:#111827;">${u.Address}</div>
+                        </div>
+                    </div>
+
+                </div>
+            `
+        });
+
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire(
+            'Error',
+            'Something went wrong while loading user details.',
+            'error'
+        );
+    });
 }

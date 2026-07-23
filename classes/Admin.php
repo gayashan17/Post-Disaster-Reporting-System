@@ -114,6 +114,99 @@ class Admin extends User
     }
 
 
+    /////////// Update user status
+
+    public function updateUserStatus($userId, $status)
+    {
+        try {
+
+            include '../DBconnection.php';
+
+            $sql = "UPDATE users
+                    SET User_Status = ?
+                    WHERE User_ID = ?";
+
+            $stmt = mysqli_prepare($con, $sql);
+
+            mysqli_stmt_bind_param(
+                $stmt,
+                "si",
+                $status,
+                $userId
+            );
+
+            if (!mysqli_stmt_execute($stmt)) {
+                throw new Exception("Failed to update status.");
+            }
+
+            return [
+                "success" => true,
+                "message" => "Status updated successfully."
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "success" => false,
+                "message" => $e->getMessage()
+            ];
+
+        } finally {
+
+            if (isset($stmt)) {
+                mysqli_stmt_close($stmt);
+            }
+
+            if (isset($con)) {
+                mysqli_close($con);
+            }
+        }
+    }
+
+        /////get one User data
+
+    public function getUserById($userId)
+    {
+        try {
+
+            include '../DBconnection.php';
+
+            $sql = "SELECT
+                        u.*,
+                        r.Role_Name
+                    FROM users u
+                    INNER JOIN roles r
+                        ON u.Role_ID = r.Role_ID
+                    WHERE u.User_ID = ?";
+
+            $stmt = mysqli_prepare($con, $sql);
+
+            mysqli_stmt_bind_param($stmt, "i", $userId);
+
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            $user = mysqli_fetch_assoc($result);
+
+            $user['Profile_Pic'] =
+                $this->getUserProfilePicture($userId);
+
+            return [
+                "success" => true,
+                "user" => $user
+            ];
+
+        } catch (Exception $e) {
+
+            return [
+                "success" => false,
+                "message" => $e->getMessage()
+            ];
+        }
+    }
+
+    
 }
 
 ?>
