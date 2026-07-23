@@ -79,7 +79,23 @@
                             <option value="Vavuniya">Vavuniya</option>
                         </select>
                     </div>
+                    
+                        <label class="text-muted fw-bold" for="ds-input">
+                            Divisional Secretariat
+                        </label>
 
+                        <div class="input-group mb-4">
+                            <select
+                                id="ds-input"
+                                name="ds-input"
+                                class="form-select text-muted"
+                                required
+                                disabled
+                            >
+                                <option value="">Select District First</option>
+                            </select>
+                        </div>
+                        
                     <label class="text-muted fw-bold" for="stAdd-input">Street Address</label>
                     <div class="form-group mb-4">
                         <textarea class="form-control" id="stAdd-input" name="stAdd-input" rows="4" placeholder="Write Street address of the disaster location"></textarea>

@@ -9,6 +9,161 @@ const fileInput = document.getElementById("report-attachments");
 const previewContainer = document.getElementById("preview-container");
 const form = document.getElementById("dReportForm");
 
+// ===========================
+// District → Divisional Secretariat
+// Shared by All Report Types
+// ===========================
+
+const districtInput = document.getElementById("district-input");
+const dsInput = document.getElementById("ds-input");
+
+if (districtInput && dsInput)
+{
+    districtInput.addEventListener("change", function () {
+
+        const district = this.value;
+
+        // Reset DS dropdown
+        dsInput.innerHTML =
+            '<option value="">Select Divisional Secretariat</option>';
+
+        if (!district || district === "default")
+        {
+            dsInput.disabled = true;
+
+            dsInput.innerHTML =
+                '<option value="">Select District First</option>';
+
+            return;
+        }
+
+        // Determine backend file
+        let backendFile = "";
+
+        switch (reportType)
+        {
+            case "prDmg":
+                backendFile = "disasterReportDmg.php";
+                break;
+
+            case "death":
+                backendFile = "disasterReportDeath.php";
+                break;
+
+            case "inj":
+                backendFile = "disasterReportInj.php";
+                break;
+
+            case "missing":
+                backendFile = "disasterReportMissing.php";
+                break;
+
+            default:
+                console.error("Invalid report type.");
+                return;
+        }
+
+        // Show loading
+        dsInput.disabled = true;
+
+        dsInput.innerHTML =
+            '<option value="">Loading...</option>';
+
+
+        fetch(backendFile, {
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/x-www-form-urlencoded"
+            },
+
+            body:
+                "action=getDSByDistrict&district=" +
+                encodeURIComponent(district)
+        })
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            console.log("DS Response:", data);
+
+            dsInput.innerHTML =
+                '<option value="">Select Divisional Secretariat</option>';
+
+
+            if (!data.success)
+            {
+                Swal.fire({
+                    icon: "error",
+                    title: "Failed to Load",
+                    text: data.message ||
+                        "Unable to load Divisional Secretariats."
+                });
+
+                dsInput.disabled = true;
+
+                return;
+            }
+
+
+            if (data.data.length === 0)
+            {
+                dsInput.innerHTML =
+                    '<option value="">No Divisional Secretariat Found</option>';
+
+                dsInput.disabled = true;
+
+                return;
+            }
+
+
+            // Add DS records
+            data.data.forEach(ds => {
+
+                const option =
+                    document.createElement("option");
+
+                // Value stored in database
+                option.value = ds.DS_ID;
+
+                // Displayed to user
+                option.textContent = ds.DS_Name;
+
+                dsInput.appendChild(option);
+
+            });
+
+
+            dsInput.disabled = false;
+
+        })
+
+        .catch(error => {
+
+            console.error(
+                "DS Loading Error:",
+                error
+            );
+
+            dsInput.innerHTML =
+                '<option value="">Failed to Load</option>';
+
+            dsInput.disabled = true;
+
+            Swal.fire({
+                icon: "error",
+                title: "Connection Error",
+                text: "Unable to load Divisional Secretariats."
+            });
+
+        });
+
+    });
+}
+
+
 // Allowed types
 const validImageTypes = ["image/jpeg","image/png","image/gif","image/webp"];
 

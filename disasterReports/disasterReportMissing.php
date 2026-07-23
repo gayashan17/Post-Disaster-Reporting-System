@@ -5,7 +5,50 @@
     include '../userData.php';
     include '../DBconnection.php';
 
-    $district = $_POST['district-input'];
+// ================================================================
+// LOAD DIVISIONAL SECRETARIATS BY DISTRICT
+// ================================================================
+
+if (isset($_POST['action']) && $_POST['action'] === 'getDSByDistrict')
+{
+    header('Content-Type: application/json');
+
+    try
+    {
+        $district = $_POST['district'] ?? '';
+
+        if (empty($district))
+        {
+            throw new Exception("District is required.");
+        }
+
+        $report = new DisasterReport();
+
+        $dsList = $report->getDSByDistrict($con, $district);
+
+        echo json_encode([
+            "success" => true,
+            "data" => $dsList
+        ]);
+    }
+    catch (Exception $e)
+    {
+        echo json_encode([
+            "success" => false,
+            "message" => $e->getMessage()
+        ]);
+    }
+
+    exit;
+}
+
+
+// ================================================================
+// GET FORM DATA
+// ================================================================
+
+    $district = $_POST['district-input'] ?? '';
+    $DS_ID = $_POST['ds-input'] ?? '';
     $streetAddress = $_POST['stAdd-input'];
     $disasterDate = $_POST['date-input'];
     $desc = $_POST['prReportDesc-input'];
@@ -58,6 +101,7 @@
             $report->setDisasterTypeID($disasterTypeId);
             $report->setReportType($reportType);
             $report->setDistrict($district);
+            $report->setDS_ID($DS_ID);
             $report->setStreetAddress($streetAddress);
             $report->setDescription($desc);
 

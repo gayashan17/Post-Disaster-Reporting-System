@@ -3,10 +3,54 @@
     require_once '../classes/PropertyDamage.php';
     require_once '../classes/EvidenceFile.php';
     require_once '../classes/Notification.php';
+
     include '../userData.php';
     include '../DBconnection.php';
 
-    $district = $_POST['district-input'];
+// ================================================================
+// LOAD DIVISIONAL SECRETARIATS BY DISTRICT
+// ================================================================
+
+if (isset($_POST['action']) && $_POST['action'] === 'getDSByDistrict')
+{
+    header('Content-Type: application/json');
+
+    try
+    {
+        $district = $_POST['district'] ?? '';
+
+        if (empty($district))
+        {
+            throw new Exception("District is required.");
+        }
+
+        $report = new DisasterReport();
+
+        $dsList = $report->getDSByDistrict($con, $district);
+
+        echo json_encode([
+            "success" => true,
+            "data" => $dsList
+        ]);
+    }
+    catch (Exception $e)
+    {
+        echo json_encode([
+            "success" => false,
+            "message" => $e->getMessage()
+        ]);
+    }
+
+    exit;
+}
+
+
+// ================================================================
+// GET FORM DATA
+// ================================================================
+
+    $district = $_POST['district-input'] ?? '';
+    $DS_ID = $_POST['ds-input'] ?? '';
     $streetAddress = $_POST['stAdd-input'];
     $desc = $_POST['prReportDesc-input'];
 
@@ -56,9 +100,9 @@
             $report->setUserId($userId);
             $report->setDisasterTypeId($disasterTypeId);
             $report->setDistrict($_POST['district-input']);
+            $report->setDS_ID($DS_ID);
             $report->setStreetAddress($_POST['stAdd-input']);
             $report->setDescription($_POST['prReportDesc-input']);
-            $report->setReportType("Property Damage");
 
             // Child class data
             $report->setPropertyType($_POST['prType-input']);
@@ -78,7 +122,7 @@
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
 
-            Notification::createNotification($con,$userId,$reportId,"New Report Requires Verification","A new property damage report has been submitted and requires authenticity verification.","Report Submitted");
+
             echo "success";
         }
         catch(Exception $e)
