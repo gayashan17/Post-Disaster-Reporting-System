@@ -71,6 +71,45 @@ class Citizen extends User
 
     }
 
+    //// full citizen data add
+
+    public function addFullCitizen($con)
+    {
+        try
+        {
+            $query = "INSERT INTO citizen 
+                        (User_ID, Beneficiary_Name, Beneficiary_Bank, Beneficiary_Bank_Account_No)
+                    VALUES (?, ?, ?, ?)";
+
+            $stmt = mysqli_prepare($con, $query);
+
+            if (!$stmt)
+            {
+                throw new Exception("Failed to prepare statement: " . mysqli_error($con));
+            }
+
+            mysqli_stmt_bind_param(
+                $stmt,
+                "isss",
+                $this->userID,
+                $this->beneficiaryName,
+                $this->beneficiaryBank,
+                $this->beneficiaryBankAccountNo
+            );
+
+            $result = mysqli_stmt_execute($stmt);
+
+            mysqli_stmt_close($stmt);
+
+            return $result;
+        }
+        catch(Exception $e)
+        {
+            throw new Exception("Failed to add citizen: " . $e->getMessage());
+        }
+    }
+
+
     ///// Insert Users bank details to Citizen table
 
     public function updateBankDetails($con)

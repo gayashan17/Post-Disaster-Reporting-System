@@ -58,11 +58,8 @@
     <a class="nav-item active admin-active" href="AllUsersForm.php">
         <i class="bi bi-people"></i> All Users
     </a>
-    <a class="nav-item" href="#" onclick="openAddUserModal()">
+    <a class="nav-item" href="#" onclick="addUser()">
         <i class="bi bi-person-plus"></i> Add New User
-    </a>
-    <a class="nav-item" href="BannedUsersForm.php">
-        <i class="bi bi-slash-circle"></i> Banned Users
     </a>
 
     <div class="nav-section-label">System</div>
@@ -118,7 +115,7 @@
             <h5 class="fw-700 mb-0">All Users</h5>
             <div class="text-muted" style="font-size:13px">Manage every registered user in the system</div>
         </div>
-        <button class="btn admin-btn-primary rounded-3 px-4" onclick="openAddUserModal()">
+        <button class="btn admin-btn-primary rounded-3 px-4" onclick="addUser()">
             <i class="bi bi-person-plus me-2"></i>Add New User
         </button>
     </div>

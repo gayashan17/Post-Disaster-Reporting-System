@@ -156,3 +156,30 @@ document.addEventListener('DOMContentLoaded', function () {
     window.history.replaceState({}, document.title, window.location.pathname);
   }
 });
+
+function addUser() 
+{
+  Swal.fire({
+    title: 'New User',
+    text: 'Select User Role To Create a new Account',
+    input: 'select',
+    inputOptions: {
+      'citizen': 'Citizen',
+      'admin': 'Admin',
+      'lao': 'Local Authority Officer',
+      'dmo':'Disaster Management Officer',
+      'ds':'District Secretary',
+      'fo':'Financial Officer'
+    },
+    showCancelButton: true,
+    confirmButtonColor: '#2563eb',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Okay'
+  }).then((result) => {
+    if(result.isConfirmed)
+    {
+        let selectedType = result.value;
+        window.location.href = "AdminAddUserForm.php?type=" + selectedType;
+    }
+  });
+}
