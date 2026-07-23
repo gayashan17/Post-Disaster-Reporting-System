@@ -2,6 +2,7 @@
     require_once '../classes/DisasterReport.php';
     require_once '../classes/DeathRecord.php';
     require_once '../classes/EvidenceFile.php';
+    require_once '../classes/Notification.php';
     include '../userData.php';
     include '../DBconnection.php';
 
@@ -57,6 +58,9 @@
             $report->setStreetAddress($streetAddress);
             $report->setDescription($desc);
 
+            $DSID = DisasterReport :: getDivisionalSecretariat($con,$district);
+            $report->setDSID($DSID);
+
             // Child Class Data
             $report->setFullName($dName);
             $report->setAge($dAge);
@@ -72,6 +76,14 @@
             // Upload Evidence Files
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
+
+
+
+            Notification :: createLAONotification(
+            $con,$DSID,$reportId,
+            "New Death Report",
+            "A new Death Report has been submitted for your Divisional Secretariat and requires review.",
+            "Report Submitted");
 
             echo "success";
         }

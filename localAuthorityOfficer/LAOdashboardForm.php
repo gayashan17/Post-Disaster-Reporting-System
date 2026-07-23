@@ -1,7 +1,5 @@
 <?php
-    session_start();
-    include '../userData.php';
-    include '../DBconnection.php';
+    include 'LAOdashboard.php';
 ?>
 
 <!DOCTYPE html>
@@ -111,41 +109,6 @@
             </div>
           </div>
 
-          <div class="report-card">
-            <div class="report-thumb"><i class="bi bi-person-x"></i></div>
-            <div class="report-meta">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="report-id">RPT-2024-0014</span>
-                <span class="badge-status badge-pending">Pending</span>
-              </div>
-              <div class="report-type">Missing Person</div>
-              <div class="report-by">Reported by: Nimal Fernando</div>
-              <div class="report-date"><i class="bi bi-calendar3 me-1"></i>2024-05-21</div>
-            </div>
-            <div class="d-flex flex-column gap-2">
-              <button class="btn btn-primary btn-sm rounded-3" onclick="reviewReport('RPT-2024-0014','Missing Person','Nimal Fernando')">
-                <i class="bi bi-eye me-1"></i>Review
-              </button>
-            </div>
-          </div>
-
-          <div class="report-card">
-            <div class="report-thumb"><i class="bi bi-file-medical"></i></div>
-            <div class="report-meta">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="report-id">RPT-2024-0013</span>
-                <span class="badge-status badge-pending">Pending</span>
-              </div>
-              <div class="report-type">Death Report</div>
-              <div class="report-by">Reported by: Kamala Silva</div>
-              <div class="report-date"><i class="bi bi-calendar3 me-1"></i>2024-05-20</div>
-            </div>
-            <div class="d-flex flex-column gap-2">
-              <button class="btn btn-primary btn-sm rounded-3" onclick="reviewReport('RPT-2024-0013','Death Report','Kamala Silva')">
-                <i class="bi bi-eye me-1"></i>Review
-              </button>
-            </div>
-          </div>
 
         </div>
         <div class="mt-3 text-center">

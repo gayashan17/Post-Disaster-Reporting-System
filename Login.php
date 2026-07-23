@@ -1,6 +1,10 @@
 <?php
     session_start();
     include 'DBconnection.php';
+    require_once 'classes/Citizen.php';
+    require_once 'classes/LocalAuthorityOfficer.php';
+    require_once 'classes/DisasterManagementOfficer.php';
+    require_once 'classes/DistrictSecretary.php';
 
     if(isset($_POST['login']))
     {

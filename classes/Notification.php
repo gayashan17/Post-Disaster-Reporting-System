@@ -1,12 +1,15 @@
 <?php
+    require_once '../classes/LocalAuthorityOfficer.php';
 class Notification
 {
 
-    public static function createNotification(mysqli $con,int $userId,int $reportId,string $title,string $message,string $type)
+    public static function createLAONotification(mysqli $con,int $DSID,int $reportId,string $title,string $message,string $type)
     {
         try
         {
-            $query="INSERT INTO notification(User_ID,Report_ID,Title,Message,Notification_Type) VALUES(?,?,?,?,?)";
+            $LAOID = LocalAuthorityOfficer::getDSLAO($con,$DSID);
+
+            $query="INSERT INTO notification(User_ID,Report_ID,Notification_Title,Notification_Message,Notification_Type) VALUES(?,?,?,?,?)";
 
             $stmt = mysqli_prepare($con,$query);
 
@@ -15,14 +18,16 @@ class Notification
                 throw new Exception("Failed to prepare statement.");
             }
 
-            mysqli_stmt_bind_param($stmt,"iisss",$userId,$reportId,$title,$message,$type);
+            mysqli_stmt_bind_param($stmt,"iisss",$LAOID,$reportId,$title,$message,$type);
 
             return mysqli_stmt_execute($stmt);
         }
-        catch(Exception e)
+        catch(Exception $e)
         {
-            throw $e
-            return false;
+            throw new Exception(
+                "Unable to Insert LAO notification into Notification table: " .
+                $e->getMessage()
+            );
         }
     }
 

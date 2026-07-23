@@ -14,6 +14,7 @@ class DisasterReport
     protected $description;
     protected $reportType;
     protected $reportCount;
+    protected $DSID;
 
     ////setters
 
@@ -29,7 +30,8 @@ class DisasterReport
         {$this->description = $description;}
     public function setReportType($reportType)
         {$this->reportType = $reportType;}
-
+    public function setDSID($DSID)
+        {$this->DSID = $DSID;}
 
 
 
@@ -41,8 +43,8 @@ class DisasterReport
         try
         {
             $query = "INSERT INTO disaster_report
-            (User_ID,Disaster_Type_ID,Report_Type,District,Street_Address,Description)
-            VALUES (?,?,?,?,?,?)";
+            (User_ID,Disaster_Type_ID,Report_Type,District,Street_Address,Description,DS_ID)
+            VALUES (?,?,?,?,?,?,?)";
 
             $stmt = mysqli_prepare($con,$query);
 
@@ -53,13 +55,14 @@ class DisasterReport
 
             mysqli_stmt_bind_param(
                 $stmt,
-                "iissss",
+                "iissssi",
                 $this->userId,
                 $this->disasterTypeId,
                 $this->reportType,
                 $this->district,
                 $this->streetAddress,
-                $this->description
+                $this->description,
+                $this->DSID
             );
 
             if(!mysqli_stmt_execute($stmt))
@@ -131,6 +134,40 @@ class DisasterReport
             throw $e;
             return false;
         }        
+
+    }
+
+    public static function getDivisionalSecretariat($con,$district)
+    {
+        try
+        {
+            $query =  "SELECT DS_ID FROM divisional_secretariat WHERE DS_Name = ?";
+
+            $stmt = mysqli_prepare($con,$query);
+
+            mysqli_stmt_bind_param($stmt,"s",$district);
+
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if($row = mysqli_fetch_assoc($result))
+            {
+                $DSID = $row['DS_ID'];
+                return $DSID;
+            }
+            else
+            {
+                throw new Exception ("Invalid District");
+            }
+
+
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+            return false;
+        }
 
     }
 

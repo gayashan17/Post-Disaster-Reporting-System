@@ -60,6 +60,9 @@
             $report->setDescription($_POST['prReportDesc-input']);
             $report->setReportType("Property Damage");
 
+            $DSID = DisasterReport :: getDivisionalSecretariat($con,$district);
+            $report->setDSID($DSID);
+
             // Child class data
             $report->setPropertyType($_POST['prType-input']);
             $report->setDamageLevel($_POST['dmgLevel-input']);
@@ -78,7 +81,12 @@
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
 
-            Notification::createNotification($con,$userId,$reportId,"New Report Requires Verification","A new property damage report has been submitted and requires authenticity verification.","Report Submitted");
+            Notification :: createLAONotification(
+            $con,$DSID,$reportId,
+            "New Property Damage Disaster Report",
+            "A new disaster report has been submitted for your Divisional Secretariat and requires review.",
+            "Report Submitted");
+
             echo "success";
         }
         catch(Exception $e)

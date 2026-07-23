@@ -11,7 +11,6 @@ class LocalAuthorityOfficer extends User
     private $assigned_divisional_secretariat;
 
     //// Setters
-
     public function setLocalOfficerID($localOfficerID)
     {
         $this->localOfficerID = $localOfficerID;
@@ -81,8 +80,51 @@ class LocalAuthorityOfficer extends User
         }
     }
 
+    // find assigned Local Authority Officer for DS ID
+    public static function getDSLAO($con,$DSID)
+    {
+        try
+        {
+            $query = "SELECT l.User_ID AS UserID FROM local_authority_officer l JOIN divisional_secretariat ds ON l.Assigned_divisional_secretariat = ds.DS_ID WHERE ds.DS_ID = ?";
+
+            $stmt = mysqli_prepare($con,$query);
+
+            if(!$stmt)
+            {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt,"i",$DSID);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if($row = mysqli_fetch_assoc($result))
+            {
+                $LAOID = $row['UserID'];
+                return $LAOID;
+            }
+            else
+            {
+                throw new Exception ("No Assigned Officer or invalid DSID");
+            }
+
+        }
+        catch(Exception $e)
+        {
+            throw new Exception(
+                "Error retrieving Divisional Secretariat for Local Officer ID: " .
+                $e->getMessage()
+            );
+        }
+
+    }
+
+
+
+
     ///////get divishionaln sectryryru
-    
+
     public function getDivisionalSecretariats($con)
     {
         try

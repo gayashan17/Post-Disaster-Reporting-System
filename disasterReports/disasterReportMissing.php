@@ -61,6 +61,9 @@
             $report->setStreetAddress($streetAddress);
             $report->setDescription($desc);
 
+            $DSID = DisasterReport :: getDivisionalSecretariat($con,$district);
+            $report->setDSID($DSID);
+
             // Child Class Data
             $report->setFullName($mName);
             $report->setAge($mAge);
@@ -79,6 +82,12 @@
             // Upload Evidence Files
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
+
+            Notification :: createLAONotification(
+            $con,$DSID,$reportId,
+            "New Missing Person Report",
+            "A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.",
+            "Report Submitted");
 
             echo "success";
         }

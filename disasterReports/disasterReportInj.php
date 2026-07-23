@@ -2,6 +2,7 @@
     require_once '../classes/DisasterReport.php';
     require_once '../classes/InjuredPerson.php';
     require_once '../classes/EvidenceFile.php';
+    require_once '../classes/Notification.php';
     include '../userData.php';
     include '../DBconnection.php';
 
@@ -57,6 +58,9 @@
             $report->setStreetAddress($streetAddress);
             $report->setDescription($desc);
 
+            $DSID = DisasterReport :: getDivisionalSecretariat($con,$district);
+            $report->setDSID($DSID);
+
             // Child Class Data
             $report->setFullName($injName);
             $report->setAge($injAge);
@@ -72,6 +76,13 @@
             // Upload Evidence
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
+
+
+            Notification :: createLAONotification(
+            $con,$DSID,$reportId,
+            "New Injured Person Report",
+            "A new Injured Person Report has been submitted for your Divisional Secretariat and requires review.",
+            "Report Submitted");
 
             echo "success";
         }
