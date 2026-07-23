@@ -14,67 +14,100 @@ class DisasterReport
     protected $description;
     protected $reportType;
     protected $reportCount;
+    protected $DS_ID;
 
-    ////setters
+    //// Setters
 
     public function setUserId($userId)
-        {$this->userId = $userId;}
+    {
+        $this->userId = $userId;
+    }
+
     public function setDisasterTypeId($disasterTypeId)
-        {$this->disasterTypeId = $disasterTypeId;}
+    {
+        $this->disasterTypeId = $disasterTypeId;
+    }
+
     public function setDistrict($district)
-        {$this->district = $district;}
+    {
+        $this->district = $district;
+    }
+
     public function setStreetAddress($streetAddress)
-        {$this->streetAddress = $streetAddress;}
+    {
+        $this->streetAddress = $streetAddress;
+    }
+
     public function setDescription($description)
-        {$this->description = $description;}
+    {
+        $this->description = $description;
+    }
+
     public function setReportType($reportType)
-        {$this->reportType = $reportType;}
+    {
+        $this->reportType = $reportType;
+    }
 
-
-
-
+    public function setDS_ID($DS_ID)
+    {
+        $this->DS_ID = $DS_ID;
+    }
 
 
     ///// Insert to Disaster Report Table
+
     public function insertReport($con)
     {
         try
         {
             $query = "INSERT INTO disaster_report
-            (User_ID,Disaster_Type_ID,Report_Type,District,Street_Address,Description)
-            VALUES (?,?,?,?,?,?)";
+                (
+                    User_ID,
+                    Disaster_Type_ID,
+                    Report_Type,
+                    District,
+                    DS_ID,
+                    Street_Address,
+                    Description
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            $stmt = mysqli_prepare($con,$query);
+            $stmt = mysqli_prepare($con, $query);
 
-            if(!$stmt)
+            if (!$stmt)
             {
-                throw new Exception("Failed to prepare statement.");
+                throw new Exception(
+                    "Failed to prepare statement: " . mysqli_error($con)
+                );
             }
 
             mysqli_stmt_bind_param(
                 $stmt,
-                "iissss",
+                "iississ",
                 $this->userId,
                 $this->disasterTypeId,
                 $this->reportType,
                 $this->district,
+                $this->DS_ID,
                 $this->streetAddress,
                 $this->description
             );
 
-            if(!mysqli_stmt_execute($stmt))
+            if (!mysqli_stmt_execute($stmt))
             {
-                throw new Exception("Failed to execute query.");
+                throw new Exception(
+                    "Failed to execute query: " . mysqli_stmt_error($stmt)
+                );
             }
 
             return mysqli_insert_id($con);
         }
-        catch(Exception $e)
+        catch (Exception $e)
         {
             throw $e;
-            return false;
         }
     }
+
 
     //////////////// Total Reports
     public function getTotalReports($con)
@@ -134,6 +167,60 @@ class DisasterReport
 
     }
 
+    ////// get DS by ditrict
+
+    public function getDSByDistrict($con, $district)
+    {
+        try
+        {
+            $query = "SELECT DS_ID, DS_Name
+                    FROM divisional_secretariat
+                    WHERE District = ?
+                    ORDER BY DS_Name ASC";
+
+            $stmt = mysqli_prepare($con, $query);
+
+            if (!$stmt)
+            {
+                throw new Exception(
+                    "Failed to prepare statement: "
+                    . mysqli_error($con)
+                );
+            }
+
+            mysqli_stmt_bind_param(
+                $stmt,
+                "s",
+                $district
+            );
+
+            if (!mysqli_stmt_execute($stmt))
+            {
+                throw new Exception(
+                    "Failed to execute query: "
+                    . mysqli_stmt_error($stmt)
+                );
+            }
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            $dsList = [];
+
+            while ($row = mysqli_fetch_assoc($result))
+            {
+                $dsList[] = [
+                    "DS_ID" => $row["DS_ID"],
+                    "DS_Name" => $row["DS_Name"]
+                ];
+            }
+
+            return $dsList;
+        }
+        catch (Exception $e)
+        {
+            throw $e;
+        }
+    }
 }
 
 ?>
