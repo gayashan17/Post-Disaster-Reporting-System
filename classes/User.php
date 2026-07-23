@@ -16,6 +16,7 @@ class User
     protected $phoneNo;
     protected $address;
     protected $roleID;
+    protected $status;
 
     //// Setters
 
@@ -29,6 +30,7 @@ class User
     public function setPhoneNo($phoneNo) { $this->phoneNo = $phoneNo; }
     public function setAddress($address) { $this->address = $address; }
     public function setRoleID($roleID) { $this->roleID = $roleID; }
+    public function setStatus($status) { $this->status = $status; }
 
     //// Getters
 
@@ -50,14 +52,14 @@ class User
         try
         {
             $query = "INSERT INTO users
-                    (Username, Password, Full_Name, Gender, NIC, Email, Phone_Number, Address, Role_ID)
-                    VALUES (?,?,?,?,?,?,?,?,?)";
+                    (Username, Password, Full_Name, Gender, NIC, Email, Phone_Number, Address, Role_ID, User_Status)
+                    VALUES (?,?,?,?,?,?,?,?,?,?)";
 
             $stmt = mysqli_prepare($con, $query);
 
             mysqli_stmt_bind_param(
                 $stmt,
-                "ssssssssi",
+                "ssssssssis",
                 $this->userName,
                 $this->password,
                 $this->fullName,
@@ -66,7 +68,8 @@ class User
                 $this->email,
                 $this->phoneNo,
                 $this->address,
-                $this->roleID
+                $this->roleID,
+                $this->status
             );
 
             if(mysqli_stmt_execute($stmt))
@@ -90,6 +93,20 @@ class User
 
         $stmt = mysqli_prepare($con, $query);
         mysqli_stmt_bind_param($stmt, "s", $email);
+        mysqli_stmt_execute($stmt);
+
+        $result = mysqli_stmt_get_result($stmt);
+
+        return mysqli_num_rows($result) > 0;
+    }
+
+        /////// check userName already exists
+    public function userNameExists($con, $userName)
+    {
+        $query = "SELECT User_ID FROM users WHERE Username = ?";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $userName);
         mysqli_stmt_execute($stmt);
 
         $result = mysqli_stmt_get_result($stmt);

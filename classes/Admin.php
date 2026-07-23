@@ -206,6 +206,69 @@ class Admin extends User
         }
     }
 
+    ///////// Update Userdata when Admin role
+
+public function updateUserFromAdmin($userId, $fullName, $nic, $email, $phone, $address, $roleId)
+{
+    try {
+
+        include '../DBconnection.php';
+
+        $sql = "UPDATE users
+                SET Full_Name = ?,
+                    NIC = ?,
+                    Email = ?,
+                    Phone_Number = ?,
+                    Address = ?,
+                    Role_ID = ?
+                WHERE User_ID = ?";
+
+        $stmt = mysqli_prepare($con, $sql);
+
+        if (!$stmt) {
+            throw new Exception("Failed to prepare statement: " . mysqli_error($con));
+        }
+
+        mysqli_stmt_bind_param(
+            $stmt,
+            "ssssssi",
+            $fullName,
+            $nic,
+            $email,
+            $phone,
+            $address,
+            $roleId,
+            $userId
+        );
+
+        if (!mysqli_stmt_execute($stmt)) {
+            throw new Exception("Failed to update user: " . mysqli_stmt_error($stmt));
+        }
+
+        return [
+            "success" => true,
+            "message" => "User updated successfully."
+        ];
+
+    } catch (Exception $e) {
+
+        return [
+            "success" => false,
+            "message" => $e->getMessage()
+        ];
+
+    } finally {
+
+        if (isset($stmt)) {
+            mysqli_stmt_close($stmt);
+        }
+
+        if (isset($con)) {
+            mysqli_close($con);
+        }
+    }
+}
+
     
 }
 

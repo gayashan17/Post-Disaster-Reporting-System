@@ -20,6 +20,23 @@ try {
         exit;
     }
 
+   // Update Users data
+    if (isset($_POST['action']) && $_POST['action'] === 'updateUser') {
+
+        $result = $admin->updateUserFromAdmin(
+            $_POST['user_id'],
+            $_POST['full_name'],
+            $_POST['nic'],
+            $_POST['email'],
+            $_POST['phone'],
+            $_POST['address'],
+            $_POST['role_id']
+        );
+
+        echo json_encode($result);
+        exit;
+    } 
+
     // View UserData
     if (isset($_POST['action']) && $_POST['action'] === 'viewUser') {
 

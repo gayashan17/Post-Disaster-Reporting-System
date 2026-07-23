@@ -83,11 +83,8 @@
     <a class="nav-item" href="AllUsersForm.php">
         <i class="bi bi-people"></i> All Users
     </a>
-    <a class="nav-item" href="#" onclick="openAddUserModal()">
+    <a class="nav-item" href="#" onclick="addUser()">
         <i class="bi bi-person-plus"></i> Add New User
-    </a>
-    <a class="nav-item" href="BannedUsersForm.php">
-        <i class="bi bi-slash-circle"></i> Banned Users
     </a>
 
     <div class="nav-section-label">System</div>

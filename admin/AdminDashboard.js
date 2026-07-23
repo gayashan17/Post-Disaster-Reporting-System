@@ -112,7 +112,8 @@ function showNotifAlert() {
   showNotifications();
 }
 
-function addUser() {
+function addUser() 
+{
   Swal.fire({
     title: 'New User',
     text: 'Select User Role To Create a new Account',
@@ -133,12 +134,11 @@ function addUser() {
     if(result.isConfirmed)
     {
         let selectedType = result.value;
-        window.location.href = "AdminAddUser.php?type=" + selectedType;
+        window.location.href = "AdminAddUserForm.php?type=" + selectedType;
     }
   });
+}
 
-
-  }
 // Confirm Admin Sign Out
 function confirmLogout() {
   Swal.fire({

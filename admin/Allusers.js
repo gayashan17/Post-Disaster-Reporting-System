@@ -18,6 +18,33 @@ function avatarClass(i) {
     return classes[i % classes.length];
 }
 
+function addUser() 
+{
+  Swal.fire({
+    title: 'New User',
+    text: 'Select User Role To Create a new Account',
+    input: 'select',
+    inputOptions: {
+      'citizen': 'Citizen',
+      'admin': 'Admin',
+      'lao': 'Local Authority Officer',
+      'dmo':'Disaster Management Officer',
+      'ds':'District Secretary',
+      'fo':'Financial Officer'
+    },
+    showCancelButton: true,
+    confirmButtonColor: '#2563eb',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Okay'
+  }).then((result) => {
+    if(result.isConfirmed)
+    {
+        let selectedType = result.value;
+        window.location.href = "AdminAddUserForm.php?type=" + selectedType;
+    }
+  });
+}
+
 function rolePillClass(role) {
     switch (role) {
         case 'Admin':
@@ -25,13 +52,13 @@ function rolePillClass(role) {
         case 'Citizen':
             return 'citizen';
         case 'Local Authority Officer':
-            return 'la';
+            return 'lao';
         case 'Disaster Management Officer':
             return 'dmo';
         case 'District Secretary':
             return 'ds';
         case 'Financial Officer':
-            return 'fin';
+            return 'finance';
         default:
             return 'citizen';
     }
@@ -525,5 +552,207 @@ function viewUser(userId) {
             'Something went wrong while loading user details.',
             'error'
         );
+    });
+}
+
+
+
+
+//////Edit Users data
+
+function editUser(userId) {
+
+    fetch('AllUser.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `action=viewUser&user_id=${userId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (!data.success) {
+            Swal.fire('Error', data.message, 'error');
+            return;
+        }
+
+        const u = data.user;
+
+        Swal.fire({
+            title: 'Edit User',
+            width: 700,
+            showCancelButton: true,
+            confirmButtonText: 'Save Changes',
+            cancelButtonText: 'Cancel',
+            focusConfirm: false,
+            html: `
+                <div style="text-align:left; display:flex; flex-direction:column; gap:12px;">
+
+                    <div>
+                        <label style="display:block; font-size:12px; font-weight:600; color:#6b7280; margin-bottom:4px;">Full Name</label>
+                        <input id="edit-name"
+                            class="swal2-input"
+                            style="margin:0; width:100%; box-sizing:border-box;"
+                            placeholder="Full Name"
+                            value="${u.Full_Name || ''}">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:12px; font-weight:600; color:#6b7280; margin-bottom:4px;">NIC</label>
+                        <input id="edit-nic"
+                            class="swal2-input"
+                            style="margin:0; width:100%; box-sizing:border-box;"
+                            placeholder="NIC"
+                            value="${u.NIC || ''}">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:12px; font-weight:600; color:#6b7280; margin-bottom:4px;">Email</label>
+                        <input id="edit-email"
+                            class="swal2-input"
+                            style="margin:0; width:100%; box-sizing:border-box;"
+                            type="email"
+                            placeholder="Email"
+                            value="${u.Email || ''}">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:12px; font-weight:600; color:#6b7280; margin-bottom:4px;">Phone Number</label>
+                        <input id="edit-phone"
+                            class="swal2-input"
+                            style="margin:0; width:100%; box-sizing:border-box;"
+                            placeholder="Phone Number"
+                            value="${u.Phone_Number || ''}">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:12px; font-weight:600; color:#6b7280; margin-bottom:4px;">Address</label>
+                        <input id="edit-address"
+                            class="swal2-input"
+                            style="margin:0; width:100%; box-sizing:border-box;"
+                            placeholder="Address"
+                            value="${u.Address || ''}">
+                    </div>
+
+                    <div>
+                        <label style="display:block; font-size:12px; font-weight:600; color:#6b7280; margin-bottom:4px;">Role</label>
+                        <select id="edit-role" class="swal2-select" style="margin:0; width:100%; box-sizing:border-box;">
+                            <option value="1">Admin</option>
+                            <option value="3">Citizen</option>
+                            <option value="4">Local Authority Officer</option>
+                            <option value="2">Disaster Management Officer</option>
+                            <option value="5">District Secretary</option>
+                            <option value="6">Financial Officer</option>
+                        </select>
+                    </div>
+
+                </div>
+            `,
+                didOpen: () => {
+
+                    const roleMap = {
+                        'Admin': '1',
+                        'Citizen': '3',
+                        'Local Authority Officer': '4',
+                        'Disaster Management Officer': '2',
+                        'District Secretary': '5',
+                        'Financial Officer': '6'
+                    };
+
+                    document.getElementById('edit-role').value =
+                        roleMap[u.Role_Name] || '';
+                },
+            preConfirm: () => {
+
+                const fullName = document.getElementById('edit-name').value.trim();
+                const nic = document.getElementById('edit-nic').value.trim();
+                const email = document.getElementById('edit-email').value.trim();
+                const phone = document.getElementById('edit-phone').value.trim();
+                const address = document.getElementById('edit-address').value.trim();
+                const roleId = document.getElementById('edit-role').value;
+
+                if (!fullName) {
+                    Swal.showValidationMessage('Full name is required');
+                    return false;
+                }
+
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    Swal.showValidationMessage('Please enter a valid email address');
+                    return false;
+                }
+
+                return {
+                    userId: userId,
+                    fullName,
+                    nic,
+                    email,
+                    phone,
+                    address,
+                    roleId
+                };
+            }
+        }).then((result) => {
+
+            if (!result.isConfirmed) return;
+
+            const form = result.value;
+
+            fetch('AllUser.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body:
+                    `action=updateUser` +
+                    `&user_id=${form.userId}` +
+                    `&full_name=${encodeURIComponent(form.fullName)}` +
+                    `&nic=${encodeURIComponent(form.nic)}` +
+                    `&email=${encodeURIComponent(form.email)}` +
+                    `&phone=${encodeURIComponent(form.phone)}` +
+                    `&address=${encodeURIComponent(form.address)}` +
+                    `&role_id=${form.roleId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.success) {
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Updated!',
+                        text: 'User updated successfully.'
+                    }).then(() => {
+                        loadUsers();
+                    });
+
+                } else {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+
+                }
+            })
+            .catch(error => {
+
+                console.error(error);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Something went wrong.'
+                });
+
+            });
+
+        });
+
+    })
+    .catch(error => {
+        console.error(error);
+        Swal.fire('Error', 'Failed to load user details.', 'error');
     });
 }
