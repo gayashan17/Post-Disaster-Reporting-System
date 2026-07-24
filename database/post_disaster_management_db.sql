@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2026 at 01:54 PM
+-- Generation Time: Jul 25, 2026 at 01:18 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -69,7 +69,7 @@ INSERT INTO `citizen` (`User_ID`, `Beneficiary_Name`, `Beneficiary_Bank`, `Benef
 (29, '', '', ''),
 (30, '', '', ''),
 (31, '', '', ''),
-(32, '', '', ''),
+(32, 'asda', 'asdada', '845629959'),
 (34, '', '', ''),
 (36, '', '', ''),
 (37, '', '', ''),
@@ -79,7 +79,7 @@ INSERT INTO `citizen` (`User_ID`, `Beneficiary_Name`, `Beneficiary_Bank`, `Benef
 (43, '', '', ''),
 (44, '', '', ''),
 (45, '', '', ''),
-(46, '', '', '');
+(46, 'sadf', 'asdf', '');
 
 -- --------------------------------------------------------
 
@@ -90,14 +90,29 @@ INSERT INTO `citizen` (`User_ID`, `Beneficiary_Name`, `Beneficiary_Bank`, `Benef
 CREATE TABLE `compensation_report` (
   `Compensation_ID` int(11) NOT NULL,
   `Report_ID` int(11) NOT NULL,
-  `Processed_By_Financial_Officer_User_ID` int(11) NOT NULL,
-  `Approved_Amount` decimal(12,2) NOT NULL,
-  `Payment_Status` enum('Pending','Approved','Paid','Failed','Cancelled') NOT NULL,
-  `Payment_Rejection_Reason` varchar(255) DEFAULT NULL,
-  `Payment_Date` date DEFAULT NULL,
-  `Receipt_Number` varchar(100) DEFAULT NULL,
-  `Receipt_File_Path` varchar(500) DEFAULT NULL
+  `Financial_Officer_User_ID` int(11) NOT NULL,
+  `Estimate_Amount` decimal(12,2) NOT NULL DEFAULT 0.00,
+  `Approved_Amount` decimal(12,2) DEFAULT NULL,
+  `Paid_Amount` decimal(12,2) DEFAULT NULL,
+  `Description` text DEFAULT NULL,
+  `Receipt_File_Path` varchar(255) DEFAULT NULL,
+  `Payment_Status` enum('Claimed','Processing','Paid') NOT NULL DEFAULT 'Claimed',
+  `Payment_Date` datetime DEFAULT NULL,
+  `Created_Date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `compensation_report`
+--
+
+INSERT INTO `compensation_report` (`Compensation_ID`, `Report_ID`, `Financial_Officer_User_ID`, `Estimate_Amount`, `Approved_Amount`, `Paid_Amount`, `Description`, `Receipt_File_Path`, `Payment_Status`, `Payment_Date`, `Created_Date`) VALUES
+(1, 36, 47, 50000.00, 45000.00, 45000.00, NULL, NULL, 'Paid', '2026-07-25 02:43:22', '2026-07-25 02:43:22'),
+(2, 37, 47, 75000.00, 70000.00, 70000.00, NULL, NULL, 'Paid', '2026-07-25 02:43:22', '2026-07-25 02:43:22'),
+(3, 38, 47, 100000.00, 90000.00, NULL, NULL, NULL, 'Processing', NULL, '2026-07-25 02:43:22'),
+(4, 39, 47, 125000.00, 120000.00, NULL, NULL, NULL, 'Processing', NULL, '2026-07-25 02:43:22'),
+(5, 43, 31, 0.00, NULL, 20000.00, 'Saa', '../uploads/Receipt/5_43_1784928454_videoframe_4502.png', 'Paid', '2026-07-25 02:57:34', '2026-07-25 02:56:17'),
+(6, 44, 31, 0.00, NULL, 845656.00, 'sdfguio;', '../uploads/Receipt/6_44_1784928957_videoframe_4502.png', 'Paid', '2026-07-25 03:05:57', '2026-07-25 03:03:57'),
+(7, 46, 31, 0.00, NULL, NULL, NULL, NULL, 'Processing', NULL, '2026-07-25 03:30:47');
 
 -- --------------------------------------------------------
 
@@ -142,6 +157,13 @@ CREATE TABLE `disaster_management_officer` (
   `Region_Assigned` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `disaster_management_officer`
+--
+
+INSERT INTO `disaster_management_officer` (`User_ID`, `Management_Officer_ID`, `Department`, `Region_Assigned`) VALUES
+(49, 'ASsDe', 'ADA', 'ASAXA');
+
 -- --------------------------------------------------------
 
 --
@@ -166,19 +188,19 @@ CREATE TABLE `disaster_report` (
 --
 
 INSERT INTO `disaster_report` (`Report_ID`, `User_ID`, `Disaster_Type_ID`, `Report_Type`, `Report_Status`, `District`, `DS_ID`, `Street_Address`, `Description`, `Report_Date`) VALUES
-(35, 26, 28, 'Death Record', 'Submitted', 'default', 1, '', '', '2026-07-15 11:30:33'),
-(36, 26, 23, 'Missing Person Record', 'DS Approved', 'default', NULL, '', '', '2026-07-15 11:47:19'),
-(37, 26, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-15 12:01:02'),
-(38, 26, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-16 06:34:06'),
-(39, 26, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-16 09:33:56'),
-(40, 32, 23, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-19 00:10:17'),
-(41, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-19 00:15:02'),
-(42, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 02:46:47'),
-(43, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 02:48:38'),
-(44, 32, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-19 02:58:39'),
+(35, 26, 28, 'Death Record', 'FO Pending', 'default', 1, '', '', '2026-07-15 11:30:33'),
+(36, 26, 23, 'Missing Person Record', 'FO Paid', 'default', NULL, '', '', '2026-07-15 11:47:19'),
+(37, 26, 28, 'Injured Person', 'FO Paid', 'default', NULL, '', '', '2026-07-15 12:01:02'),
+(38, 26, 28, 'Property Damage', 'FO Paid', 'default', NULL, '', '', '2026-07-16 06:34:06'),
+(39, 26, 28, 'Property Damage', 'FO Paid', 'default', NULL, '', '', '2026-07-16 09:33:56'),
+(40, 32, 23, 'Property Damage', 'FO Pending', 'default', NULL, '', '', '2026-07-19 00:10:17'),
+(41, 32, 28, 'Property Damage', 'FO Pending', 'default', NULL, '', '', '2026-07-19 00:15:02'),
+(42, 32, 28, 'Death Record', 'FO Pending', 'default', NULL, '', '', '2026-07-19 02:46:47'),
+(43, 32, 28, 'Death Record', 'FO Paid', 'default', NULL, '', '', '2026-07-19 02:48:38'),
+(44, 32, 28, 'Injured Person', 'FO Paid', 'default', NULL, '', '', '2026-07-19 02:58:39'),
 (45, 32, 28, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 03:02:23'),
-(46, 32, 23, 'Property Damage', 'Submitted', 'Galle', NULL, 'asdfghj', 'uytfds', '2026-07-19 07:27:02'),
-(47, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:02:51'),
+(46, 32, 23, 'Property Damage', 'FO Pending', 'Galle', NULL, 'asdfghj', 'uytfds', '2026-07-19 07:27:02'),
+(47, 32, 28, 'Property Damage', 'DS Approved', 'default', NULL, '', '', '2026-07-21 17:02:51'),
 (48, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:05:01'),
 (49, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:22:29'),
 (50, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-21 19:59:50'),
@@ -232,6 +254,13 @@ CREATE TABLE `district_secretary` (
   `Office_Name` varchar(100) DEFAULT NULL,
   `Office_Location` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `district_secretary`
+--
+
+INSERT INTO `district_secretary` (`User_ID`, `Secretary_Officer_ID`, `Office_Name`, `Office_Location`) VALUES
+(48, 'ASsDe', 'SsASss', 'SASDAdaDd');
 
 -- --------------------------------------------------------
 
@@ -652,6 +681,13 @@ CREATE TABLE `financial_officer` (
   `Bank_Account_No` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `financial_officer`
+--
+
+INSERT INTO `financial_officer` (`User_ID`, `Financial_Officer_ID`, `Department`, `Bank_Name`, `Bank_Account_No`) VALUES
+(47, 'ASDAD', 'ADA', 'DAD', 'AD');
+
 -- --------------------------------------------------------
 
 --
@@ -877,7 +913,7 @@ INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `
 (28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 5, 'Active', '2026-07-22 12:12:34', 'Default'),
 (29, 'LOF', '$2y$10$cdD18ckAbSJDasQ7WTUF0eEwdkBj8U29XI2K9.uuwG4EYZKR6jBPO', 'Local Authority Officer', 'Male', '200546568956', 'LOF@gmail.com', '0456633221', 'Galle', 4, 'Active', '2026-07-22 12:12:34', 'Default'),
 (30, 'DMO', '$2y$10$sYlC/BotKLirMNOTkiVLIOtc9wJz67I4FYFbibhhB1q7BAqyPg1hy', 'Disaster Managment Officer', 'Male', '200563254123', 'DMO@gmail.com', '0766588552', 'Galle', 2, 'Active', '2026-07-22 12:12:34', 'Default'),
-(31, 'FO', '$2y$10$OIWerh3Mt2DpNoJO.aYEQuGI2nwVDFywXcNVwmpDzz48w3PD/WwZS', 'Financial Officer', 'Male', '200345889966', 'FO@gmail.com', '0766544882', 'Galle', 6, 'Active', '2026-07-22 12:12:34', 'Default'),
+(31, 'FO', '$2y$10$OIWerh3Mt2DpNoJO.aYEQuGI2nwVDFywXcNVwmpDzz48w3PD/WwZS', 'Financial Officer', 'Male', '200345889966', 'FO@gmail.com', '0766544882', 'Colombo', 6, 'Active', '2026-07-22 12:12:34', '31_20260724_235359.png'),
 (32, 'CT', '$2y$10$vXZ5gdY3pgKurzULxMmLH.m3Tanh13Ll1XnXfatDSb8Wn8obxLwnK', 'Citizen', 'Female', '200304589966', 'CT@gmail.com', '0755899667', 'Colombo', 3, 'Active', '2026-07-22 12:12:34', '32_20260722_230342.png'),
 (34, 'adcas', '$2y$10$4A2YTBjhGrz.s.LLY.PU2uIfNRu9ZlipvWtojggYjpGdNsRg6stAu', 'ascasc', 'Male', '200304556633', 'aoudhaisoasiai@gmail.com', '0758966332', 'ascasc', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
 (36, 'asdaad', '$2y$10$WjiVr5a9sARcFBghKR130ea7g3lLDyDAE7JUKzCbTrHPOacZVa28G', 'asdad', 'Male', '200356889977', 'aoudasoasiai@gmail.com', '0758966337', 'asasasa', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
@@ -888,7 +924,10 @@ INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `
 (43, 'j65', '$2y$10$Q5fiidYslGFDjL1c5ptFWuPSpUlgva2BDh0.xyvo25bkbWZqaSGAq', 'Malisha Madhusith', 'Male', '200304811693', 'maishamadhusith72@gmail.com', '0766511220', 'asasasa', 3, 'Banned', '2026-07-22 12:12:34', 'Default'),
 (44, 'ugytd', '$2y$10$ALmPYyT2eoKwIKi.oyu1cO3xkxq3Pnr4ffXLmaMpeY6RiUG0zQNMC', 'asdsaasdasdasdaasdadsadadadaad', 'Male', '200304811693', 'malishusith72@gmail.com', '0766511220', 'asasasa', 3, 'Banned', '2026-07-22 12:12:34', 'Default'),
 (45, 'asas', '$2y$10$sBdgJ9tYoMb7yIDyPFyz4uLAvxnmn3xTZ0JEPicTeb5BelLkbGLo6', 'Malisha Madhusith', 'Male', '200304811656', 'malishasamadhkjhusith72@gmail.com', '0777777777', 'asdasd', 5, 'Banned', '2026-07-22 12:12:34', 'Default'),
-(46, 'asdasd', '$2y$10$HeVGRPS3aLmsiquf.A3crOwhV1Yq90IXxzAqSXaRA7s0kcmqFkUt6', 'Citizen', 'Male', '200304556633', 'Galle@gmail.com', '0777788996', 'Galle', 3, 'Active', '2026-07-22 17:39:25', 'Default');
+(46, 'asdasd', '$2y$10$HeVGRPS3aLmsiquf.A3crOwhV1Yq90IXxzAqSXaRA7s0kcmqFkUt6', 'Citizen', 'Male', '200304556633', 'Galle@gmail.com', '0777788996', 'Galle', 3, 'Active', '2026-07-22 17:39:25', 'Default'),
+(47, 'FOASDAD', '$2y$10$iv5o1CA8Nv5kW.HeEgRYquG6vwvk0D1SDLrI.YVyITVhzDQLfUAFO', 'Malisha Madhusith', 'Female', '200304556666', 'malishamadhusith72@gmail.com', '0766511220', 'SADDSAD', 6, 'Active', '2026-07-25 02:40:35', 'Default.png'),
+(48, 'AdminAass', '$2y$10$xBxZNlxj3oxv3fJeDuxno.zRuEcDT9VlciahjWhXRNxkDldGaqvCu', 'Malisha Madhusith', 'Female', '200304556666', 'malishaasamadhusith72@gmail.com', '0766511220', 'ASDADAD', 5, 'Active', '2026-07-25 03:42:37', 'Default.png'),
+(49, 'AdminaSDFGHJK', '$2y$10$Q9IGfIYm5MUG/u9pVQw5ZurQCfFveqC3CIwwTOiBLvKeio991L/Ua', 'Malisha Madhusith', 'Female', '200304556666', 'malixzZXshamadhusith72@gmail.com', '0766511220', 'ASDADAD', 2, 'Active', '2026-07-25 03:50:07', 'Default.png');
 
 -- --------------------------------------------------------
 
@@ -903,8 +942,16 @@ CREATE TABLE `verification_report` (
   `Description` text DEFAULT NULL,
   `Report_Status` enum('Pending','Verified','Rejected') NOT NULL,
   `Estimated_Amount` decimal(12,2) DEFAULT NULL,
-  `Verification_Date` datetime NOT NULL
+  `Verification_Date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verification_report`
+--
+
+INSERT INTO `verification_report` (`Verification_ID`, `Report_ID`, `Created_By_Officer_User_ID`, `Description`, `Report_Status`, `Estimated_Amount`, `Verification_Date`) VALUES
+(1, 46, 48, NULL, 'Verified', 200000.00, '2026-07-25 03:45:57'),
+(3, 46, 49, NULL, 'Verified', 230000.00, '2026-07-25 03:47:45');
 
 --
 -- Indexes for dumped tables
@@ -927,9 +974,8 @@ ALTER TABLE `citizen`
 --
 ALTER TABLE `compensation_report`
   ADD PRIMARY KEY (`Compensation_ID`),
-  ADD UNIQUE KEY `Report_ID` (`Report_ID`),
-  ADD UNIQUE KEY `Receipt_Number` (`Receipt_Number`),
-  ADD KEY `Processed_By_Financial_Officer_User_ID` (`Processed_By_Financial_Officer_User_ID`);
+  ADD UNIQUE KEY `uq_compensation_report` (`Report_ID`),
+  ADD KEY `fk_compensation_financial_officer` (`Financial_Officer_User_ID`);
 
 --
 -- Indexes for table `death_record`
@@ -1048,8 +1094,8 @@ ALTER TABLE `users`
 --
 ALTER TABLE `verification_report`
   ADD PRIMARY KEY (`Verification_ID`),
-  ADD UNIQUE KEY `Report_ID` (`Report_ID`),
-  ADD KEY `Created_By_Officer_User_ID` (`Created_By_Officer_User_ID`);
+  ADD KEY `idx_report_id` (`Report_ID`),
+  ADD KEY `idx_officer_id` (`Created_By_Officer_User_ID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1059,7 +1105,7 @@ ALTER TABLE `verification_report`
 -- AUTO_INCREMENT for table `compensation_report`
 --
 ALTER TABLE `compensation_report`
-  MODIFY `Compensation_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Compensation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `disaster_report`
@@ -1101,13 +1147,13 @@ ALTER TABLE `password_reset_otp`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `verification_report`
 --
 ALTER TABLE `verification_report`
-  MODIFY `Verification_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Verification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -1129,8 +1175,8 @@ ALTER TABLE `citizen`
 -- Constraints for table `compensation_report`
 --
 ALTER TABLE `compensation_report`
-  ADD CONSTRAINT `compensation_report_ibfk_1` FOREIGN KEY (`Report_ID`) REFERENCES `disaster_report` (`Report_ID`),
-  ADD CONSTRAINT `compensation_report_ibfk_2` FOREIGN KEY (`Processed_By_Financial_Officer_User_ID`) REFERENCES `financial_officer` (`User_ID`);
+  ADD CONSTRAINT `fk_compensation_financial_officer` FOREIGN KEY (`Financial_Officer_User_ID`) REFERENCES `users` (`User_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_compensation_report` FOREIGN KEY (`Report_ID`) REFERENCES `disaster_report` (`Report_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `death_record`
@@ -1224,8 +1270,8 @@ ALTER TABLE `users`
 -- Constraints for table `verification_report`
 --
 ALTER TABLE `verification_report`
-  ADD CONSTRAINT `verification_report_ibfk_1` FOREIGN KEY (`Report_ID`) REFERENCES `disaster_report` (`Report_ID`),
-  ADD CONSTRAINT `verification_report_ibfk_2` FOREIGN KEY (`Created_By_Officer_User_ID`) REFERENCES `users` (`User_ID`);
+  ADD CONSTRAINT `verification_report_ibfk_1` FOREIGN KEY (`Report_ID`) REFERENCES `disaster_report` (`Report_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `verification_report_ibfk_2` FOREIGN KEY (`Created_By_Officer_User_ID`) REFERENCES `users` (`User_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
