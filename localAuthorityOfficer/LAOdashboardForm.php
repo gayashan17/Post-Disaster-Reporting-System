@@ -91,31 +91,39 @@
         </div>
         <div class="d-flex flex-column gap-3">
 
-          <div class="report-card">
-            <div class="report-thumb"><i class="bi bi-house-damage"></i></div>
-            <div class="report-meta">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="report-id">RPT-2024-0015</span>
-                <span class="badge-status badge-pending">Pending</span>
+        <?php if ($tableResult && mysqli_num_rows($tableResult) > 0): ?>
+            <?php while ($row = mysqli_fetch_assoc($tableResult)): ?>
+              <div class="report-card">
+                <div class="report-thumb"><i class="bi bi-house-damage"></i></div>
+                <div class="report-meta">
+                  <div class="d-flex align-items-center gap-2 mb-1">
+                    <span class="report-id">Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?></span>
+                    <span class="badge-status badge-pending"><?php echo htmlspecialchars($row['Report_Status']) ?></span>
+                  </div>
+                  <div class="report-type"><?php echo htmlspecialchars($row['Report_Type']) ?></div>
+                  <div class="report-by">Reported by: <?php echo htmlspecialchars($row['Full_Name']) ?></div>
+                  <div class="report-date"><i class="bi bi-calendar3 me-1"></i> <?php echo htmlspecialchars($row['Report_Date']) ?></div>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                  <button class="btn btn-primary btn-sm rounded-3"
+                    onclick="reviewReport
+                    ('Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?>',
+                    '<?php echo htmlspecialchars($row['Report_Type']) ?>',
+                    '<?php echo htmlspecialchars($row['Full_Name']) ?>')">
+
+                    <i class="bi bi-eye me-1"></i>Review
+                  </button>
+                </div>
               </div>
-              <div class="report-type">Property Damage</div>
-              <div class="report-by">Reported by: Dilini Perera</div>
-              <div class="report-date"><i class="bi bi-calendar3 me-1"></i>2024-05-21</div>
+            <?php endwhile; ?>
+      <?php endif; ?>
+
             </div>
-            <div class="d-flex flex-column gap-2">
-              <button class="btn btn-primary btn-sm rounded-3" onclick="reviewReport('RPT-2024-0015','Property Damage','Dilini Perera')">
-                <i class="bi bi-eye me-1"></i>Review
-              </button>
+            <div class="mt-3 text-center">
+              <button class="btn btn-outline-primary rounded-3 w-100" onclick="showInfo('All Reports')">View All Reports</button>
             </div>
           </div>
-
-
         </div>
-        <div class="mt-3 text-center">
-          <button class="btn btn-outline-primary rounded-3 w-100" onclick="showInfo('All Reports')">View All Reports</button>
-        </div>
-      </div>
-    </div>
 
     <!-- Right column -->
     <div class="col-lg-5 d-flex flex-column gap-3">
@@ -166,5 +174,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
 <script src="LAOdashboard.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function()
+    {
+        if (typeof animateCounter === 'function')
+        {
+            animateCounter('s-total', <?php echo (int)$totReportCount; ?>);
+            animateCounter('s-pending', <?php echo (int)$submittedReportCount; ?>);
+            animateCounter('s-verified', <?php echo (int)$verifiedReportCount; ?>);
+            animateCounter('s-rejected', <?php echo (int)$rejectedReportCount; ?>);
+        }
+    });
+</script>
 </body>
 </html>

@@ -80,6 +80,45 @@ class LocalAuthorityOfficer extends User
         }
     }
 
+    public static function getDSID($con,$userId)
+    {
+        try
+        {
+            $query = "SELECT l.Assigned_divisional_secretariat AS DS_ID FROM local_authority_officer l JOIN users u ON l.User_ID = u.User_ID WHERE u.User_ID = ?";
+
+            $stmt = mysqli_prepare($con,$query);
+
+            if(!$stmt)
+            {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt,"i",$userId);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if($row = mysqli_fetch_assoc($result))
+            {
+                $DSID = $row['DS_ID'];
+                return $DSID;
+            }
+            else
+            {
+                throw new Exception ("No Assigned District Secretariat or invalid User ID");
+            }
+
+        }
+        catch(Exception $e)
+        {
+            throw new Exception(
+                "Error retrieving Divisional Secretariat for Local Officer ID: " .
+                $e->getMessage()
+            );
+        }
+    }
+
+
     // find assigned Local Authority Officer for DS ID
     public static function getDSLAO($con,$DSID)
     {

@@ -4,7 +4,7 @@
     include '../userData.php';
     include '../DBconnection.php';
 
-
+    $DSID = LocalAuthorityOfficer::getDSID($con,$userId);
     // 1. get Summary Counts
     try
     {
@@ -20,6 +20,7 @@
                   WHERE dr.DS_ID = ?";
 
         $stmt = mysqli_prepare($con, $query);
+
         mysqli_stmt_bind_param($stmt, "s", $DSID);
         mysqli_stmt_execute($stmt);
 
@@ -28,7 +29,7 @@
         if($row = mysqli_fetch_assoc($result))
         {
             $totReportCount = (int)$row['Total'];
-            $submittedReportCount = (int)$row['Submitted'];
+            $submittedReportCount = (int)$row['Pending'];
             $verifiedReportCount = (int)$row['Verified'];
             $rejectedReportCount = (int)$row['Rejected'];
         }
@@ -52,7 +53,7 @@
     // 3. get Table Data
     try
     {
-        $query = "SELECT Report_ID, Report_Type, District, Report_Status, Report_Date FROM disaster_report WHERE DS_ID = ?";
+        $query = "SELECT d.Report_ID, d.Report_Type, d.District, d.Report_Status, d.Report_Date, u.Full_Name FROM disaster_report d JOIN users u ON d.User_ID = u.User_ID WHERE DS_ID = ?";
 
         $stmt = mysqli_prepare($con, $query);
         mysqli_stmt_bind_param($stmt, "s", $DSID);

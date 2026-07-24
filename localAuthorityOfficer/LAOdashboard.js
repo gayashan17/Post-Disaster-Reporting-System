@@ -95,10 +95,3 @@ function animateCounter(id, val) {
   }, 40);
 }
 
-// Safe Window Initialization Listener
-window.addEventListener('load', () => {
-  animateCounter('s-total', 18);
-  animateCounter('s-pending', 3);
-  animateCounter('s-verified', 12);
-  animateCounter('s-rejected', 3);
-});
