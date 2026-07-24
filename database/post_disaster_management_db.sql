@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2026 at 11:24 PM
+-- Generation Time: Jul 24, 2026 at 01:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -153,7 +153,7 @@ CREATE TABLE `disaster_report` (
   `User_ID` int(11) NOT NULL,
   `Disaster_Type_ID` int(11) NOT NULL,
   `Report_Type` varchar(50) NOT NULL,
-  `Report_Status` enum('Submitted','Under Review','Verified','Rejected','Compensation Pending','Compensation Approved','Compensation Rejected','Payment Processing','Payment Completed','Closed') NOT NULL DEFAULT 'Submitted',
+  `Report_Status` enum('Submitted','LAO Approved','LAO Pending','LAO Rejected','DMO Approved','DMO Pending','DMO Rejected','DS Approved','DS Pending','DS Rejected','FO Paid','FO Pending','FO Rejected') NOT NULL DEFAULT 'Submitted',
   `District` varchar(50) NOT NULL,
   `DS_ID` int(11) DEFAULT NULL,
   `Street_Address` text NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE `disaster_report` (
 
 INSERT INTO `disaster_report` (`Report_ID`, `User_ID`, `Disaster_Type_ID`, `Report_Type`, `Report_Status`, `District`, `DS_ID`, `Street_Address`, `Description`, `Report_Date`) VALUES
 (35, 26, 28, 'Death Record', 'Submitted', 'default', 1, '', '', '2026-07-15 11:30:33'),
-(36, 26, 23, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-15 11:47:19'),
+(36, 26, 23, 'Missing Person Record', 'DS Approved', 'default', NULL, '', '', '2026-07-15 11:47:19'),
 (37, 26, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-15 12:01:02'),
 (38, 26, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-16 06:34:06'),
 (39, 26, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-16 09:33:56'),
@@ -872,7 +872,7 @@ INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `
 (20, 'Madu@123', '$2y$10$Afuvp17dwAB1EK3V/DDR0OhQEC1NdEk.aNLZbiEnL8SXNhDx6X1im', 'Madushi Kalansoooriya', 'Female', '200304811656', 'AAA@gmail.com', '0766511220', 'Colombo', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
 (21, 'ASD123', '$2y$10$Cjk7CsqrShTnnsabPAB1g.cgMx0VawPWikzlKf8RxZr/rRGKLTsA2', 'Asanka Sampath Dananjaya', 'Male', '200304568596', 'AsankaSD@gmail.com', '0778899665', 'Kurunegala', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
 (22, 'charin', '$2y$10$jwJxmkgI9BBLns5BXJMnd.uDSbforiJCCQ3QIfuUj0tCtcbFrYf4y', 'charindu gayashan', 'Male', '200512700610', 'charindu@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(26, 'charindu', '$2y$10$TxVu6.HZBGZNYJr9.N4wAOFGpSAVdgZZaznXeaUZJvs9F.5Vze6Eq', 'Charindu Gayashan', 'Male', '200512700610', 'charindugayashan00@gmail.com', '0762352086', 'galle', 4, 'Active', '2026-07-22 12:12:34', '26_20260723_161722.png'),
+(26, 'charindu', '$2y$10$TxVu6.HZBGZNYJr9.N4wAOFGpSAVdgZZaznXeaUZJvs9F.5Vze6Eq', 'Charindu Gayashan', 'Male', '200512700610', 'charindugayashan00@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34', '26_20260723_161722.png'),
 (27, 'AAA', '$2y$10$zr22onqR0GJAgs.y2M5z5.5mk3nhPKqK0p9O7mC9qbXKBio4qDBsW', 'AAA', 'Male', '200304811654', 'asda@gmail.com', '0766511223', 'Galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
 (28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 5, 'Active', '2026-07-22 12:12:34', 'Default'),
 (29, 'LOF', '$2y$10$cdD18ckAbSJDasQ7WTUF0eEwdkBj8U29XI2K9.uuwG4EYZKR6jBPO', 'Local Authority Officer', 'Male', '200546568956', 'LOF@gmail.com', '0456633221', 'Galle', 4, 'Active', '2026-07-22 12:12:34', 'Default'),

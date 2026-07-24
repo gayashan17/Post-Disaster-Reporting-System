@@ -12,8 +12,8 @@
         $query = "SELECT
                       COUNT(dr.Report_ID) AS Total,
                       COUNT(CASE WHEN dr.Report_Status = 'Submitted' THEN 1 END) AS Pending,
-                      COUNT(CASE WHEN dr.Report_Status = 'Verified' THEN 1 END) AS Verified,
-                      COUNT(CASE WHEN dr.Report_Status = 'Rejected' THEN 1 END) AS Rejected
+                      COUNT(CASE WHEN dr.Report_Status = 'LAO Approved' THEN 1 END) AS Verified,
+                      COUNT(CASE WHEN dr.Report_Status = 'LAO Rejected' THEN 1 END) AS Rejected
                   FROM disaster_report dr
                   JOIN local_authority_officer lao
                       ON dr.DS_ID = lao.Assigned_divisional_secretariat

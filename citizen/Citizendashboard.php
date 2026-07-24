@@ -8,9 +8,9 @@
     try
     {
         $query = "SELECT COUNT(Report_ID) AS total,
-        SUM(Report_Status IN ('submitted', 'under review')) AS pending,
-        SUM(Report_Status IN ('compensation approved')) AS approved,
-        SUM(Report_Status IN ('payment completed')) AS pCompleted
+        SUM(Report_Status IN ('submitted', 'LAO Pending','DMO Pending','DS Pending','FO Pending')) AS pending,
+        SUM(Report_Status IN ('DS Approved')) AS approved,
+        SUM(Report_Status IN ('FO Paid')) AS pCompleted
         FROM disaster_report WHERE User_ID = ?";
 
         $stmt = mysqli_prepare($con, $query);
