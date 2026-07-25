@@ -57,6 +57,38 @@ class InjuredPerson extends DisasterReport
             throw new Exception("Injured Person Record Insert Failed: " . $e->getMessage());
         }
     }
+
+        public static function getInjuredPersonReport($con,$reportID)
+        {
+            try
+            {
+                $query= "SELECT Full_Name,Age,Gender,Injured_Level FROM injured_person WHERE Report_ID = ?";
+
+                     $stmt = mysqli_prepare($con,$query);
+
+                     mysqli_stmt_bind_param($stmt, "i", $reportID);
+
+                     if(mysqli_stmt_execute($stmt))
+                     {
+                        $result = mysqli_stmt_get_result($stmt);
+                        if ($result && mysqli_num_rows($result) > 0)
+                        {
+                            $row = mysqli_fetch_assoc($result);
+                        }
+                        else
+                        {
+                            $row = null;
+                        }
+                     }
+                 return $row;
+            }
+            catch(Exception $e)
+            {
+                throw $e;
+                return false;
+            }
+        }
+
 }
 
 

@@ -72,7 +72,7 @@
 <header id="topbar">
     <button id="menu-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
     <div class="topbar-title">Citizen <span class="citizen-accent">Profile</span></div>
-    <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
+    <button class="notif-btn" onclick="showNotifications()" title="Notifications">
         <i class="bi bi-bell"></i>
         <?php if($NotificationCount > 0):?>  <!--Removes the red circle near notification bell icon -->
         <span class="notif-badge"><?php echo $NotificationCount ?></span>

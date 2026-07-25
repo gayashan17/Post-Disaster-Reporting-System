@@ -64,6 +64,38 @@ class PropertyDamage extends DisasterReport
 
         return mysqli_stmt_execute($stmt);
     }
+
+        //Property Damage Report data
+        public static function getPropertyDamageReport($con,$reportID)
+        {
+            try
+            {
+                $query= "SELECT Property_Type,Damage_Level,Damage_Description,Estimated_Cost FROM property_damage WHERE Report_ID = ?";
+
+                     $stmt = mysqli_prepare($con,$query);
+
+                     mysqli_stmt_bind_param($stmt, "i", $reportID);
+
+                     if(mysqli_stmt_execute($stmt))
+                     {
+                        $result = mysqli_stmt_get_result($stmt);
+                        if ($result && mysqli_num_rows($result) > 0)
+                        {
+                            $row = mysqli_fetch_assoc($result);
+                        }
+                        else
+                        {
+                            $row = null;
+                        }
+                     }
+                 return $row;
+            }
+            catch(Exception $e)
+            {
+                throw $e;
+                return false;
+            }
+        }
 }
 
 ?>

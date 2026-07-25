@@ -297,12 +297,136 @@
       </div>
     </div>
 
-    <!-- 3. Deceased Person Details (Only renders if death record exists) -->
-    <?php if (!empty($ReportData) && is_array($ReportData)): ?>
+    <!--Property Damage (Only renders if Property Damage exists) -->
+    <?php if ($type == "Property Damage" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-4">
         <div class="panel-header mb-3">
           <div class="panel-title fw-bold text-danger">
-            <i class="bi bi-person-x-fill me-2"></i> Deceased Person Record
+            Property Damage Report
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-borderless fs-6 mb-0">
+            <tbody>
+              <tr>
+                <td class="text-muted" style="width:25%">Property:</td>
+                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Property_Type']); ?></td>
+              </tr>
+              <tr>
+                <td class="text-muted">Damage Level:</td>
+                <td><?php echo htmlspecialchars($ReportData['Damage_Level']); ?></td>
+              </tr>
+              <tr>
+                <td class="text-muted">Estimated Cost</td>
+                <td>
+                    <?php echo htmlspecialchars($ReportData['Estimated_Cost']); ?>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-muted align-top">Damage Description:</td>
+                <td>
+                  <div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line;">
+                    <?php echo htmlspecialchars($ReportData['Damage_Description']); ?>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <!--Missing Person Details (Only renders if death record exists) -->
+    <?php if ($type == "Missing Person Record" && !empty($ReportData) && is_array($ReportData) ) : ?>
+      <div class="panel mt-4">
+        <div class="panel-header mb-3">
+          <div class="panel-title fw-bold text-danger">
+            Missing Person Record
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-borderless fs-6 mb-0">
+            <tbody>
+              <tr>
+                <td class="text-muted" style="width:25%">Full Name:</td>
+                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td>
+              </tr>
+              <tr>
+                <td class="text-muted">Age:</td>
+                <td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td>
+              </tr>
+              <tr>
+                <td class="text-muted">Gender:</td>
+                <td>
+                  <span class="badge bg-secondary">
+                    <?php echo htmlspecialchars($ReportData['Gender']); ?>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-muted">Last Seen Location:</td>
+                <td><?php echo htmlspecialchars($ReportData['Last_Seen_Location']); ?></td>
+              </tr>
+                <tr>
+                <td class="text-muted">Last Seen Date:</td>
+                <td><?php echo htmlspecialchars($ReportData['Last_Seen_Date']); ?> </td>
+              </tr><tr>
+                <td class="text-muted">Last Seen Time:</td>
+                <td><?php echo htmlspecialchars($ReportData['Last_Seen_Time']); ?></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <!--Injured Person Details (Only renders if death record exists) -->
+    <?php if ($type == "Injured Person" && !empty($ReportData) && is_array($ReportData) ) : ?>
+      <div class="panel mt-4">
+        <div class="panel-header mb-3">
+          <div class="panel-title fw-bold text-danger">
+            Injured Person Record
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-borderless fs-6 mb-0">
+            <tbody>
+              <tr>
+                <td class="text-muted" style="width:25%">Full Name:</td>
+                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td>
+              </tr>
+              <tr>
+                <td class="text-muted">Age:</td>
+                <td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td>
+              </tr>
+              <tr>
+                <td class="text-muted">Gender:</td>
+                <td>
+                  <span class="badge bg-secondary">
+                    <?php echo htmlspecialchars($ReportData['Gender']); ?>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-muted align-top">Injury Level:</td>
+                <td>
+                <span class="badge bg-warning">
+                    <?php echo htmlspecialchars($ReportData['Injured_Level']); ?>
+                </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <!--Death Person Details (Only renders if death record exists) -->
+    <?php if ($type == "Death Record" && !empty($ReportData) && is_array($ReportData) ) : ?>
+      <div class="panel mt-4">
+        <div class="panel-header mb-3">
+          <div class="panel-title fw-bold text-danger">
+            Deceased Person Record
           </div>
         </div>
         <div class="table-responsive">
@@ -337,6 +461,8 @@
         </div>
       </div>
     <?php endif; ?>
+
+
 
   <?php elseif (isset($_GET['report_id'])): ?>
     <div class="alert alert-warning rounded-3 shadow-sm" role="alert">

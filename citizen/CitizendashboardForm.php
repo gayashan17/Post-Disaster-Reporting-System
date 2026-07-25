@@ -215,13 +215,17 @@
         <?php while ($row = mysqli_fetch_assoc($Notifications)): ?>
             <?php $notificationIDs [] = $row['Notification_ID'] ?>
             <div class="notif-item">
-                  <?php if($row['Report_Status'] == "Submitted"):?>
+                  <?php if($row['Report_Status'] == "LAO Approved" || $row['Report_Status'] == "DMO Approved"|| $row['Report_Status'] == "DS Approved" || $row['Report_Status'] == "FO Approved" ):?>
                   <div class="notif-icon green">
                     <i class="bi bi-check-circle-fill"></i>
                   </div>
-                  <?php elseif($row['Report_Status'] == "LAO Pending" || $row['Report_Status'] == "DMO Pending"):?>
+                  <?php elseif($row['Report_Status'] == "LAO Pending" || $row['Report_Status'] == "DMO Pending"|| $row['Report_Status'] == "DS Pending" || $row['Report_Status'] == "FO Pending" || $row['Report_Status'] == "Submitted" ) :?>
                   <div class="notif-icon blue">
                     <i class="bi bi-info-circle-fill"> </i>
+                  </div>
+                  <?php elseif($row['Report_Status'] == "LAO Rejected" || $row['Report_Status'] == "DMO Rejected"|| $row['Report_Status'] == "DS Rejected" || $row['Report_Status'] == "FO Rejected" ) :?>
+                  <div class="notif-icon red">
+                    <i class="bi bi-x-circle-fill"> </i>
                   </div>
                   <?php elseif($row['Report_Status'] == "FO Paid"):?>
                   <div class="notif-icon purple">
