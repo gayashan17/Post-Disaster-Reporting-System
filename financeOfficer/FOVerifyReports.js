@@ -46,7 +46,7 @@ function initVerifyReportsTable() {
             { title: 'Report ID' },
             { title: 'District' },
             { title: 'DS Office' },
-            { title: 'Estimate Amount' },
+            { title: 'Approved Amount' },
             { title: 'Bank Account No' },
             { title: 'Action', orderable: false }
         ]
@@ -96,12 +96,12 @@ function renderVerifyReportsTable(rows) {
         verifyReportsTable.row.add([
             safeVal(row.Report_ID),
             safeVal(row.District),
-            safeVal(row.DS_Name),
-            formatMoney(row.Estimate_Amount),
+            safeVal(row.Office_Name),
+            formatMoney(row.Estimated_Amount),
             safeVal(row.Bank_Account_No),
             `<button class="icon-btn view" title="View Report" onclick="openReportDetails(${row.Report_ID})">
                 <i class="bi bi-eye"></i>
-             </button>`
+            </button>`
         ]);
     });
 
@@ -178,7 +178,7 @@ function buildReportDetailsHTML(d) {
                 <div class="detail-value">${safeVal(d.District)}</div>
             </div>
             <div class="col-md-4">
-                <div class="detail-label">DS Office</div>
+                <div class="detail-label">Divisional Secretariat</div>
                 <div class="detail-value">${safeVal(d.DS_Name)}</div>
             </div>
             <div class="col-md-4">
@@ -230,7 +230,7 @@ function buildReportDetailsHTML(d) {
         <div class="detail-section-title">Verification / Estimate</div>
         <div class="row">
             <div class="col-md-6">
-                <div class="detail-label">Estimated Amount</div>
+                <div class="detail-label">Approved Amount</div>
                 <div class="detail-value"><span class="badge-amount">${formatMoney(d.Estimated_Amount)}</span></div>
             </div>
             <div class="col-md-6">
