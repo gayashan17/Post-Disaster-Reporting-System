@@ -31,8 +31,8 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" onclick="newReport()">
-    <i class="bi bi-file-earmark-plus"></i> Submit New Report
+  <a class="nav-item" <?php echo !empty($isBank) ? 'onclick="newReport()"' : 'href="CitizenProfileForm.php"'; ?>>
+   <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
   <a class="nav-item" href="CitizenMyReportsForm.php">
     <i class="bi bi-file-earmark-text"></i> My Reports
@@ -317,9 +317,9 @@
           </div>
         </div>
         <div class="d-flex flex-column gap-2">
-          <a class="qa-btn" onclick="newReport()">
-            <i class="bi bi-plus-circle-fill"></i> Submit New Report
-          </a>
+        <a class="qa-btn" <?php echo !empty($isBank) ? 'onclick="newReport()"' : 'href="CitizenProfileForm.php"'; ?>>
+           <i class="bi bi-plus-circle-fill"></i>Submit New Report
+        </a>
           <a class="qa-btn" onclick="showInfo('Track My Report')">
             <i class="bi bi-search"></i> Track My Report
           </a>

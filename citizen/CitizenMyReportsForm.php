@@ -33,8 +33,8 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" onclick="newReport()">
-    <i class="bi bi-file-earmark-plus"></i> Submit New Report
+  <a class="nav-item" <?php echo !empty($isBank) ? 'onclick="newReport()"' : 'href="CitizenProfileForm.php"'; ?>>
+   <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
   <!-- Set Active Class on My Reports -->
   <a class="nav-item active" href="CitizenMyReportsForm.php">

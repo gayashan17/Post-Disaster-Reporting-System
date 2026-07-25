@@ -2,7 +2,6 @@
     include '../userData.php';   // gives $userId, $roleId, $username, $role, $email, $gender (from session)
     include 'Citizendashboard.php';
 
-
     $user = new User();
     $userRecord = $user->getUserById($userId);
 
@@ -23,16 +22,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- one level up since this page lives inside /Profile -->
   <link href="../style.css" rel="stylesheet" />
-
 </head>
 <body>
 
-<!-- ══════════════════ SIDEBAR ══════════════════ -->
-
+<!-- SIDEBAR -->
 <nav id="sidebar">
-
   <div class="sidebar-brand">
     <div class="brand-icon"><img src="../pictures/Post-Disaster-Reporting-Logo-Notxt.png"></div>
     <div>
@@ -42,8 +37,8 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" onclick="newReport()">
-    <i class="bi bi-file-earmark-plus"></i> Submit New Report
+  <a class="nav-item" <?php echo !empty($isBank) ? 'onclick="newReport()"' : 'href="CitizenProfileForm.php"'; ?>>
+   <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
   <a class="nav-item" href="CitizenMyReportsForm.php">
     <i class="bi bi-file-earmark-text"></i> My Reports
@@ -65,7 +60,6 @@
       <i class="bi bi-box-arrow-left"></i> Logout
     </a>
   </div>
-
 </nav>
 
 <!-- ══════════════════ TOPBAR ══════════════════ -->
@@ -74,7 +68,7 @@
     <div class="topbar-title">Citizen <span class="citizen-accent">Profile</span></div>
     <button class="notif-btn" onclick="showNotifications()" title="Notifications">
         <i class="bi bi-bell"></i>
-        <?php if($NotificationCount > 0):?>  <!--Removes the red circle near notification bell icon -->
+        <?php if($NotificationCount > 0):?>
         <span class="notif-badge"><?php echo $NotificationCount ?></span>
         <?php endif; ?>
     </button>
@@ -91,18 +85,25 @@
     </div>
 </header>
 
-<!-- ══════════════════ Main content ══════════════════ -->
+<!-- ══════════════════ MAIN CONTENT ══════════════════ -->
 <main id="main">
 
-<div class="panel">
+  <!-- Profile Details Panel -->
+  <div class="panel mb-4">
     <div class="panel-header justify-content-center flex-column text-center py-4">
 
-      <!-- Separate small form just for the picture, so it posts independently
-           of the main profile-details form below -->
       <form action="Citizenprofile.php" method="POST" enctype="multipart/form-data" id="profilePicForm">
 
-          <div class="profile-avatar-lg mb-3 profile-avatar-wrap">
+        <?php if(isset($_SESSION['bankMessage']) && $_SESSION['bankMessage'] == false): ?>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2"></i>
+          <div>
+            <strong>Warning!</strong> Please complete your bank details below before submitting a new report.
+          </div>
+        </div>
+        <?php endif;?>
 
+        <div class="profile-avatar-lg mb-3 profile-avatar-wrap">
               <?php if (!empty($profilePicFile)): ?>
                   <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>"
                        alt="Profile Picture" class="profile-avatar-img">
@@ -110,7 +111,6 @@
                   <i class="bi bi-person-fill"></i>
               <?php endif; ?>
 
-              <!-- Camera overlay, Facebook-style -->
               <label for="profilePicInput" class="avatar-edit-btn" title="Update profile picture">
                   <i class="bi bi-camera-fill"></i>
               </label>
@@ -120,8 +120,7 @@
                      id="profilePicInput"
                      accept="image/png, image/jpeg, image/jpg, image/webp"
                      hidden>
-          </div>
-
+        </div>
       </form>
 
       <div class="panel-title justify-content-center">
@@ -131,11 +130,9 @@
     </div>
 
     <form id="profile-form" novalidate>
-
       <input type="hidden" id="userID" name="userID" value="<?php echo htmlspecialchars($userRecord['User_ID']); ?>">
 
       <div class="row g-3 p-3">
-
         <div class="col-md-6">
           <label class="form-label">Username</label>
           <input type="text" class="form-control" id="userName" name="userName"
@@ -196,7 +193,6 @@
           ?></textarea>
           <div class="invalid-feedback">Address is required.</div>
         </div>
-
       </div>
 
       <div class="p-3 pt-0">
@@ -228,7 +224,54 @@
           <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
         </button>
       </div>
+    </form>
+  </div>
 
+  <!-- Bank Details Panel -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <i class="bi bi-bank2 text-primary"></i> Bank Account Information
+      </div>
+    </div>
+
+    <form id="bank-details-form" class="p-3" action="CitizenBank.php" method="POST">
+      <input type="hidden" name="citizenID" value="<?php echo htmlspecialchars($userRecord['User_ID']); ?>">
+
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Beneficiary Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="accountHolderName" name="accountHolderName"
+                 placeholder="e.g. A.B.C. Perera"
+                 value="<?php echo htmlspecialchars($bankDetails['Account_Holder_Name'] ?? ''); ?>" required>
+          <div class="invalid-feedback">Beneficiary Name is required.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Bank Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="bankName" name="bankName"
+                 placeholder="e.g. Bank of Ceylon"
+                 value="<?php echo htmlspecialchars($bankDetails['Bank_Name'] ?? ''); ?>" required>
+          <div class="invalid-feedback">Bank Name is required.</div>
+        </div>
+
+        <div class="col-md-12">
+          <label class="form-label">Account Number <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="accountNumber" name="accountNumber"
+                 placeholder="e.g. 1234567890"
+                 value="<?php echo htmlspecialchars($bankDetails['Account_Number'] ?? ''); ?>" required>
+          <div class="invalid-feedback">Account Number is required.</div>
+        </div>
+      </div>
+
+      <div class="pt-3 d-flex gap-2">
+        <button type="submit" name="submit_bank_details" class="btn btn-primary rounded-3" id="bank-submit-btn">
+          <i class="bi bi-credit-card-fill me-1"></i> Save Bank Details
+        </button>
+        <button type="reset" class="btn btn-outline-secondary rounded-3">
+          <i class="bi bi-arrow-counterclockwise me-1"></i> Clear
+        </button>
+      </div>
     </form>
   </div>
 
@@ -239,9 +282,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
-<!-- reuse dashboard.js for toggleSidebar()/confirmLogout(), one level up -->
 <script src="Citizendashboard.js"></script>
-
 <script src="Citizenprofile.js"></script>
 
 </body>

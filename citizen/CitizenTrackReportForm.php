@@ -31,8 +31,8 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" onclick="newReport()">
-    <i class="bi bi-file-earmark-plus"></i> Submit New Report
+  <a class="nav-item" <?php echo !empty($isBank) ? 'onclick="newReport()"' : 'href="CitizenProfileForm.php"'; ?>>
+   <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
   <a class="nav-item" href="CitizenMyReportsForm.php">
     <i class="bi bi-file-earmark-text"></i> My Reports

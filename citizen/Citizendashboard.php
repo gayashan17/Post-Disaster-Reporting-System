@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once '../classes/Notification.php';
     include '../userData.php';
     include '../DBconnection.php';
@@ -8,6 +7,7 @@
     include '../classes/DeathRecord.php';
     include '../classes/InjuredPerson.php';
     include '../classes/PropertyDamage.php';
+    include '../classes/Citizen.php';
 
 
     // 1. get Summary Counts
@@ -114,6 +114,14 @@
 
     $Notifications = Notification::loadNotification($con,$userId);
     $NotificationCount = Notification::getNotificationCount($con,$userId);
+
+
+    //5.get User Bank details
+    $bank = Citizen::getCitizenBankDetails($con,$userId);
+
+    $isBank = !empty($bank['Bank_Name']) && !empty($bank['Account_Number']);
+    $_SESSION['bankMessage'] = $isBank;
+
 
 
 ?>
