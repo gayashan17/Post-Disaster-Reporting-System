@@ -38,7 +38,7 @@
                             header("Location: admin/AdmindashboardForm.php");
                             exit();
                         case 2:
-                            header("Location: disasterManagementOfficer/DMOdashboardForm.php");
+                            header("Location: disasterManagementOfficer/DMODashboardForm.php");
                             exit();
                         case 3:
                             header("Location: citizen/CitizendashboardForm.php");
