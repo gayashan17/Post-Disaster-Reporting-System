@@ -1,0 +1,155 @@
+<?php
+// ================================================================
+//   DSVerifyReports.php  -  Backend AJAX handler (Part 1)
+//   Handles: DMO Approved reports list, full details, approve, reject
+// ================================================================
+
+session_start();
+header('Content-Type: application/json');
+
+include_once '../DBconnection.php';
+include_once '../classes/DistrictSecretary.php';
+
+function dsSendResponse($success, $message = '', $data = null)
+{
+    echo json_encode([
+        'success' => $success,
+        'message' => $message,
+        'data'    => $data
+    ]);
+    exit();
+}
+
+// ---- Auth check (District Secretary only, Role_ID = 5) ----
+if (!isset($_SESSION['user_Id']) || !isset($_SESSION['role_Id']) || $_SESSION['role_Id'] != 5)
+{
+    dsSendResponse(false, 'Unauthorized access.');
+}
+
+$districtSecretaryUserID = $_SESSION['user_Id'];
+$districtSecretary = new DistrictSecretary();
+
+$action = $_REQUEST['action'] ?? '';
+
+try
+{
+    switch ($action)
+    {
+        // ------------------------------------------------------
+        // LIST: All DMO Approved reports awaiting DS verification
+        // ------------------------------------------------------
+        case 'list':
+        {
+            $reports = $districtSecretary->getDMOApprovedReports($con, $districtSecretaryUserID);
+            dsSendResponse(true, '', $reports);
+            break;
+        }
+
+        // ------------------------------------------------------
+        // DETAILS: Full details + type-specific data + evidence files
+        // ------------------------------------------------------
+        case 'details':
+        {
+            $reportID = isset($_GET['report_id']) ? (int) $_GET['report_id'] : 0;
+
+            if ($reportID <= 0)
+            {
+                dsSendResponse(false, 'Invalid Report ID.');
+            }
+
+            $details      = $districtSecretary->getDSApprovedReportDetails($con, $reportID);
+            $typeDetails  = $districtSecretary->getReportTypeDetails($con, $reportID, $details['Report_Type']);
+            $evidenceFiles = $districtSecretary->getEvidenceFilesByReportID($con, $reportID);
+
+            dsSendResponse(true, '', [
+                'report'          => $details,
+                'type_details'    => $typeDetails,
+                'evidence_files'  => $evidenceFiles
+            ]);
+            break;
+        }
+
+        // ------------------------------------------------------
+        // APPROVE: Create verified verification report + move to DS Approved
+        // ------------------------------------------------------
+        case 'approve':
+        {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+            {
+                dsSendResponse(false, 'Invalid request method.');
+            }
+
+            $reportID       = isset($_POST['report_id']) ? (int) $_POST['report_id'] : 0;
+            $approvedAmount = isset($_POST['approved_amount']) ? (float) $_POST['approved_amount'] : 0;
+            $description    = isset($_POST['description']) ? trim($_POST['description']) : '';
+
+            if ($reportID <= 0)
+            {
+                dsSendResponse(false, 'Invalid Report ID.');
+            }
+            if ($approvedAmount <= 0)
+            {
+                dsSendResponse(false, 'Approved amount must be greater than zero.');
+            }
+            if ($description === '')
+            {
+                dsSendResponse(false, 'Description is required.');
+            }
+
+            $districtSecretary->addVerifiedVerificationReport(
+                $con,
+                $reportID,
+                $districtSecretaryUserID,
+                $description,
+                $approvedAmount
+            );
+            $districtSecretary->updateReportStatusToDSApproved($con, $reportID);
+
+            dsSendResponse(true, 'Report has been approved successfully.');
+            break;
+        }
+
+        // ------------------------------------------------------
+        // REJECT: Create rejected verification report + move to DS Rejected
+        // ------------------------------------------------------
+        case 'reject':
+        {
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST')
+            {
+                dsSendResponse(false, 'Invalid request method.');
+            }
+
+            $reportID    = isset($_POST['report_id']) ? (int) $_POST['report_id'] : 0;
+            $description = isset($_POST['description']) ? trim($_POST['description']) : '';
+
+            if ($reportID <= 0)
+            {
+                dsSendResponse(false, 'Invalid Report ID.');
+            }
+            if ($description === '')
+            {
+                dsSendResponse(false, 'A reason for rejection is required.');
+            }
+
+            $districtSecretary->addRejectedVerificationReport(
+                $con,
+                $reportID,
+                $districtSecretaryUserID,
+                $description
+            );
+            $districtSecretary->updateReportStatusToDSRejected($con, $reportID);
+
+            dsSendResponse(true, 'Report has been rejected.');
+            break;
+        }
+
+        default:
+        {
+            dsSendResponse(false, 'Unknown action requested.');
+        }
+    }
+}
+catch (Exception $e)
+{
+    dsSendResponse(false, $e->getMessage());
+}

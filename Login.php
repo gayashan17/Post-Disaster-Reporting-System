@@ -47,7 +47,7 @@
                             header("Location: localAuthorityOfficer/LAOdashboardForm.php");
                             exit();
                         case 5:
-                            header("Location: districtSecretary/DSdashboardForm.php");
+                            header("Location: districtSecretary/DSDashboardForm.php");
                             exit();
                         case 6:
                             header("Location: financeOfficer/FOdashboardForm.php");

@@ -123,6 +123,7 @@ class FinancialOfficer extends User
                         ON dr.User_ID = c.User_ID
 
                     WHERE dr.Report_Status = 'DS Approved'
+                    AND vr.Report_Status = 'Verified'
 
                     ORDER BY dr.Report_ID DESC";
 
@@ -203,6 +204,11 @@ class FinancialOfficer extends User
 
                     LEFT JOIN verification_report vr
                         ON dr.Report_ID = vr.Report_ID
+                        AND vr.Report_Status = 'Verified'
+
+                    INNER JOIN users vu
+                        ON vr.Created_By_Officer_User_ID = vu.User_ID
+                        AND vu.Role_ID = 5
 
                     WHERE dr.Report_ID = ?";
 
@@ -285,6 +291,7 @@ class FinancialOfficer extends User
                         INNER JOIN users u
                             ON u.User_ID = vr.Created_By_Officer_User_ID
                         WHERE vr.Report_ID = ?
+                        AND vr.Report_Status = 'Verified'
                         AND u.Role_ID = 2
                         LIMIT 1
                     ),
@@ -295,6 +302,7 @@ class FinancialOfficer extends User
                         INNER JOIN users u
                             ON u.User_ID = vr.Created_By_Officer_User_ID
                         WHERE vr.Report_ID = ?
+                        AND vr.Report_Status = 'Verified'
                         AND u.Role_ID = 5
                         LIMIT 1
                     ),
