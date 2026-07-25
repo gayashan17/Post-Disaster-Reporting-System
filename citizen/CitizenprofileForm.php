@@ -1,6 +1,7 @@
 <?php
     include '../userData.php';   // gives $userId, $roleId, $username, $role, $email, $gender (from session)
 
+
     $user = new User();
     $userRecord = $user->getUserById($userId);
 
@@ -50,20 +51,12 @@
     <i class="bi bi-search"></i> Track Report
   </a>
 
-  <div class="nav-section-label">Notifications</div>
-  <a class="nav-item" href="CitizendashboardForm.php">
-    <i class="bi bi-bell"></i> Notifications
-  </a>
-
   <div class="nav-section-label">Account</div>
   <a class="nav-item" href="CitizendashboardForm.php">
     <i class="bi bi-speedometer2"></i> Dashboard
   </a>
   <a class="nav-item active" href="CitizenprofileForm.php">
     <i class="bi bi-person"></i> Profile
-  </a>
-  <a class="nav-item" href="CitizendashboardForm.php">
-    <i class="bi bi-gear"></i> Settings
   </a>
 
   <div class="sidebar-footer">
@@ -80,7 +73,7 @@
     <div class="topbar-title">Citizen <span class="citizen-accent">Profile</span></div>
     <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
         <i class="bi bi-bell"></i>
-        <span class="notif-badge">5</span>
+        <span class="notif-badge">1</span>
     </button>
     <div class="user-pill" onclick="window.location.href='CitizenProfileForm.php';">
         <div class="user-avatar admin-avatar">

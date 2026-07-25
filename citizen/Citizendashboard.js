@@ -83,29 +83,112 @@ function viewReport(reportId,type,district,status,date)
 }
 
 function showNotifications() {
+  let contentHtml = '';
+
+  // Safely grab userNotifications array
+  const notificationsList = (typeof userNotifications !== 'undefined' && Array.isArray(userNotifications))
+    ? userNotifications
+    : [];
+
+  if (notificationsList.length > 0) {
+    // Build items list
+    contentHtml = notificationsList.map(notif => `
+      <div style="padding:10px 4px; border-bottom:1px solid #e2e8f0; display:flex; gap:10px; align-items:flex-start;">
+        <span style="font-size:18px; line-height:1;"><i class="bi bi-info-circle-fill"></i></span>
+        <div style="flex:1;">
+          <div style="font-weight:600; color:#1e293b;">
+            Report <b>:${escapeHtml(notif.report_id || notif.Report_ID)}</b>
+          </div>
+          <div style="color:#475569; margin-top:2px; font-size:12.5px;">
+            ${escapeHtml(notif.message || notif.Message)}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    // Fallback for empty notification list
+    contentHtml = `
+      <div style="padding:20px 0; text-align:center; color:#64748b;">
+        <span>You have no notifications.</span>
+      </div>
+    `;
+  }
+
+  // Render SweetAlert2
   Swal.fire({
     title: 'Notifications',
     width: '440px',
-    confirmButtonColor: '#2563eb',
-    confirmButtonText: 'View All',
     html: `
-      <div style="text-align:left; font-size:13px">
-        <div style="padding:10px 0; border-bottom:1px solid #e2e8f0; display:flex; gap:10px; align-items:center">
-          <span style="font-size:18px"></span>
-          <span>Report <b>RPT-2024-0011</b> has been <b>approved</b>.</span>
-        </div>
-        <div style="padding:10px 0; border-bottom:1px solid #e2e8f0; display:flex; gap:10px; align-items:center">
-          <span style="font-size:18px"></span>
-          <span>Report <b>RPT-2024-0012</b> is under verification.</span>
-        </div>
-        <div style="padding:10px 0; display:flex; gap:10px; align-items:center">
-          <span style="font-size:18px"></span>
-          <span>Payment for <b>RPT-2024-0009</b> has been completed.</span>
-        </div>
+      <div style="text-align:left; font-size:13px; max-height:320px; overflow-y:auto; padding-right:6px;">
+        ${contentHtml}
       </div>
-    `
+    `,
+    showCancelButton: true,
+    confirmButtonColor: '#2563eb',
+    cancelButtonColor: '#64748b',
+    confirmButtonText: 'Mark All as Read',
+    cancelButtonText: 'Close',
+    focusCancel: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      // Extract IDs dynamically from the list
+      const targetIDs = notificationsList.map(n => n.notification_id || n.Notification_ID).filter(Boolean);
+
+      if (targetIDs.length === 0) {
+        Swal.fire('Info', 'No unread notifications to mark.', 'info');
+        return;
+      }
+
+      // 💡 Tip: Use root-relative or exact relative path to your file location
+      fetch('../MarkNotificationsRead.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          notification_ids: targetIDs
+        })
+      })
+      .then(async response => {
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || 'Server error');
+        }
+        return data;
+      })
+      .then(data => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Marked as Read',
+          timer: 1200,
+          showConfirmButton: false
+        }).then(() => {
+          location.reload(); // Refresh badge & notifications
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error', error.message || 'Server request failed.', 'error');
+      });
+
+    }
   });
 }
+
+// Helper function to prevent XSS attacks in dynamic JS content
+function escapeHtml(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+
 
 function confirmLogout() {
   Swal.fire({

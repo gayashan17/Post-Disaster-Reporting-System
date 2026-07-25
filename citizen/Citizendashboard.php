@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once '../classes/Notification.php';
     include '../userData.php';
     include '../DBconnection.php';
 
@@ -93,7 +94,7 @@
         $query = "SELECT Report_ID, Report_Type, District, Report_Status, Report_Date FROM disaster_report WHERE User_ID = ?";
 
         $stmt = mysqli_prepare($con, $query);
-        mysqli_stmt_bind_param($stmt, "s", $userId);
+        mysqli_stmt_bind_param($stmt, "i", $userId);
         mysqli_stmt_execute($stmt);
 
         $tableResult = mysqli_stmt_get_result($stmt);
@@ -103,4 +104,11 @@
         error_log($e->getMessage());
         $tableResult = false;
     }
+
+    //4.Load notifications
+
+    $Notifications = Notification::loadNotification($con,$userId);
+    $NotificationCount = Notification::getNotificationCount($con,$userId);
+
+
 ?>

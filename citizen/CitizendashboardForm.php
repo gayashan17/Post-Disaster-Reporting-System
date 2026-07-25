@@ -41,20 +41,12 @@
     <i class="bi bi-search"></i> Track Report
   </a>
 
-  <div class="nav-section-label">Notifications</div>
-  <a class="nav-item" onclick="showInfo('Notifications')">
-    <i class="bi bi-bell"></i> Notifications
-  </a>
-
   <div class="nav-section-label">Account</div>
   <a class="nav-item active" href="#">
     <i class="bi bi-speedometer2"></i> Dashboard
   </a>
   <a class="nav-item" href="CitizenprofileForm.php">
     <i class="bi bi-person"></i> Profile
-  </a>
-  <a class="nav-item" onclick="showInfo('Settings')">
-    <i class="bi bi-gear"></i> Settings
   </a>
 
   <div class="sidebar-footer">
@@ -76,7 +68,9 @@
 
   <button class="notif-btn" onclick="showNotifications()" title="Notifications">
     <i class="bi bi-bell"></i>
-    <span class="notif-badge">3</span>
+    <?php if($NotificationCount > 0):?>  <!--Removes the red circle near notification bell icon -->
+    <span class="notif-badge"><?php echo $NotificationCount ?></span>
+    <?php endif; ?>
   </button>
 
     <div class="user-pill" onclick="window.location.href='CitizenProfileForm.php';">
@@ -213,43 +207,43 @@
       <div class="panel h-100">
         <div class="panel-header">
           <div class="panel-title"><i class="bi bi-bell"></i> Notifications</div>
-          <a class="stat-link" onclick="showInfo('All Notifications')">View All</a>
+          <a class="stat-link" onclick="showNotifications()">View All</a>
         </div>
 
-        <div class="notif-item">
-          <div class="notif-icon green"><i class="bi bi-check-circle-fill"></i></div>
-          <div class="notif-text">
-            Report <strong>RPT-2024-0011</strong> has been approved by Disaster Management Officer.
-          </div>
-          <div class="notif-time">2h ago</div>
-        </div>
+    <?php if ($Notifications && mysqli_num_rows($Notifications) > 0): ?>
+        <?php while ($row = mysqli_fetch_assoc($Notifications)): ?>
+            <?php $notificationIDs [] = $row['Notification_ID'] ?>
+            <div class="notif-item">
+                  <?php if($row['Report_Status'] == "Submitted"):?>
+                  <div class="notif-icon green">
+                    <i class="bi bi-check-circle-fill"></i>
+                  </div>
+                  <?php elseif($row['Report_Status'] == "LAO Pending" || $row['Report_Status'] == "DMO Pending"):?>
+                  <div class="notif-icon blue">
+                    <i class="bi bi-info-circle-fill"> </i>
+                  </div>
+                  <?php elseif($row['Report_Status'] == "FO Paid"):?>
+                  <div class="notif-icon purple">
+                    <i class="bi bi-credit-card-fill"> </i>
+                  </div>
+                  <?php endif;?>
 
+              <div class="notif-text">
+                Report <strong><?php echo htmlspecialchars($row['Report_ID']) ?>: </strong><br>
+                <?php echo htmlspecialchars($row['Notification_Message']) ?>
+              </div>
+              <div class="notif-time"><?php echo htmlspecialchars($row['Created_At'])?></div>
+            </div>
+        <?php endwhile; ?>
+    <?php else: ?>
         <div class="notif-item">
-          <div class="notif-icon blue"><i class="bi bi-info-circle-fill"></i></div>
-          <div class="notif-text">
-            Report <strong>RPT-2024-0012</strong> is under verification.
-          </div>
-          <div class="notif-time">1d ago</div>
+          <div class="notif-icon green">
+                <i class="bi bi-info-circle-fill"> </i></div>
+          <div class="notif-text">You have No Recent Notifications</div>
         </div>
+    <?php endif; ?>
 
-        <div class="notif-item">
-          <div class="notif-icon purple"><i class="bi bi-credit-card-fill"></i></div>
-          <div class="notif-text">
-            Payment for <strong>RPT-2024-0009</strong> has been completed.
-          </div>
-          <div class="notif-time">2d ago</div>
-        </div>
-
-        <div class="notif-item">
-          <div class="notif-icon amber"><i class="bi bi-bell-fill"></i></div>
-          <div class="notif-text">
-            New update regarding your report <strong>RPT-2024-0010</strong>.
-          </div>
-          <div class="notif-time">3d ago</div>
-        </div>
-      </div>
     </div>
-
   </div>
 
   <!-- Status Flow, Chart, Quick Actions -->
@@ -324,10 +318,10 @@
           <a class="qa-btn" onclick="showInfo('Track My Report')">
             <i class="bi bi-search"></i> Track My Report
           </a>
-          <a class="qa-btn" onclick="showInfo('View Notifications')">
+          <a class="qa-btn" onclick="showNotifications()">
             <i class="bi bi-bell-fill"></i> View Notifications
           </a>
-          <a class="qa-btn" onclick="showInfo('Update Profile')">
+          <a class="qa-btn" href="CitizenprofileForm.php">
             <i class="bi bi-person-fill"></i> Update Profile
           </a>
         </div>
@@ -346,6 +340,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
 <script src="Citizendashboard.js"></script>
+
+<?php
+$notificationsArray = [];
+if (!empty($Notifications) && mysqli_num_rows($Notifications) > 0) {
+    mysqli_data_seek($Notifications, 0);
+    while ($row = mysqli_fetch_assoc($Notifications)) {
+        $notificationsArray[] = [
+            'report_id' => $row['Report_ID'] ?? '',
+            'title'     => $row['Notification_Title'] ?? 'Notification',
+            'message'   => $row['Notification_Message'] ?? '',
+            'time'      => $row['Created_At'] ?? ''
+        ];
+    }
+}
+?>
+
+<!-- Inject array into JavaScript -->
+<script>
+    const userNotifications = <?php echo json_encode($notificationsArray); ?>;
+    window.activeNotificationIDs = <?php echo json_encode($notificationIDs ?? []); ?>;
+</script>
+
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
