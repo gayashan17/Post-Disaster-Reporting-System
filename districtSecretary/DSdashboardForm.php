@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include '../userData.php';
     include '../DBconnection.php';
 ?>
@@ -177,6 +176,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
+<script src="../Logout.js"></script>
 <script src="DSDashboard.js"></script>
 </body>
 </html>

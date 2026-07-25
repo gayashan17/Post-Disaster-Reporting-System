@@ -149,6 +149,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
+<script src="../Logout.js"></script>
 <script src="FOPaymentHistory.js"></script>
 </body>
 </html>

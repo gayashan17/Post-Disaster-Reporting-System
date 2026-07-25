@@ -272,7 +272,7 @@
 
 <!-- reuse dashboard.js for toggleSidebar()/confirmLogout(), one level up -->
 <script src="FOdashboard.js"></script>
-
+<script src="../Logout.js"></script>
 <script src="DSprofile.js"></script>
 
 </body>
