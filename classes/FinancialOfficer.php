@@ -107,18 +107,17 @@ class FinancialOfficer extends User
             $query = "SELECT
                         dr.Report_ID,
                         dr.District,
-                        dr.DS_ID,
-                        ds.DS_Name,
+                        ds.Office_Name,
                         vr.Estimated_Amount,
                         c.Beneficiary_Bank_Account_No AS Bank_Account_No
 
                     FROM disaster_report dr
 
-                    LEFT JOIN divisional_secretariat ds
-                        ON dr.DS_ID = ds.DS_ID
-
-                    LEFT JOIN verification_report vr
+                    INNER JOIN verification_report vr
                         ON dr.Report_ID = vr.Report_ID
+
+                    INNER JOIN district_secretary ds
+                        ON vr.Created_By_Officer_User_ID = ds.User_ID
 
                     INNER JOIN citizen c
                         ON dr.User_ID = c.User_ID
