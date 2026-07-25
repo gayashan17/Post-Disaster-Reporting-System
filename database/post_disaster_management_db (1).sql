@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2026 at 01:18 AM
+-- Generation Time: Jul 25, 2026 at 04:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -106,13 +106,7 @@ CREATE TABLE `compensation_report` (
 --
 
 INSERT INTO `compensation_report` (`Compensation_ID`, `Report_ID`, `Financial_Officer_User_ID`, `Estimate_Amount`, `Approved_Amount`, `Paid_Amount`, `Description`, `Receipt_File_Path`, `Payment_Status`, `Payment_Date`, `Created_Date`) VALUES
-(1, 36, 47, 50000.00, 45000.00, 45000.00, NULL, NULL, 'Paid', '2026-07-25 02:43:22', '2026-07-25 02:43:22'),
-(2, 37, 47, 75000.00, 70000.00, 70000.00, NULL, NULL, 'Paid', '2026-07-25 02:43:22', '2026-07-25 02:43:22'),
-(3, 38, 47, 100000.00, 90000.00, NULL, NULL, NULL, 'Processing', NULL, '2026-07-25 02:43:22'),
-(4, 39, 47, 125000.00, 120000.00, NULL, NULL, NULL, 'Processing', NULL, '2026-07-25 02:43:22'),
-(5, 43, 31, 0.00, NULL, 20000.00, 'Saa', '../uploads/Receipt/5_43_1784928454_videoframe_4502.png', 'Paid', '2026-07-25 02:57:34', '2026-07-25 02:56:17'),
-(6, 44, 31, 0.00, NULL, 845656.00, 'sdfguio;', '../uploads/Receipt/6_44_1784928957_videoframe_4502.png', 'Paid', '2026-07-25 03:05:57', '2026-07-25 03:03:57'),
-(7, 46, 31, 0.00, NULL, NULL, NULL, NULL, 'Processing', NULL, '2026-07-25 03:30:47');
+(13, 47, 31, 200000.00, 150000.00, 150000.00, 'Full Payement', '../uploads/Receipt/13_47_1784987017_26_6a572201f2238_DSE_22.1F_Database_Management_Systems.pdf', 'Paid', '2026-07-25 19:13:37', '2026-07-25 19:13:03');
 
 -- --------------------------------------------------------
 
@@ -199,22 +193,23 @@ INSERT INTO `disaster_report` (`Report_ID`, `User_ID`, `Disaster_Type_ID`, `Repo
 (43, 32, 28, 'Death Record', 'FO Paid', 'default', NULL, '', '', '2026-07-19 02:48:38'),
 (44, 32, 28, 'Injured Person', 'FO Paid', 'default', NULL, '', '', '2026-07-19 02:58:39'),
 (45, 32, 28, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 03:02:23'),
-(46, 32, 23, 'Property Damage', 'FO Pending', 'Galle', NULL, 'asdfghj', 'uytfds', '2026-07-19 07:27:02'),
-(47, 32, 28, 'Property Damage', 'DS Approved', 'default', NULL, '', '', '2026-07-21 17:02:51'),
+(46, 32, 23, 'Property Damage', 'DS Approved', 'Galle', 3, 'asdfghj', 'uytfds', '2026-07-19 07:27:02'),
+(47, 32, 28, 'Property Damage', 'FO Paid', 'Galle', 22, 'adfsgdsa', '', '2026-07-21 17:02:51'),
 (48, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:05:01'),
-(49, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:22:29'),
+(49, 32, 28, 'Property Damage', 'FO Pending', 'Galle', 6, 'afasa', 'asdad', '2026-07-21 17:22:29'),
 (50, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-21 19:59:50'),
 (51, 32, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-21 20:00:06'),
 (52, 32, 28, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-21 20:00:32'),
-(53, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:22:52'),
-(54, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:29:36'),
+(53, 32, 28, 'Death Record', 'DS Approved', 'default', NULL, '', '', '2026-07-22 16:22:52'),
+(54, 32, 28, 'Death Record', 'DS Rejected', 'default', NULL, '', '', '2026-07-22 16:29:36'),
 (55, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:39:46'),
 (56, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:40:05'),
 (57, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 16:40:43'),
 (58, 32, 28, 'Death Record', 'Submitted', 'default', NULL, '', '', '2026-07-22 19:09:30'),
 (59, 26, 22, 'Property Damage', 'Submitted', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:27:20'),
 (60, 26, 22, 'Property Damage', 'Submitted', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:37:58'),
-(61, 26, 22, 'Property Damage', 'Submitted', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:39:31');
+(61, 26, 22, 'Property Damage', 'Submitted', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:39:31'),
+(62, 32, 28, 'Property Damage', 'Submitted', 'Colombo', 1, '', '', '2026-07-25 17:51:35');
 
 -- --------------------------------------------------------
 
@@ -260,7 +255,9 @@ CREATE TABLE `district_secretary` (
 --
 
 INSERT INTO `district_secretary` (`User_ID`, `Secretary_Officer_ID`, `Office_Name`, `Office_Location`) VALUES
-(48, 'ASsDe', 'SsASss', 'SASDAdaDd');
+(28, 'asasa', 'Galle', 'asdada'),
+(48, 'ASsDe', 'SsASss', 'SASDAdaDd'),
+(50, 'ASsDeAS', 'Matale', 'ASASASAS');
 
 -- --------------------------------------------------------
 
@@ -653,8 +650,8 @@ INSERT INTO `evidence_file_and_photos` (`File_ID`, `Report_ID`, `File_Name`, `Fi
 (22, 46, '32_6a5c2eee7a0b3_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_46/32_6a5c2eee7a0b3_1689416305401.jpg', '2026-07-19 01:57:02'),
 (23, 47, '32_6a5f58e30912f_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_47/32_6a5f58e30912f_1689416305401.jpg', '2026-07-21 11:32:51'),
 (24, 48, '32_6a5f59650e4da_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_48/32_6a5f59650e4da_1689416305401.jpg', '2026-07-21 11:35:01'),
-(25, 49, '32_6a5f5d7da5ba8_9074a68f86e0f006a9ec7183530e66c0.jpg', 'image/jpeg', '../uploads/evidence/ReportID_49/32_6a5f5d7da5ba8_9074a68f86e0f006a9ec7183530e66c0.jpg', '2026-07-21 11:52:29'),
-(26, 50, '32_6a5f825e5a568_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_50/32_6a5f825e5a568_1689416305401.jpg', '2026-07-21 14:29:50'),
+(25, 49, '26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', 'image/jpeg', '../uploads/evidence/ReportID_49/26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', '2026-07-21 11:52:29'),
+(26, 49, '32_6a5f825e5a568_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_50/32_6a5f825e5a568_1689416305401.jpg', '2026-07-21 14:29:50'),
 (27, 51, '32_6a5f826e84385_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_51/32_6a5f826e84385_videoframe_4502.png', '2026-07-21 14:30:06'),
 (28, 52, '32_6a5f82884f54f_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_52/32_6a5f82884f54f_1689416305401.jpg', '2026-07-21 14:30:32'),
 (29, 53, '32_6a60a104327c8_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_53/32_6a60a104327c8_1689416305401.jpg', '2026-07-22 10:52:52'),
@@ -665,7 +662,8 @@ INSERT INTO `evidence_file_and_photos` (`File_ID`, `Report_ID`, `File_Name`, `Fi
 (34, 58, '32_6a60c8128fe56_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_58/32_6a60c8128fe56_1689416305401.jpg', '2026-07-22 13:39:30'),
 (35, 59, '26_6a62722072021_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_59/26_6a62722072021_62cff4-2c67f2.png', '2026-07-23 19:57:20'),
 (36, 60, '26_6a62749e842d1_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_60/26_6a62749e842d1_62cff4-2c67f2.png', '2026-07-23 20:07:58'),
-(37, 61, '26_6a6274fb77829_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_61/26_6a6274fb77829_62cff4-2c67f2.png', '2026-07-23 20:09:31');
+(37, 61, '26_6a6274fb77829_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_61/26_6a6274fb77829_62cff4-2c67f2.png', '2026-07-23 20:09:31'),
+(38, 62, '32_6a64aa4f5d8d9_26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', 'application/pdf', '../uploads/evidence/ReportID_62/32_6a64aa4f5d8d9_26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', '2026-07-25 12:21:35');
 
 -- --------------------------------------------------------
 
@@ -780,7 +778,8 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`Notification_ID`, `User_ID`, `Report_ID`, `Notification_Title`, `Notification_Message`, `Notification_Type`, `Is_Read`, `Created_At`) VALUES
-(1, 26, 61, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-24 01:39:31');
+(1, 26, 61, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-24 01:39:31'),
+(2, 26, 62, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-25 17:51:35');
 
 -- --------------------------------------------------------
 
@@ -845,10 +844,11 @@ INSERT INTO `property_damage` (`Report_ID`, `Property_Type`, `Damage_Level`, `Da
 (46, 'rHouse', 'Moderate', '', 231332.00, 6.04043514, 80.22849507),
 (47, 'default', '', '', 0.00, 0.00000000, 0.00000000),
 (48, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(49, 'default', '', '', 0.00, 0.00000000, 0.00000000),
+(49, 'default', 'Minor', 'asasasa', 0.00, 0.00000000, 0.00000000),
 (59, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700),
 (60, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700),
-(61, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700);
+(61, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700),
+(62, 'default', '', '', 0.00, 0.00000000, 0.00000000);
 
 -- --------------------------------------------------------
 
@@ -910,7 +910,7 @@ INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `
 (22, 'charin', '$2y$10$jwJxmkgI9BBLns5BXJMnd.uDSbforiJCCQ3QIfuUj0tCtcbFrYf4y', 'charindu gayashan', 'Male', '200512700610', 'charindu@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
 (26, 'charindu', '$2y$10$TxVu6.HZBGZNYJr9.N4wAOFGpSAVdgZZaznXeaUZJvs9F.5Vze6Eq', 'Charindu Gayashan', 'Male', '200512700610', 'charindugayashan00@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34', '26_20260723_161722.png'),
 (27, 'AAA', '$2y$10$zr22onqR0GJAgs.y2M5z5.5mk3nhPKqK0p9O7mC9qbXKBio4qDBsW', 'AAA', 'Male', '200304811654', 'asda@gmail.com', '0766511223', 'Galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 5, 'Active', '2026-07-22 12:12:34', 'Default'),
+(28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 5, 'Active', '2026-07-22 12:12:34', '28_20260725_160125.png'),
 (29, 'LOF', '$2y$10$cdD18ckAbSJDasQ7WTUF0eEwdkBj8U29XI2K9.uuwG4EYZKR6jBPO', 'Local Authority Officer', 'Male', '200546568956', 'LOF@gmail.com', '0456633221', 'Galle', 4, 'Active', '2026-07-22 12:12:34', 'Default'),
 (30, 'DMO', '$2y$10$sYlC/BotKLirMNOTkiVLIOtc9wJz67I4FYFbibhhB1q7BAqyPg1hy', 'Disaster Managment Officer', 'Male', '200563254123', 'DMO@gmail.com', '0766588552', 'Galle', 2, 'Active', '2026-07-22 12:12:34', 'Default'),
 (31, 'FO', '$2y$10$OIWerh3Mt2DpNoJO.aYEQuGI2nwVDFywXcNVwmpDzz48w3PD/WwZS', 'Financial Officer', 'Male', '200345889966', 'FO@gmail.com', '0766544882', 'Colombo', 6, 'Active', '2026-07-22 12:12:34', '31_20260724_235359.png'),
@@ -927,7 +927,8 @@ INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `
 (46, 'asdasd', '$2y$10$HeVGRPS3aLmsiquf.A3crOwhV1Yq90IXxzAqSXaRA7s0kcmqFkUt6', 'Citizen', 'Male', '200304556633', 'Galle@gmail.com', '0777788996', 'Galle', 3, 'Active', '2026-07-22 17:39:25', 'Default'),
 (47, 'FOASDAD', '$2y$10$iv5o1CA8Nv5kW.HeEgRYquG6vwvk0D1SDLrI.YVyITVhzDQLfUAFO', 'Malisha Madhusith', 'Female', '200304556666', 'malishamadhusith72@gmail.com', '0766511220', 'SADDSAD', 6, 'Active', '2026-07-25 02:40:35', 'Default.png'),
 (48, 'AdminAass', '$2y$10$xBxZNlxj3oxv3fJeDuxno.zRuEcDT9VlciahjWhXRNxkDldGaqvCu', 'Malisha Madhusith', 'Female', '200304556666', 'malishaasamadhusith72@gmail.com', '0766511220', 'ASDADAD', 5, 'Active', '2026-07-25 03:42:37', 'Default.png'),
-(49, 'AdminaSDFGHJK', '$2y$10$Q9IGfIYm5MUG/u9pVQw5ZurQCfFveqC3CIwwTOiBLvKeio991L/Ua', 'Malisha Madhusith', 'Female', '200304556666', 'malixzZXshamadhusith72@gmail.com', '0766511220', 'ASDADAD', 2, 'Active', '2026-07-25 03:50:07', 'Default.png');
+(49, 'AdminaSDFGHJK', '$2y$10$Q9IGfIYm5MUG/u9pVQw5ZurQCfFveqC3CIwwTOiBLvKeio991L/Ua', 'Malisha Madhusith', 'Female', '200304556666', 'malixzZXshamadhusith72@gmail.com', '0766511220', 'ASDADAD', 2, 'Active', '2026-07-25 03:50:07', 'Default.png'),
+(50, 'AdminASASSASAS', '$2y$10$nzLPLD9wjcikOH/LAC3yUen8u7YeWJtghbIWYiE8VFC0NOmdYP/lG', 'Malisha Madhusith', 'Male', '200304556666', 'maliSFASAxzZXshamadhusith72@gmail.com', '0766511220', 'ASDADAD', 5, 'Active', '2026-07-25 14:23:16', 'Default.png');
 
 -- --------------------------------------------------------
 
@@ -950,8 +951,15 @@ CREATE TABLE `verification_report` (
 --
 
 INSERT INTO `verification_report` (`Verification_ID`, `Report_ID`, `Created_By_Officer_User_ID`, `Description`, `Report_Status`, `Estimated_Amount`, `Verification_Date`) VALUES
-(1, 46, 48, NULL, 'Verified', 200000.00, '2026-07-25 03:45:57'),
-(3, 46, 49, NULL, 'Verified', 230000.00, '2026-07-25 03:47:45');
+(1, 46, 30, NULL, 'Verified', 200000.00, '2026-07-25 03:45:57'),
+(3, 46, 30, NULL, 'Verified', 230000.00, '2026-07-25 03:47:45'),
+(4, 47, 30, NULL, 'Verified', 200000.00, '2026-07-25 13:23:36'),
+(5, 51, 30, NULL, 'Verified', 250000.00, '2026-07-25 13:23:36'),
+(7, 46, 30, 'asasadad', 'Verified', 200330.00, '2026-07-25 17:22:54'),
+(8, 49, 30, 'kjhgfds', 'Verified', 28000.00, '2026-07-25 17:25:28'),
+(13, 49, 28, 'werghl', 'Verified', 15000.00, '2026-07-25 18:13:08'),
+(14, 47, 28, 'dfghjkl;\'', 'Rejected', NULL, '2026-07-25 18:43:38'),
+(15, 47, 28, 'wertghjk,', 'Verified', 150000.00, '2026-07-25 18:44:52');
 
 --
 -- Indexes for dumped tables
@@ -1105,13 +1113,13 @@ ALTER TABLE `verification_report`
 -- AUTO_INCREMENT for table `compensation_report`
 --
 ALTER TABLE `compensation_report`
-  MODIFY `Compensation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Compensation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `disaster_report`
 --
 ALTER TABLE `disaster_report`
-  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `disaster_type`
@@ -1129,13 +1137,13 @@ ALTER TABLE `divisional_secretariat`
 -- AUTO_INCREMENT for table `evidence_file_and_photos`
 --
 ALTER TABLE `evidence_file_and_photos`
-  MODIFY `File_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `File_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `Notification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Notification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `password_reset_otp`
@@ -1147,13 +1155,13 @@ ALTER TABLE `password_reset_otp`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `verification_report`
 --
 ALTER TABLE `verification_report`
-  MODIFY `Verification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Verification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
