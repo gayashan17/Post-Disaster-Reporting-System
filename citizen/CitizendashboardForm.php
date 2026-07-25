@@ -210,7 +210,8 @@
           <a class="stat-link" onclick="showNotifications()">View All</a>
         </div>
 
-    <?php if ($Notifications && mysqli_num_rows($Notifications) > 0): ?>
+    <?php $notificationIDs = [];
+    if ($Notifications && mysqli_num_rows($Notifications) > 0): ?>
         <?php while ($row = mysqli_fetch_assoc($Notifications)): ?>
             <?php $notificationIDs [] = $row['Notification_ID'] ?>
             <div class="notif-item">
@@ -359,7 +360,7 @@ if (!empty($Notifications) && mysqli_num_rows($Notifications) > 0) {
 <!-- Inject array into JavaScript -->
 <script>
     const userNotifications = <?php echo json_encode($notificationsArray); ?>;
-    window.activeNotificationIDs = <?php echo json_encode($notificationIDs ?? []); ?>;
+    const notificationIDs  = <?php echo json_encode($notificationIDs ); ?>;
 </script>
 
 

@@ -1,31 +1,21 @@
 <?php
+
 session_start();
 
-ob_start();
+include "DBconnection.php";
+include "classes/Notification.php";
 
-require_once 'classes/Notification.php';
-include 'userData.php';
-include 'DBconnection.php';
-ob_clean();
-header('Content-Type: application/json');
+$data = json_decode(file_get_contents("php://input"), true);
 
-$input = json_decode(file_get_contents('php://input'), true);
+$notificationIDs = $data['notificationIDs'] ?? [];
 
-if (isset($input['notification_ids']) && is_array($input['notification_ids'])) {
-    try {
-        $notificationIDs = $input['notification_ids'];
+try
+{
+    Notification::isReadNotification($con, $notificationIDs);
 
-        $success = Notification::isReadNotification($con, $notificationIDs);
-
-        if ($success) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Could not update records']);
-        }
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    }
-} else {
-    echo json_encode(['success' => false, 'message' => 'Invalid input array']);
+    echo "success";
 }
-exit;
+catch(Exception $e)
+{
+    echo "error";
+}

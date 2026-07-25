@@ -113,7 +113,7 @@ function showNotifications() {
       </div>
     `;
   }
-
+    const hasNotifications = notificationsList.length > 0;
   // Render SweetAlert2
   Swal.fire({
     title: 'Notifications',
@@ -124,55 +124,30 @@ function showNotifications() {
       </div>
     `,
     showCancelButton: true,
+    showConfirmButton: hasNotifications,
     confirmButtonColor: '#2563eb',
     cancelButtonColor: '#64748b',
     confirmButtonText: 'Mark All as Read',
     cancelButtonText: 'Close',
     focusCancel: true
   }).then((result) => {
-    if (result.isConfirmed) {
-
-      // Extract IDs dynamically from the list
-      const targetIDs = notificationsList.map(n => n.notification_id || n.Notification_ID).filter(Boolean);
-
-      if (targetIDs.length === 0) {
-        Swal.fire('Info', 'No unread notifications to mark.', 'info');
-        return;
+      if (result.isConfirmed)
+      {
+          fetch("../MarkNotificationsRead.php", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  notificationIDs: notificationIDs
+              })
+          })
+          .then(response => response.text())
+          .then(data => {
+              console.log(data);
+              location.reload();
+          });
       }
-
-      // 💡 Tip: Use root-relative or exact relative path to your file location
-      fetch('../MarkNotificationsRead.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          notification_ids: targetIDs
-        })
-      })
-      .then(async response => {
-        const data = await response.json();
-        if (!response.ok || !data.success) {
-          throw new Error(data.message || 'Server error');
-        }
-        return data;
-      })
-      .then(data => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Marked as Read',
-          timer: 1200,
-          showConfirmButton: false
-        }).then(() => {
-          location.reload(); // Refresh badge & notifications
-        });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', error.message || 'Server request failed.', 'error');
-      });
-
-    }
   });
 }
 

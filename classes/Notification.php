@@ -1,5 +1,5 @@
 <?php
-    require_once '../classes/LocalAuthorityOfficer.php';
+    require_once 'LocalAuthorityOfficer.php';
 class Notification
 {
 
@@ -79,7 +79,7 @@ class Notification
             {
                 if ($NotificationID !== null)
                 {
-                    mysqli_stmt_bind_param($stmt, "s", $NotificationID);
+                    mysqli_stmt_bind_param($stmt, "i", $NotificationID);
                     mysqli_stmt_execute($stmt);
                 }
             }
