@@ -1,197 +1,182 @@
 <?php
-    session_start();
     include '../userData.php';
     include '../DBconnection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Disaster Management Officer Dashboard</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="../style.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>District Secretary Dashboard</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+      <link href="../style.css" rel="stylesheet">
+    <style>
+        .ds-page-wrap{padding:24px}
+        .stat-card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #eef0f2;display:flex;align-items:center;gap:16px;height:100%}
+        .stat-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+        .stat-value{font-size:1.5rem;font-weight:700;color:#111827;line-height:1.1}
+        .stat-label{font-size:.8rem;color:#6b7280;margin-top:2px}
+        .ds-card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid #eef0f2}
+        .card-title-sm{font-size:.95rem;font-weight:700;color:#111827;margin-bottom:16px}
+        table.dataTable thead th{border-bottom:2px solid #e9ecef;font-size:.8rem;text-transform:uppercase;letter-spacing:.03em;color:#6b7280}
+        table.dataTable tbody td{vertical-align:middle;font-size:.9rem}
+        .badge-approved{background:#dcfce7;color:#166534;padding:4px 10px;border-radius:8px;font-weight:600;font-size:.78rem;text-transform:uppercase}
+        .badge-rejected{background:#fee2e2;color:#991b1b;padding:4px 10px;border-radius:8px;font-weight:600;font-size:.78rem;text-transform:uppercase}
+    </style>
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<nav id="sidebarDMO">
-  <div class="sidebar-brand">
-    <div class="brand-icon"><img src="../pictures/Post-Disaster-Reporting-Logo-Notxt.png" alt="Logo"></div>
-    <div>
-      <div class="brand-title">Post-Disaster</div>
-      <div class="brand-sub">Reporting System</div>
+<!-- ══════════════════ SIDEBAR ══════════════════ -->
+<nav id="sidebar" class="sidebar-admin">
+    <div class="sidebar-brand">
+        <div class="brand-icon"><img src="../pictures/Post-Disaster-Reporting-Logo-Notxt.png" alt="Logo"></div>
+        <div>
+            <div class="brand-title">Post-Disaster</div>
+            <div class="brand-sub">Reporting System</div>
+        </div>
     </div>
-  </div>
 
-  <div class="nav-section-label">Reviews</div>
-  <a class="nav-item" onclick="showInfo('Verified Reports')"><i class="bi bi-check-square"></i> Verified Reports</a>
-  <a class="nav-item active" href="#"><i class="bi bi-currency-dollar"></i> Compensation Requests</a>
-  <a class="nav-item" onclick="showInfo('Approved')"><i class="bi bi-patch-check"></i> Approved</a>
-  <a class="nav-item" onclick="showInfo('Rejected')"><i class="bi bi-x-square"></i> Rejected</a>
+    <div class="nav-section-label">Overview</div>
+    <a class="nav-item active admin-active" href="DMODashboardForm.php">
+        <i class="bi bi-speedometer2"></i> Dashboard
+    </a>
 
-  <div class="nav-section-label">Account</div>
-  <a class="nav-item" onclick="showInfo('Notifications')"><i class="bi bi-bell"></i> Notifications</a>
-  <a class="nav-item" onclick="showInfo('Profile')"><i class="bi bi-person"></i> Profile</a>
+    <div class="nav-section-label">Report Management</div>
+    <a class="nav-item" href="DMOVerifyReportsForm.php">
+        <i class="bi bi-clipboard-check"></i> Verify Reports
+    </a>
+    <a class="nav-item" href="DMOProcessedHistoryForm.php">
+        <i class="bi bi-clock-history"></i> Processed History
+    </a>
 
-  <div class="sidebar-footer">
-    <a class="nav-item" onclick="confirmLogout()"><i class="bi bi-box-arrow-left"></i> Logout</a>
-  </div>
+    <div class="nav-section-label">Account</div>
+    <a class="nav-item" href="#" onclick="showNotifAlert()">
+        <i class="bi bi-bell"></i> Notifications
+    </a>
+
+    <a class="nav-item" href="DMOprofileForm.php">
+        <i class="bi bi-person"></i> Profile
+    </a>
+
+    <div class="sidebar-footer">
+        <a class="nav-item" onclick="confirmLogout()"><i class="bi bi-box-arrow-left"></i> Logout</a>
+    </div>
 </nav>
 
 <!-- TOPBAR -->
 <header id="topbar">
-  <button id="menu-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
-  <div class="topbar-title">Disaster Management Officer <span style="color:#10b981">Dashboard</span></div>
-  <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
-    <i class="bi bi-bell"></i><span class="notif-badge">2</span>
-  </button>
-  <div class="user-pill" onclick="showInfo('Profile')">
-    <div class="user-avatar" style="background:#064e3b"><i class="bi bi-person-fill"></i></div>
-    <span class="user-name"><?php echo htmlspecialchars($username);?></span>
-    <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
-  </div>
+    <button id="menu-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+    <div class="topbar-title">Disaster Management Officer <span style="color:#2563eb">Dashboard</span></div>
+    <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
+        <i class="bi bi-bell"></i><span class="notif-badge">2</span>
+    </button>
+    <div class="user-pill" onclick="window.location.href='DMOProfileForm.php';">
+        <div class="user-avatar admin-avatar">
+            <?php if (!empty($profilePicFile)): ?>
+                <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            <?php else: ?>
+                <i class="bi bi-person-fill"></i>
+            <?php endif; ?>
+        </div>
+        <span class="user-name">User</span>
+        <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
+    </div>
 </header>
 
-<!-- MAIN -->
-<main id="main">
+<!-- ══════════════════ MAIN CONTENT ══════════════════ -->
+<main id="main" class="ds-page-wrap">
 
-  <!-- Summary Strip -->
-  <div class="summary-strip">
-    <div class="strip-card">
-      <div class="strip-icon blue"><i class="bi bi-file-earmark-text"></i></div>
-      <div><div class="strip-val" id="s-total">0</div><div class="strip-lbl">Requests Received</div></div>
-    </div>
-    <div class="strip-card">
-      <div class="strip-icon amber"><i class="bi bi-hourglass-split"></i></div>
-      <div><div class="strip-val" id="s-pending">0</div><div class="strip-lbl">Awaiting Review</div></div>
-    </div>
-    <div class="strip-card">
-      <div class="strip-icon green"><i class="bi bi-patch-check"></i></div>
-      <div><div class="strip-val" id="s-approved">0</div><div class="strip-lbl">Approved</div></div>
-    </div>
-    <div class="strip-card">
-      <div class="strip-icon rose"><i class="bi bi-x-circle"></i></div>
-      <div><div class="strip-val" id="s-rejected">0</div><div class="strip-lbl">Rejected</div></div>
-    </div>
-  </div>
-
-  <div class="row g-3">
-
-    <!-- Compensation Requests -->
-    <div class="col-lg-7">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title"><i class="bi bi-currency-dollar"></i> Compensation Requests</div>
-          <span class="role-tag">DMO</span>
-        </div>
-        <div class="d-flex flex-column gap-3">
-
-          <div class="report-card">
-            <div class="report-thumb"><i class="bi bi-house-damage"></i></div>
-            <div class="report-meta">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="report-id">RPT-2024-0011</span>
-                <span class="badge-status badge-verify">Verified</span>
-              </div>
-              <div class="report-type">Property Damage</div>
-              <div class="report-by" style="font-size:11.5px;color:var(--muted)">Recommended Amount</div>
-              <div class="amount-badge">Rs. 250,000</div>
+    <!-- Stat Cards -->
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#eff6ff;color:#2563eb">
+                    <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div>
+                    <div class="stat-value" id="statPendingVerify">0</div>
+                    <div class="stat-label">Awaiting Verification</div>
+                </div>
             </div>
-            <button class="btn btn-success btn-sm rounded-3" onclick="approveCompensation('RPT-2024-0011','250,000')">
-              <i class="bi bi-check-lg me-1"></i>Review
-            </button>
-          </div>
-
-          <div class="report-card">
-            <div class="report-thumb"><i class="bi bi-person-x"></i></div>
-            <div class="report-meta">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="report-id">RPT-2024-0010</span>
-                <span class="badge-status badge-verify">Verified</span>
-              </div>
-              <div class="report-type">Missing Person</div>
-              <div class="report-by" style="font-size:11.5px;color:var(--muted)">Recommended Amount</div>
-              <div class="amount-badge">Rs. 500,000</div>
-            </div>
-            <button class="btn btn-success btn-sm rounded-3" onclick="approveCompensation('RPT-2024-0010','500,000')">
-              <i class="bi bi-check-lg me-1"></i>Review
-            </button>
-          </div>
-
-          <div class="report-card">
-            <div class="report-thumb"><i class="bi bi-file-medical"></i></div>
-            <div class="report-meta">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="report-id">RPT-2024-0008</span>
-                <span class="badge-status badge-verify">Verified</span>
-              </div>
-              <div class="report-type">Death Report</div>
-              <div class="report-by" style="font-size:11.5px;color:var(--muted)">Recommended Amount</div>
-              <div class="amount-badge">Rs. 750,000</div>
-            </div>
-            <button class="btn btn-success btn-sm rounded-3" onclick="approveCompensation('RPT-2024-0008','750,000')">
-              <i class="bi bi-check-lg me-1"></i>Review
-            </button>
-          </div>
-
         </div>
-        <div class="mt-3">
-          <button class="btn btn-outline-success rounded-3 w-100" onclick="showInfo('All Requests')">View All Requests</button>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#ecfdf5;color:#059669">
+                    <i class="bi bi-check2-circle"></i>
+                </div>
+                <div>
+                    <div class="stat-value" id="statApproved">0</div>
+                    <div class="stat-label">Approved Reports</div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#fef2f2;color:#dc2626">
+                    <i class="bi bi-x-circle"></i>
+                </div>
+                <div>
+                    <div class="stat-value" id="statRejected">0</div>
+                    <div class="stat-label">Rejected Reports</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#f0fdf4;color:#16a34a">
+                    <i class="bi bi-cash-stack"></i>
+                </div>
+                <div>
+                    <div class="stat-value" id="statTotalApproved">Rs. 0.00</div>
+                    <div class="stat-label">Total Approved Amount</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Right column -->
-    <div class="col-lg-5 d-flex flex-column gap-3">
+    <div class="row g-3">
+        <!-- Chart -->
+        <div class="col-md-7">
+            <div class="ds-card h-100">
+                <div class="card-title-sm">Approvals (Last 6 Months)</div>
+                <canvas id="approvalsChart" height="160"></canvas>
+            </div>
+        </div>
 
-      <!-- Compensation Chart -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title"><i class="bi bi-bar-chart-line"></i> Compensation by Type</div>
+        <!-- Recent activity -->
+        <div class="col-md-5">
+            <div class="ds-card h-100">
+                <div class="card-title-sm">Recent Activity</div>
+                <div class="table-responsive">
+                    <table id="recentActivityTable" class="table table-hover w-100">
+                        <thead>
+                            <tr>
+                                <th>Report ID</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="chart-wrap">
-          <canvas id="dmo-chart"></canvas>
-        </div>
-      </div>
-
-      <!-- Notifications -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title"><i class="bi bi-bell"></i> Notifications</div>
-          <a class="stat-link" onclick="showInfo('All Notifications')">View All</a>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon green"><i class="bi bi-check-circle-fill"></i></div>
-          <div class="notif-text"><strong>RPT-2024-0011</strong> verified and forwarded by Local Authority.</div>
-          <div class="notif-time">1h ago</div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon blue"><i class="bi bi-info-circle-fill"></i></div>
-          <div class="notif-text">3 new compensation requests are awaiting your review.</div>
-          <div class="notif-time">2h ago</div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon amber"><i class="bi bi-bell-fill"></i></div>
-          <div class="notif-text">Monthly compensation report is ready to download.</div>
-          <div class="notif-time">1d ago</div>
-        </div>
-      </div>
-
     </div>
-  </div>
 
-  <footer class="mt-4">&copy; 2024 Post-Disaster Reporting and Compensation Management System. All rights reserved.</footer>
 </main>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
-<script src="DMOdashboard.js"></script>
+<script src="../Logout.js"></script>
+<script src="DMODashboard.js"></script>
 </body>
 </html>
