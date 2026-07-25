@@ -2,6 +2,7 @@
     include '../userData.php';  //user data is stored here
     include '../DBconnection.php';
 
+
 // ================================================================//
 //                       InjuredPerson CLASS                       //
 // ================================================================//

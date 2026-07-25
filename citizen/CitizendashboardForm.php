@@ -34,10 +34,10 @@
   <a class="nav-item" onclick="newReport()">
     <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
-  <a class="nav-item" onclick="showInfo('My Reports')">
+  <a class="nav-item" href="CitizenMyReportsForm.php">
     <i class="bi bi-file-earmark-text"></i> My Reports
   </a>
-  <a class="nav-item" onclick="showInfo('Track Report')">
+  <a class="nav-item" href="CitizenTrackReportForm.php">
     <i class="bi bi-search"></i> Track Report
   </a>
 

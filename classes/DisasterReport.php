@@ -101,6 +101,52 @@ class DisasterReport
         }
     }
 
+     //Disaster report Data
+    public static function getReport($con,$reportID)
+    {
+        try
+        {
+            $query= "SELECT dr.Report_ID,
+                 u.Full_Name,
+                 dr.Report_Type,
+                 dr.Report_Status,
+                 dr.District,
+                 dr.District,
+                 lao.Local_Officer_ID AS Assigned_Officer,
+                 dr.Street_Address,
+                 dr.Description,
+                 dr.Report_Date,
+                 dt.Disaster_Type_Name AS Disaster
+                 FROM disaster_report dr
+                 JOIN local_authority_officer lao ON dr.DS_ID = lao.Assigned_divisional_secretariat
+                 JOIN disaster_type dt ON dr.Disaster_Type_ID = dt.Disaster_Type_ID
+                 JOIN users u ON dr.User_ID = u.User_ID WHERE dr.Report_ID = ?";
+
+                 $stmt = mysqli_prepare($con,$query);
+
+                 mysqli_stmt_bind_param($stmt, "i", $reportID);
+
+                 if(mysqli_stmt_execute($stmt))
+                 {
+                    $result = mysqli_stmt_get_result($stmt);
+                    if ($result && mysqli_num_rows($result) > 0)
+                    {
+                        $row = mysqli_fetch_assoc($result);
+                    }
+                    else
+                    {
+                        $row = null;
+                    }
+                 }
+             return $row;
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+            return false;
+        }
+    }
+
 
     ////////////// Monthly report count
     public function getMonthlyReportActivity($con)
@@ -137,6 +183,7 @@ class DisasterReport
 
     }
 
+    //Divitional Secretariat for District
     public static function getDivisionalSecretariat($con,$district)
     {
         try

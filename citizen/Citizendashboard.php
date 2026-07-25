@@ -4,6 +4,11 @@
     include '../userData.php';
     include '../DBconnection.php';
 
+    include '../classes/MissingPerson.php';
+    include '../classes/DeathRecord.php';
+    include '../classes/InjuredPerson.php';
+    include '../classes/PropertyDamage.php';
+
 
     // 1. get Summary Counts
     try

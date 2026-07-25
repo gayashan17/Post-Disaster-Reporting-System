@@ -1,5 +1,6 @@
 <?php
     include '../userData.php';   // gives $userId, $roleId, $username, $role, $email, $gender (from session)
+    include 'Citizendashboard.php';
 
 
     $user = new User();
@@ -41,13 +42,13 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" href="CitizendashboardForm.php">
+  <a class="nav-item" onclick="newReport()">
     <i class="bi bi-file-earmark-plus"></i> Submit New Report
   </a>
-  <a class="nav-item" href="CitizendashboardForm.php">
+  <a class="nav-item" href="CitizenMyReportsForm.php">
     <i class="bi bi-file-earmark-text"></i> My Reports
   </a>
-  <a class="nav-item" href="CitizendashboardForm.php">
+  <a class="nav-item" href="CitizenTrackReportForm.php">
     <i class="bi bi-search"></i> Track Report
   </a>
 
@@ -73,7 +74,9 @@
     <div class="topbar-title">Citizen <span class="citizen-accent">Profile</span></div>
     <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
         <i class="bi bi-bell"></i>
-        <span class="notif-badge">1</span>
+        <?php if($NotificationCount > 0):?>  <!--Removes the red circle near notification bell icon -->
+        <span class="notif-badge"><?php echo $NotificationCount ?></span>
+        <?php endif; ?>
     </button>
     <div class="user-pill" onclick="window.location.href='CitizenProfileForm.php';">
         <div class="user-avatar admin-avatar">

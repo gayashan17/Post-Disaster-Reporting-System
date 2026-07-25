@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function validateForm() {
     let valid = form.checkValidity();
 
-    // Custom NIC check: old format (9 digits + V/X) or new format (12 digits)
+
     const nic = document.getElementById('NIC');
     const nicPattern = /^([0-9]{9}[vVxX]|[0-9]{12})$/;
     if (!nicPattern.test(nic.value.trim())) {
@@ -105,13 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-/* ==========================================================================
-   Profile picture upload — Facebook-style click-to-upload
-   Clicking the camera icon opens the file picker (via the <label for=...>).
-   Picking a file validates it client-side, then auto-submits the small
-   #profilePicForm, which posts to updateProfilePicture.php and reloads
-   the page with a ?pic=success / ?pic=error flag.
-   ========================================================================== */
 document.addEventListener('DOMContentLoaded', function () {
   const picInput = document.getElementById('profilePicInput');
   const picForm = document.getElementById('profilePicForm');
@@ -138,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Show a flash message after the redirect from updateProfilePicture.php
   const params = new URLSearchParams(window.location.search);
   if (params.get('pic') === 'success') {
     Swal.fire({

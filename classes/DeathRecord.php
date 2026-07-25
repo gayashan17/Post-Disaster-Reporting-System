@@ -56,6 +56,38 @@ class DeathRecord extends DisasterReport
             throw new Exception($e->getMessage());
         }
     }
+
+    //Death person Report data
+    public static function getDeathPersonReport($con,$reportID)
+    {
+        try
+        {
+            $query= "SELECT Full_Name,Age,Gender,Cause_Of_Death FROM death_record WHERE Report_ID = ?";
+
+                 $stmt = mysqli_prepare($con,$query);
+
+                 mysqli_stmt_bind_param($stmt, "i", $reportID);
+
+                 if(mysqli_stmt_execute($stmt))
+                 {
+                    $result = mysqli_stmt_get_result($stmt);
+                    if ($result && mysqli_num_rows($result) > 0)
+                    {
+                        $row = mysqli_fetch_assoc($result);
+                    }
+                    else
+                    {
+                        $row = null;
+                    }
+                 }
+             return $row;
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+            return false;
+        }
+    }
 }
 
 ?>
