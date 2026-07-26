@@ -152,6 +152,38 @@ class DisasterReport
         }
     }
 
+    public static function getReportUserID($con,$reportID)
+    {
+        try
+        {
+            $query = "SELECT User_ID From disaster_report WHERE Report_ID = ?";
+
+            $stmt = mysqli_prepare($con,$query);
+
+            mysqli_stmt_bind_param($stmt, "i", $reportID);
+
+             if(mysqli_stmt_execute($stmt))
+             {
+                $result = mysqli_stmt_get_result($stmt);
+                if ($result && mysqli_num_rows($result) > 0)
+                {
+                    $userID = mysqli_fetch_assoc($result);
+                }
+                else
+                {
+                    $userID = null;
+                }
+             }
+            return $userID;
+        }
+        catch(Exception $e)
+        {
+            throw $e;
+            return false;
+        }
+
+    }
+
 
     ////////////// Monthly report count
     public function getMonthlyReportActivity($con)

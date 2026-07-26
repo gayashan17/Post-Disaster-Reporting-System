@@ -129,12 +129,10 @@
 
 
 
-    if (isset($_GET['action']) && isset($_GET['report_id']) && isset($_GET['User_ID']))
+    if (isset($_GET['action']) && isset($_GET['report_id']))
     {
         $action = strtolower(trim($_GET['action']));
-
         $reportId = (int)$_GET['report_id'];
-        $citizenId = (int)$_GET['User_ID'];
         $newStatus = null;
         $title = '';
         $message = '';
@@ -167,7 +165,7 @@
                 {
                     mysqli_stmt_close($stmt);
 
-                    Notification::createCitizenNotification($con, $citizenId, $reportId, $title, $message, $type);
+                    Notification::createCitizenNotification($con, $reportId, $title, $message, $type);
                 } else
                 {
                     mysqli_stmt_close($stmt);

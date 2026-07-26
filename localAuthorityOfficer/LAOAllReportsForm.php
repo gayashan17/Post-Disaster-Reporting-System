@@ -117,11 +117,12 @@
       </div>
     </div>
   </div>
-  <?php if ($selectedReport): ?>
+
+  <?php if (!empty($selectedReport)): ?>
     <!-- Side-by-Side Detailed Report & Evidence Panel Container -->
     <div class="row g-3 mb-4" id="selectedReportSection">
 
-      <!-- Left Column: Report Details (7/12 width) -->
+      <!-- Left Column: Report Details -->
       <div class="col-lg-7">
         <div class="panel h-100">
           <div class="panel-header d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
@@ -173,7 +174,7 @@
           </div>
 
           <?php
-            $filePath = $selectedReport['File_Path'] ?? $selectedReport['File_Name'] ?? $selectedReport['File_Path'] ?? null;
+            $filePath = $selectedReport['File_Path'] ?? $selectedReport['File_Name'] ?? null;
           ?>
 
           <?php if (!empty($filePath)): ?>
@@ -195,7 +196,7 @@
             <?php elseif ($ext === 'pdf'): ?>
               <div class="text-center p-4 border rounded-3 bg-light">
                 <i class="bi bi-file-earmark-pdf-fill text-danger" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2"><?php echo htmlspecialchars( $selectedReport['File_Name']); ?></div>
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($selectedReport['File_Name'] ?? 'Document.pdf'); ?></div>
                 <a href="<?php echo $fullPath; ?>" target="_blank" class="btn btn-sm btn-danger mt-3">
                   <i class="bi bi-file-earmark-arrow-down me-1"></i> View / Download PDF Document
                 </a>
@@ -204,7 +205,7 @@
             <?php else: ?>
               <div class="text-center p-4 border rounded-3 bg-light">
                 <i class="bi bi-file-earmark-zip-fill text-secondary" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2"><?php echo htmlspecialchars( $selectedReport['File_Name']); ?></div>
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($selectedReport['File_Name'] ?? 'Attachment'); ?></div>
                 <a href="<?php echo $fullPath; ?>" download class="btn btn-sm btn-secondary mt-3">
                   <i class="bi bi-download me-1"></i> Download File
                 </a>
@@ -223,7 +224,7 @@
     </div>
 
     <!-- Property Damage Specific Details -->
-    <?php if ($type == "Property Damage" && !empty($ReportData) && is_array($ReportData)): ?>
+    <?php if (isset($type) && $type == "Property Damage" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
           <div class="panel-title fw-bold text-danger">Property Damage Report</div>
@@ -258,7 +259,7 @@
     <?php endif; ?>
 
     <!-- Missing Person Specific Details -->
-    <?php if ($type == "Missing Person Record" && !empty($ReportData) && is_array($ReportData)): ?>
+    <?php if (isset($type) && $type == "Missing Person Record" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
           <div class="panel-title fw-bold text-danger">Missing Person Record</div>
@@ -297,7 +298,7 @@
     <?php endif; ?>
 
     <!-- Injured Person Specific Details -->
-    <?php if ($type == "Injured Person" && !empty($ReportData) && is_array($ReportData)): ?>
+    <?php if (isset($type) && $type == "Injured Person" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
           <div class="panel-title fw-bold text-danger">Injured Person Record</div>
@@ -328,7 +329,7 @@
     <?php endif; ?>
 
     <!-- Death Person Specific Details -->
-    <?php if ($type == "Death Record" && !empty($ReportData) && is_array($ReportData)): ?>
+    <?php if (isset($type) && $type == "Death Record" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
           <div class="panel-title fw-bold text-danger">Deceased Person Record</div>
@@ -360,30 +361,30 @@
           </table>
         </div>
       </div>
-        <!-- Accept / reject buttons if report status = submitted -->>
-      <?php if($selectedReport['Report_Status'] == "Submitted"): ?>
-          <div class="panel mt-4 p-4 border-top">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
-              <div>
-                <h5 class="fw-bold text-dark mb-1">Take Action on Report #<?php echo htmlspecialchars($selectedReport['Report_ID']); ?></h5>
-                <p class="text-muted mb-0 fs-6">Review details thoroughly before approving or rejecting this report.</p>
-              </div>
-              <div class="d-flex gap-2">
-                <a href="javascript:void(0)"
-                   onclick="processReportAction('<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>', 'Accept', '<?php echo htmlspecialchars($selectedReport['User_ID']); ?>')"
-                   class="btn btn-success px-4 py-2 rounded-3 shadow-sm fw-medium">
-                  <i class="bi bi-check-circle me-2"></i>Accept / Verify
-                </a>
-                <a href="javascript:void(0)"
-                   onclick="processReportAction('<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>', 'Reject', '<?php echo htmlspecialchars($selectedReport['User_ID']); ?>')"
-                   class="btn btn-outline-danger px-4 py-2 rounded-3 shadow-sm fw-medium">
-                  <i class="bi bi-x-circle me-2"></i>Reject Report
-                </a>
-              </div>
-            </div>
-          </div>
-      <?php endif; ?>
+    <?php endif; ?>
 
+    <!-- Action Buttons Panel (Only shown if status is 'Submitted') -->
+    <?php if (isset($selectedReport['Report_Status']) && $selectedReport['Report_Status'] === "Submitted"): ?>
+      <div class="panel mt-4 p-4 border-top">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+          <div>
+            <h5 class="fw-bold text-dark mb-1">Take Action on Report #<?php echo htmlspecialchars($selectedReport['Report_ID']); ?></h5>
+            <p class="text-muted mb-0 fs-6">Review details thoroughly before approving or rejecting this report.</p>
+          </div>
+          <div class="d-flex gap-2">
+              <a href="javascript:void(0)"
+                 onclick="processReportAction('<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>', 'Accept')"
+                 class="btn btn-success px-4 py-2 rounded-3 shadow-sm fw-medium">
+                <i class="bi bi-check-circle me-2"></i>Accept / Verify
+              </a>
+              <a href="javascript:void(0)"
+                 onclick="processReportAction('<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>', 'Reject')"
+                 class="btn btn-outline-danger px-4 py-2 rounded-3 shadow-sm fw-medium">
+                <i class="bi bi-x-circle me-2"></i>Reject Report
+              </a>
+          </div>
+        </div>
+      </div>
     <?php endif; ?>
 
   <?php elseif (isset($_GET['report_id'])): ?>
@@ -396,8 +397,6 @@
       <h5>Select a report from the table above to view its status and details.</h5>
     </div>
   <?php endif; ?>
-
-
 
   <footer class="mt-4">&copy; 2024 Post-Disaster Reporting and Compensation Management System. All rights reserved.</footer>
 </main>
@@ -416,28 +415,28 @@
       });
   });
 
-    // Action Handling Function (Accept / Reject)
-    function processReportAction(reportId, action, userId) {
-        const isAccept = action === 'Accept';
+  // Action Handling Function (Accept / Reject)
+  function processReportAction(reportId, action) {
+      const isAccept = action === 'Accept';
 
-        Swal.fire({
-            title: isAccept ? 'Accept Report?' : 'Reject Report?',
-            text: isAccept
-              ? `Are you sure you want to verify Report #${reportId}?`
-              : `Are you sure you want to reject Report #${reportId}?`,
-            icon: isAccept ? 'question' : 'warning',
-            showCancelButton: true,
-            confirmButtonColor: isAccept ? '#198754' : '#dc3545',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: isAccept ? 'Yes, Accept' : 'Yes, Reject',
-            cancelButtonText: 'Cancel'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Append User_ID to the redirect URL
-                window.location.href = `LAOdashboard.php?action=${action.toLowerCase()}&report_id=${reportId}&User_ID=${userId}`;
-            }
-        });
-    }
+      Swal.fire({
+          title: isAccept ? 'Accept Report?' : 'Reject Report?',
+          text: isAccept
+            ? `Are you sure you want to verify Report #${reportId}?`
+            : `Are you sure you want to reject Report #${reportId}?`,
+          icon: isAccept ? 'question' : 'warning',
+          showCancelButton: true,
+          confirmButtonColor: isAccept ? '#198754' : '#dc3545',
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: isAccept ? 'Yes, Accept' : 'Yes, Reject',
+          cancelButtonText: 'Cancel'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Target your backend processing script (e.g. LAOProcessReport.php or LAOdashboard.php)
+              window.location.href = `LAOdashboard.php?action=${action.toLowerCase()}&report_id=${reportId}`;
+          }
+      });
+  }
 </script>
 </body>
 </html>

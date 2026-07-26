@@ -9,6 +9,7 @@ header('Content-Type: application/json');
 
 include_once '../DBconnection.php';
 include_once '../classes/DistrictSecretary.php';
+include_once '../classes/Notification.php';
 
 function dsSendResponse($success, $message = '', $data = null)
 {
@@ -105,6 +106,7 @@ try
             );
             $districtSecretary->updateReportStatusToDSApproved($con, $reportID);
 
+            Notification::createCitizenNotification($con,$reportID,"Report Approval","Your Report Has Been Approved By District Secretary","DS Approval");
             dsSendResponse(true, 'Report has been approved successfully.');
             break;
         }
@@ -139,6 +141,7 @@ try
             );
             $districtSecretary->updateReportStatusToDSRejected($con, $reportID);
 
+            Notification::createCitizenNotification($con,$reportID,"Report Rejection","Your Report Has Been Rejected By District Secretary","DS Rejected");
             dsSendResponse(true, 'Report has been rejected.');
             break;
         }
