@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2026 at 06:43 PM
+-- Generation Time: Jul 27, 2026 at 12:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,79 +57,11 @@ CREATE TABLE `citizen` (
 --
 
 INSERT INTO `citizen` (`User_ID`, `Beneficiary_Name`, `Beneficiary_Bank`, `Beneficiary_Bank_Account_No`) VALUES
-(11, '', '', ''),
-(14, '', '', ''),
-(19, '', '', ''),
-(20, '', '', ''),
-(21, '', '', ''),
-(22, '', '', ''),
-(26, '', '', ''),
-(27, '', '', ''),
-(28, '', '', ''),
-(29, '', '', ''),
-(30, '', '', ''),
-(31, '', '', ''),
-(32, 'asda', 'asdada', '845629959'),
-(34, '', '', ''),
-(36, '', '', ''),
-(37, '', '', ''),
-(38, '', '', ''),
-(41, '', '', ''),
-(42, '', '', ''),
-(43, '', '', ''),
-(44, '', '', ''),
-(45, '', '', ''),
-(46, 'sadf', 'asdf', ''),
-(82, 'Kasun Maduranga', 'Bank of Ceylon', '1000000001'),
-(83, 'Nimali Perera', 'People\'s Bank', '1000000002'),
-(84, 'Tharindu Fernando', 'Commercial Bank', '1000000003'),
-(85, 'Sachini Dilrukshi', 'Sampath Bank', '1000000004'),
-(86, 'Chamod Lakshan', 'Hatton National Bank', '1000000005'),
-(87, 'Hiruni Sewwandi', 'Nations Trust Bank', '1000000006'),
-(88, 'Dinesh Kumara', 'Bank of Ceylon', '1000000007'),
-(89, 'Piumi Hansika', 'People\'s Bank', '1000000008'),
-(90, 'Ravindu Nimesh', 'Commercial Bank', '1000000009'),
-(91, 'Thilini Madushika', 'Sampath Bank', '1000000010'),
-(92, 'Sahan Pramod', 'Hatton National Bank', '1000000011'),
-(93, 'Ishara Sandamini', 'Nations Trust Bank', '1000000012'),
-(94, 'Nuwan Chathuranga', 'Bank of Ceylon', '1000000013'),
-(95, 'Ayesha Fernando', 'People\'s Bank', '1000000014'),
-(96, 'Dinuka Sathsara', 'Commercial Bank', '1000000015'),
-(97, 'Shashika Nadeeshani', 'Sampath Bank', '1000000016'),
-(98, 'Malith Ravishan', 'Hatton National Bank', '1000000017'),
-(99, 'Kavindi Upeksha', 'Nations Trust Bank', '1000000018'),
-(100, 'Hasitha Lakmal', 'Bank of Ceylon', '1000000019'),
-(101, 'Madhavi Sachintha', 'People\'s Bank', '1000000020'),
-(102, 'Praveen Madushan', 'Commercial Bank', '1000000021'),
-(103, 'Nethmi Senanayake', 'Sampath Bank', '1000000022'),
-(104, 'Chathura Bandara', 'Hatton National Bank', '1000000023'),
-(105, 'Dinethmi Kavisha', 'Nations Trust Bank', '1000000024'),
-(106, 'Lahiru Sandaruwan', 'Bank of Ceylon', '1000000025'),
-(107, 'Oshadi Himasha', 'People\'s Bank', '1000000026'),
-(108, 'Isuru Dhananjaya', 'Commercial Bank', '1000000027'),
-(109, 'Shenali Tharuka', 'Sampath Bank', '1000000028'),
-(110, 'Rukshan Prabath', 'Hatton National Bank', '1000000029'),
-(111, 'Yashoda Nisansala', 'Nations Trust Bank', '1000000030'),
-(112, 'Amila Perera', 'Bank of Ceylon', '1000000031'),
-(113, 'Shenuka Wijesinghe', 'People\'s Bank', '1000000032'),
-(114, 'Ravindu Jayasinghe', 'Commercial Bank', '1000000033'),
-(115, 'Tharushi Fernando', 'Sampath Bank', '1000000034'),
-(116, 'Kasun Dilshan', 'Hatton National Bank', '1000000035'),
-(117, 'Nimesh Madushan', 'Nations Trust Bank', '1000000036'),
-(118, 'Sanduni Hansika', 'Bank of Ceylon', '1000000037'),
-(119, 'Tharindu Lakmal', 'People\'s Bank', '1000000038'),
-(120, 'Kavisha Dilhani', 'Commercial Bank', '1000000039'),
-(121, 'Sahan Chathuranga', 'Sampath Bank', '1000000040'),
-(122, 'Dulanjana Prabath', 'Hatton National Bank', '1000000041'),
-(123, 'Hiruni Sandamali', 'Nations Trust Bank', '1000000042'),
-(124, 'Isuru Madushan', 'Bank of Ceylon', '1000000043'),
-(125, 'Piumi Sewwandi', 'People\'s Bank', '1000000044'),
-(126, 'Chamara Nimesh', 'Commercial Bank', '1000000045'),
-(127, 'Dhanuka Bandara', 'Sampath Bank', '1000000046'),
-(128, 'Sachini Madushika', 'Hatton National Bank', '1000000047'),
-(129, 'Ravindu Chathuranga', 'Nations Trust Bank', '1000000048'),
-(130, 'Nethmi Udeshika', 'Nations Trust Bank', '1000000049'),
-(131, 'Malith Sandeepa', 'Bank of Ceylon', '1000000050');
+(145, 'Chamara Rajapaksha', 'Bank of Ceylon', '5269659626'),
+(146, 'Hiruni Sandamali', 'Bank of Ceylon', '6579279397'),
+(147, 'Piumi Sewwandi', 'Commercial Bank', '546446464646'),
+(148, 'Sahan Chathuranga', 'Commercial Bank', '45642854355'),
+(149, 'Kamal Chathuranga', 'Commercial Bank', '452453452135');
 
 -- --------------------------------------------------------
 
@@ -156,7 +88,12 @@ CREATE TABLE `compensation_report` (
 --
 
 INSERT INTO `compensation_report` (`Compensation_ID`, `Report_ID`, `Financial_Officer_User_ID`, `Estimate_Amount`, `Approved_Amount`, `Paid_Amount`, `Description`, `Receipt_File_Path`, `Payment_Status`, `Payment_Date`, `Created_Date`) VALUES
-(13, 47, 31, 200000.00, 150000.00, 150000.00, 'Full Payement', '../uploads/Receipt/13_47_1784987017_26_6a572201f2238_DSE_22.1F_Database_Management_Systems.pdf', 'Paid', '2026-07-25 19:13:37', '2026-07-25 19:13:03');
+(1, 77, 78, 250000.00, 250000.00, 250000.00, 'Payment Successfully', '../uploads/Receipt/1_77_1785101165_Screenshot_2026-06-01_130517.png', 'Paid', '2026-06-27 02:56:05', '2026-06-27 02:53:00'),
+(2, 85, 78, 10000.00, 10000.00, 10000.00, 'Payment Successfully', '../uploads/Receipt/2_85_1785101184_Screenshot_2026-05-31_150304.png', 'Paid', '2026-04-27 02:56:24', '2026-04-27 02:53:05'),
+(3, 86, 78, 30000.00, 30000.00, 30000.00, 'Payment Successfully', '../uploads/Receipt/3_86_1785101207_Screenshot_2026-05-31_150304.png', 'Paid', '2026-05-27 02:56:47', '2026-05-27 02:53:14'),
+(4, 88, 78, 50000.00, 50000.00, 50000.00, 'Payment Successfully', '../uploads/Receipt/4_88_1785101223_Screenshot_2026-06-01_124628.png', 'Paid', '2026-07-27 02:57:03', '2026-07-27 02:53:19'),
+(5, 100, 78, 2500000.00, 2500000.00, NULL, NULL, NULL, 'Processing', NULL, '2026-07-27 04:01:23'),
+(6, 93, 78, 2000000.00, 2000000.00, NULL, NULL, NULL, 'Processing', NULL, '2026-07-27 04:01:26');
 
 -- --------------------------------------------------------
 
@@ -177,20 +114,9 @@ CREATE TABLE `death_record` (
 --
 
 INSERT INTO `death_record` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Cause_Of_Death`) VALUES
-(35, '', 0, 'default', ''),
-(42, '', 0, 'default', ''),
-(43, '', 0, 'default', ''),
-(50, '', 0, 'default', ''),
-(53, '', 0, 'default', ''),
-(54, '', 0, 'default', ''),
-(55, '', 0, 'default', ''),
-(56, '', 0, 'default', ''),
-(57, '', 0, 'default', ''),
-(58, '', 0, 'default', ''),
-(65, '', 0, 'default', ''),
-(66, '', 0, 'default', ''),
-(71, '', 0, 'default', ''),
-(72, '', 0, 'default', '');
+(84, 'Kamal Gunarathne', 43, 'male', 'Drawn'),
+(89, 'Ruwan Herath', 46, 'male', 'Desase'),
+(97, 'Ruwan Herath', 46, 'male', 'Desase');
 
 -- --------------------------------------------------------
 
@@ -210,7 +136,10 @@ CREATE TABLE `disaster_management_officer` (
 --
 
 INSERT INTO `disaster_management_officer` (`User_ID`, `Management_Officer_ID`, `Department`, `Region_Assigned`) VALUES
-(30, 'ASsDe', 'ADA', 'Galle');
+(135, 'DMO001', 'Disaster Management Centre', 'Galle'),
+(136, 'DMO002', 'Disaster Management Centre', 'Colombo'),
+(137, 'DMO003', 'Disaster Management Centre', 'Matara'),
+(138, 'DMO004', 'Disaster Management Centre', 'Gampaha');
 
 -- --------------------------------------------------------
 
@@ -236,47 +165,26 @@ CREATE TABLE `disaster_report` (
 --
 
 INSERT INTO `disaster_report` (`Report_ID`, `User_ID`, `Disaster_Type_ID`, `Report_Type`, `Report_Status`, `District`, `DS_ID`, `Street_Address`, `Description`, `Report_Date`) VALUES
-(35, 26, 28, 'Death Record', 'FO Pending', 'default', 1, '', '', '2026-07-15 11:30:33'),
-(36, 26, 23, 'Missing Person Record', 'FO Paid', 'default', NULL, '', '', '2026-07-15 11:47:19'),
-(37, 26, 28, 'Injured Person', 'FO Paid', 'default', NULL, '', '', '2026-07-15 12:01:02'),
-(38, 26, 28, 'Property Damage', 'DMO Approved', 'galle', NULL, '', '', '2026-07-16 06:34:06'),
-(39, 26, 28, 'Property Damage', 'FO Paid', 'default', NULL, '', '', '2026-07-16 09:33:56'),
-(40, 32, 23, 'Property Damage', 'FO Pending', 'default', NULL, '', '', '2026-07-19 00:10:17'),
-(41, 32, 28, 'Property Damage', 'FO Pending', 'default', NULL, '', '', '2026-07-19 00:15:02'),
-(42, 32, 28, 'Death Record', 'FO Pending', 'default', NULL, '', '', '2026-07-19 02:46:47'),
-(43, 32, 28, 'Death Record', 'FO Paid', 'default', NULL, '', '', '2026-07-19 02:48:38'),
-(44, 32, 28, 'Injured Person', 'FO Paid', 'default', NULL, '', '', '2026-07-19 02:58:39'),
-(45, 32, 28, 'Missing Person Record', 'Submitted', 'default', NULL, '', '', '2026-07-19 03:02:23'),
-(46, 32, 23, 'Property Damage', 'LAO Approved', 'Galle', 3, 'asdfghj', 'uytfds', '2026-07-19 07:27:02'),
-(47, 32, 28, 'Property Damage', 'FO Paid', 'Galle', 22, 'adfsgdsa', '', '2026-07-21 17:02:51'),
-(48, 32, 28, 'Property Damage', 'Submitted', 'default', NULL, '', '', '2026-07-21 17:05:01'),
-(49, 32, 28, 'Property Damage', 'FO Pending', 'Galle', 6, 'afasa', 'asdad', '2026-07-21 17:22:29'),
-(50, 32, 28, 'Death Record', 'LAO Approved', 'default', NULL, '', '', '2026-07-21 19:59:50'),
-(51, 32, 28, 'Injured Person', 'Submitted', 'default', NULL, '', '', '2026-07-21 20:00:06'),
-(52, 32, 28, 'Missing Person Record', 'DMO Approved', 'Galle', 53, 'asdada', 'asdasd', '2026-07-21 20:00:32'),
-(53, 32, 28, 'Death Record', 'DS Approved', 'default', NULL, '', '', '2026-07-22 16:22:52'),
-(54, 32, 28, 'Death Record', 'DS Rejected', 'default', NULL, '', '', '2026-07-22 16:29:36'),
-(55, 32, 28, 'Death Record', 'DS Rejected', 'Galle', NULL, '', '', '2026-07-22 16:39:46'),
-(56, 32, 28, 'Death Record', 'DMO Rejected', 'Galle', NULL, '', '', '2026-07-22 16:40:05'),
-(57, 32, 28, 'Death Record', 'DMO Rejected', 'Galle', NULL, '', '', '2026-07-22 16:40:43'),
-(58, 32, 28, 'Death Record', 'DS Approved', 'Galle', NULL, '', '', '2026-07-22 19:09:30'),
-(59, 26, 22, 'Property Damage', 'LAO Approved', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:27:20'),
-(60, 26, 22, 'Property Damage', 'Submitted', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:37:58'),
-(61, 26, 22, 'Property Damage', 'Submitted', 'Colombo', NULL, 'wedfxv', 'fdvb', '2026-07-24 01:39:31'),
-(62, 32, 28, 'Property Damage', 'Submitted', 'Colombo', 1, '', '', '2026-07-25 17:51:35'),
-(63, 32, 28, 'Property Damage', 'Submitted', 'Colombo', 1, '', '', '2026-07-26 21:06:03'),
-(64, 32, 28, 'Property Damage', 'Submitted', 'Galle', 82, '', '', '2026-07-26 21:42:10'),
-(65, 32, 28, 'Death Record', 'Submitted', 'Gampaha', 18, '', '', '2026-07-26 21:48:31'),
-(66, 32, 28, 'Death Record', 'Submitted', 'Galle', 80, '', '', '2026-07-26 21:48:42'),
-(67, 32, 28, 'Injured Person', 'Submitted', 'Galle', 84, '', '', '2026-07-26 21:49:12'),
-(68, 32, 28, 'Property Damage', 'Submitted', 'Galle', 79, '', '', '2026-07-26 21:51:36'),
-(69, 32, 28, 'Missing Person Record', 'Submitted', 'Galle', 85, '', '', '2026-07-26 22:04:32'),
-(70, 32, 28, 'Missing Person Record', 'Submitted', 'Galle', 81, '', '', '2026-07-26 22:07:17'),
-(71, 32, 28, 'Death Record', 'Submitted', 'Galle', 82, 'adadsd', '', '2026-07-26 22:09:20'),
-(72, 32, 28, 'Death Record', 'Submitted', 'Galle', 93, '', '', '2026-07-26 22:09:44'),
-(73, 32, 28, 'Injured Person', 'Submitted', 'Galle', 77, '', '', '2026-07-26 22:10:18'),
-(74, 32, 28, 'Missing Person Record', 'Submitted', 'Galle', 90, '', '', '2026-07-26 22:10:36'),
-(75, 32, 28, 'Property Damage', 'Submitted', 'Galle', 80, '', '', '2026-07-26 22:11:11');
+(77, 145, 22, 'Property Damage', 'FO Paid', 'Galle', 85, 'Old polwatta Road, ambalangoda, Galle', '', '2026-07-27 01:29:18'),
+(84, 145, 22, 'Death Record', 'DMO Rejected', 'Galle', 85, 'Ambalngsada 7/h , Ambalangoda, Galle', 'Death', '2026-07-27 01:37:14'),
+(85, 145, 22, 'Injured Person', 'FO Paid', 'Galle', 85, '71 Temple road, Galle', 'The person sustained injuries while escaping from the disaster-affected area.', '2026-07-27 01:42:52'),
+(86, 145, 23, 'Missing Person Record', 'FO Paid', 'Galle', 85, '55 temple Road, Galle', 'The individual has been missing since the disaster occurred and has not returned home.', '2026-07-27 01:44:39'),
+(87, 146, 22, 'Property Damage', 'DS Rejected', 'Galle', 85, 'Temple Road 22/4 , Ambalangoda.', 'Strong winds damaged the roof and part of the boundary wall.', '2026-07-27 01:47:44'),
+(88, 145, 28, 'Property Damage', 'FO Paid', 'Galle', 85, 'temple road, 23/4 ,galle', 'The property was affected by flooding, causing damage to household items and flooring.', '2026-07-27 02:29:52'),
+(89, 146, 22, 'Death Record', 'LAO Rejected', 'Galle', 85, 'The individual was reported deceased as a result of the disaster incident.', 'The individual was reported deceased as a result of the disaster incident.', '2026-07-27 03:07:33'),
+(90, 146, 26, 'Injured Person', 'LAO Rejected', 'Galle', 85, '24/6 Temple Road , Ambalnvaththa.', 'The individual sustained injuries due to debris falling from a damaged building.', '2026-07-27 03:09:05'),
+(91, 146, 22, 'Missing Person Record', 'DS Approved', 'Galle', 85, 'Kongaha Road, galle', 'The person was last seen in the affected area before the disaster and remains unaccounted for.', '2026-07-27 03:12:07'),
+(92, 146, 28, 'Property Damage', 'DS Rejected', 'Galle', 85, 'julgaaha Road, Amnana , Galle', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:13:49'),
+(93, 149, 24, 'Property Damage', 'FO Pending', 'Galle', 85, 'Temple road, Galle', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:20:37'),
+(94, 149, 22, 'Property Damage', 'DS Approved', 'Galle', 85, '42/1 kongaha Road, galle', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:21:33'),
+(95, 149, 22, 'Missing Person Record', 'DS Approved', 'Galle', 85, 'Temple Road', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:22:54'),
+(96, 149, 24, 'Injured Person', 'DMO Approved', 'Galle', 85, 'Kongaha', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:23:33'),
+(97, 149, 23, 'Death Record', 'DMO Approved', 'Galle', 85, 'junction road, galle', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:24:24'),
+(98, 149, 25, 'Property Damage', 'DMO Rejected', 'Galle', 85, 'Gedara para, Galle', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:25:43'),
+(99, 147, 24, 'Property Damage', 'DMO Rejected', 'Galle', 85, 'Ambalangoda', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:27:02'),
+(100, 147, 24, 'Property Damage', 'FO Pending', 'Galle', 85, 'Ambalangoada', 'A fallen tree damaged the roof and front section of the house.', '2026-07-27 03:27:49'),
+(101, 147, 23, 'Property Damage', 'LAO Approved', 'Galle', 85, '34/7 temple Road', 'The property was affected by flooding, causing damage to household items and flooring.', '2026-07-27 04:07:59'),
+(102, 147, 22, 'Property Damage', 'LAO Approved', 'Galle', 85, 'Galle', 'he property was affected by flooding, causing damage to household items and flooring.', '2026-07-27 04:08:46');
 
 -- --------------------------------------------------------
 
@@ -322,9 +230,6 @@ CREATE TABLE `district_secretary` (
 --
 
 INSERT INTO `district_secretary` (`User_ID`, `Secretary_Officer_ID`, `Office_Name`, `Office_Location`) VALUES
-(28, 'asasa', 'Galle', 'asdada'),
-(48, 'ASsDe', 'SsASss', 'SASDAdaDd'),
-(50, 'ASsDeAS', 'Matale', 'ASASASAS'),
 (74, 'DS0001', 'Galle', '15 Main Street, Galle'),
 (75, 'DS0002', 'Colombo', '15 Main Street, COlombo'),
 (76, 'DS0003', 'Gampaha', '15 Main Street, Gampaha'),
@@ -707,47 +612,26 @@ CREATE TABLE `evidence_file_and_photos` (
 --
 
 INSERT INTO `evidence_file_and_photos` (`File_ID`, `Report_ID`, `File_Name`, `File_Type`, `File_Path`, `Uploaded_Date`) VALUES
-(11, 35, '26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', 'application/pdf', '../uploads/evidence/ReportID_35/26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', '2026-07-15 06:00:33'),
-(12, 36, '26_6a5725ef3e28e_Gemini_Generated_Image_zh0ok1zh0ok1zh0o (1).png', 'image/png', '../uploads/evidence/ReportID_36/26_6a5725ef3e28e_Gemini_Generated_Image_zh0ok1zh0ok1zh0o (1).png', '2026-07-15 06:17:19'),
-(13, 37, '26_6a57292656736_133508394_8b6a2438-9b01-4305-90c9-b2c97bf50b77.jpg', 'image/jpeg', '../uploads/evidence/ReportID_37/26_6a57292656736_133508394_8b6a2438-9b01-4305-90c9-b2c97bf50b77.jpg', '2026-07-15 06:31:02'),
-(14, 38, '26_6a582e07626f4_9074a68f86e0f006a9ec7183530e66c0.jpg', 'image/jpeg', '../uploads/evidence/ReportID_38/26_6a582e07626f4_9074a68f86e0f006a9ec7183530e66c0.jpg', '2026-07-16 01:04:07'),
-(15, 39, '26_6a58582cf3c8f_File Design.pdf', 'application/pdf', '../uploads/evidence/ReportID_39/26_6a58582cf3c8f_File Design.pdf', '2026-07-16 04:03:56'),
-(16, 40, '32_6a5bc891274e0_AAA (1).pdf', 'application/pdf', '../uploads/evidence/ReportID_40/32_6a5bc891274e0_AAA (1).pdf', '2026-07-18 18:40:17'),
-(17, 41, '32_6a5bc9aedd683_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_41/32_6a5bc9aedd683_videoframe_4502.png', '2026-07-18 18:45:02'),
-(18, 42, '32_6a5bed3f71230_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_42/32_6a5bed3f71230_videoframe_4502.png', '2026-07-18 21:16:47'),
-(19, 43, '32_6a5bedaed4861_9074a68f86e0f006a9ec7183530e66c0.jpg', 'image/jpeg', '../uploads/evidence/ReportID_43/32_6a5bedaed4861_9074a68f86e0f006a9ec7183530e66c0.jpg', '2026-07-18 21:18:38'),
-(20, 44, '32_6a5bf00784771_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_44/32_6a5bf00784771_videoframe_4502.png', '2026-07-18 21:28:39'),
-(21, 45, '32_6a5bf0e7c98fc_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_45/32_6a5bf0e7c98fc_videoframe_4502.png', '2026-07-18 21:32:23'),
-(22, 46, '32_6a5c2eee7a0b3_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_46/32_6a5c2eee7a0b3_1689416305401.jpg', '2026-07-19 01:57:02'),
-(23, 47, '32_6a5f58e30912f_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_47/32_6a5f58e30912f_1689416305401.jpg', '2026-07-21 11:32:51'),
-(24, 48, '32_6a5f59650e4da_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_48/32_6a5f59650e4da_1689416305401.jpg', '2026-07-21 11:35:01'),
-(25, 49, '26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', 'image/jpeg', '../uploads/evidence/ReportID_49/26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', '2026-07-21 11:52:29'),
-(26, 49, '32_6a5f825e5a568_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_50/32_6a5f825e5a568_1689416305401.jpg', '2026-07-21 14:29:50'),
-(27, 51, '32_6a5f826e84385_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_51/32_6a5f826e84385_videoframe_4502.png', '2026-07-21 14:30:06'),
-(28, 52, '32_6a5f82884f54f_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_52/32_6a5f82884f54f_1689416305401.jpg', '2026-07-21 14:30:32'),
-(29, 53, '32_6a60a104327c8_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_53/32_6a60a104327c8_1689416305401.jpg', '2026-07-22 10:52:52'),
-(30, 54, '32_6a60a29853457_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_54/32_6a60a29853457_videoframe_4502.png', '2026-07-22 10:59:36'),
-(31, 55, '32_6a60a4fa1b3a6_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_55/32_6a60a4fa1b3a6_videoframe_4502.png', '2026-07-22 11:09:46'),
-(32, 56, '32_6a60a50d2e916_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_56/32_6a60a50d2e916_videoframe_4502.png', '2026-07-22 11:10:05'),
-(33, 57, '32_6a60a533401af_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_57/32_6a60a533401af_videoframe_4502.png', '2026-07-22 11:10:43'),
-(34, 58, '32_6a60c8128fe56_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_58/32_6a60c8128fe56_1689416305401.jpg', '2026-07-22 13:39:30'),
-(35, 59, '26_6a62722072021_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_59/26_6a62722072021_62cff4-2c67f2.png', '2026-07-23 19:57:20'),
-(36, 60, '26_6a62749e842d1_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_60/26_6a62749e842d1_62cff4-2c67f2.png', '2026-07-23 20:07:58'),
-(37, 61, '26_6a6274fb77829_62cff4-2c67f2.png', 'image/png', '../uploads/evidence/ReportID_61/26_6a6274fb77829_62cff4-2c67f2.png', '2026-07-23 20:09:31'),
-(38, 62, '32_6a64aa4f5d8d9_26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', 'application/pdf', '../uploads/evidence/ReportID_62/32_6a64aa4f5d8d9_26_6a572201f2238_DSE 22.1F Database Management Systems.pdf', '2026-07-25 12:21:35'),
-(39, 63, '32_6a662963880cb_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_63/32_6a662963880cb_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 15:36:03'),
-(40, 64, '32_6a6631da566ca_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_64/32_6a6631da566ca_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:12:10'),
-(41, 65, '32_6a6633573cea8_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_65/32_6a6633573cea8_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:18:31'),
-(42, 66, '32_6a663362bab2a_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_66/32_6a663362bab2a_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:18:42'),
-(43, 67, '32_6a663380e7614_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_67/32_6a663380e7614_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:19:12'),
-(44, 68, '32_6a66341026011_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_68/32_6a66341026011_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:21:36'),
-(45, 69, '32_6a663718af881_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_69/32_6a663718af881_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:34:32'),
-(46, 70, '32_6a6637bd2c6a1_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_70/32_6a6637bd2c6a1_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:37:17'),
-(47, 71, '32_6a663838b99d0_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_71/32_6a663838b99d0_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:39:20'),
-(48, 72, '32_6a663850e883c_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_72/32_6a663850e883c_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:39:44'),
-(49, 73, '32_6a6638727b46e_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_73/32_6a6638727b46e_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:40:18'),
-(50, 74, '32_6a663884324b7_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_74/32_6a663884324b7_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:40:36'),
-(51, 75, '32_6a6638a731c3a_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', 'application/pdf', '../uploads/evidence/ReportID_75/32_6a6638a731c3a_Post_Disaster_Reporting_System_File_Design_Diagram.pdf', '2026-07-26 16:41:11');
+(1, 77, '145_6a666716301c2_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_77/145_6a666716301c2_videoframe_4502.png', '2026-07-26 19:59:18'),
+(2, 84, '145_6a6668f22acc5_1689416305401.jpg', 'image/jpeg', '../uploads/evidence/ReportID_84/145_6a6668f22acc5_1689416305401.jpg', '2026-07-26 20:07:14'),
+(3, 85, '145_6a666a441644d_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_85/145_6a666a441644d_videoframe_4502.png', '2026-07-26 20:12:52'),
+(4, 86, '145_6a666aafa346e_videoframe_4502.png', 'image/png', '../uploads/evidence/ReportID_86/145_6a666aafa346e_videoframe_4502.png', '2026-07-26 20:14:39'),
+(5, 87, '146_6a666b68b8800_Screenshot 2026-06-01 124132.png', 'image/png', '../uploads/evidence/ReportID_87/146_6a666b68b8800_Screenshot 2026-06-01 124132.png', '2026-07-26 20:17:44'),
+(6, 88, '145_6a667548e975d_Screenshot 2026-05-31 150304.png', 'image/png', '../uploads/evidence/ReportID_88/145_6a667548e975d_Screenshot 2026-05-31 150304.png', '2026-07-26 20:59:52'),
+(7, 89, '146_6a667e1d4dfde_Screenshot 2026-04-19 183416.png', 'image/png', '../uploads/evidence/ReportID_89/146_6a667e1d4dfde_Screenshot 2026-04-19 183416.png', '2026-07-26 21:37:33'),
+(8, 90, '146_6a667e794f076_Screenshot 2026-06-01 130517.png', 'image/png', '../uploads/evidence/ReportID_90/146_6a667e794f076_Screenshot 2026-06-01 130517.png', '2026-07-26 21:39:05'),
+(9, 91, '146_6a667f2f14e06_Screenshot 2026-04-30 222435.png', 'image/png', '../uploads/evidence/ReportID_91/146_6a667f2f14e06_Screenshot 2026-04-30 222435.png', '2026-07-26 21:42:07'),
+(10, 92, '146_6a667f958170b_Screenshot 2026-06-01 124132.png', 'image/png', '../uploads/evidence/ReportID_92/146_6a667f958170b_Screenshot 2026-06-01 124132.png', '2026-07-26 21:43:49'),
+(11, 93, '149_6a66812dee133_Screenshot 2026-05-31 150304.png', 'image/png', '../uploads/evidence/ReportID_93/149_6a66812dee133_Screenshot 2026-05-31 150304.png', '2026-07-26 21:50:37'),
+(12, 94, '149_6a668165ba3f8_Screenshot 2026-05-31 150304.png', 'image/png', '../uploads/evidence/ReportID_94/149_6a668165ba3f8_Screenshot 2026-05-31 150304.png', '2026-07-26 21:51:33'),
+(13, 95, '149_6a6681b6e9ec5_Screenshot 2026-05-31 150304.png', 'image/png', '../uploads/evidence/ReportID_95/149_6a6681b6e9ec5_Screenshot 2026-05-31 150304.png', '2026-07-26 21:52:54'),
+(14, 96, '149_6a6681dda002d_Screenshot 2026-04-19 191103.png', 'image/png', '../uploads/evidence/ReportID_96/149_6a6681dda002d_Screenshot 2026-04-19 191103.png', '2026-07-26 21:53:33'),
+(15, 97, '149_6a668210ee319_Screenshot 2026-06-01 130517.png', 'image/png', '../uploads/evidence/ReportID_97/149_6a668210ee319_Screenshot 2026-06-01 130517.png', '2026-07-26 21:54:24'),
+(16, 98, '149_6a66825fea177_Screenshot 2026-04-15 172328.png', 'image/png', '../uploads/evidence/ReportID_98/149_6a66825fea177_Screenshot 2026-04-15 172328.png', '2026-07-26 21:55:43'),
+(17, 99, '147_6a6682ae25dc3_Screenshot 2026-05-31 150304.png', 'image/png', '../uploads/evidence/ReportID_99/147_6a6682ae25dc3_Screenshot 2026-05-31 150304.png', '2026-07-26 21:57:02'),
+(18, 100, '147_6a6682dd585f0_Screenshot 2026-04-30 222435.png', 'image/png', '../uploads/evidence/ReportID_100/147_6a6682dd585f0_Screenshot 2026-04-30 222435.png', '2026-07-26 21:57:49'),
+(19, 101, '147_6a668c47634c7_Screenshot 2026-06-01 124315.png', 'image/png', '../uploads/evidence/ReportID_101/147_6a668c47634c7_Screenshot 2026-06-01 124315.png', '2026-07-26 22:37:59'),
+(20, 102, '147_6a668c76d1ef4_Screenshot 2026-06-01 124600.png', 'image/png', '../uploads/evidence/ReportID_102/147_6a668c76d1ef4_Screenshot 2026-06-01 124600.png', '2026-07-26 22:38:46');
 
 -- --------------------------------------------------------
 
@@ -768,7 +652,6 @@ CREATE TABLE `financial_officer` (
 --
 
 INSERT INTO `financial_officer` (`User_ID`, `Financial_Officer_ID`, `Department`, `Bank_Name`, `Bank_Account_No`) VALUES
-(47, 'ASDAD', 'ADA', 'DAD', 'AD'),
 (78, 'FO0001', 'Finance Division', 'Bank of Ceylon', '742100010001'),
 (79, 'FO0002', 'Finance Division', 'People\'s Bank', '742100010002'),
 (80, 'FO0003', 'Finance Division', 'Commercial Bank', '7421000104'),
@@ -793,11 +676,9 @@ CREATE TABLE `injured_person` (
 --
 
 INSERT INTO `injured_person` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Injured_Level`) VALUES
-(37, '', 0, 'default', 'Moderate'),
-(44, '', 0, 'default', ''),
-(51, '', 0, 'default', ''),
-(67, '', 0, 'default', ''),
-(73, '', 0, 'default', '');
+(85, 'Sarada Gunawardena', 21, 'female', 'Moderate'),
+(90, 'Kalpani chnadrasekara', 23, 'female', 'Severe'),
+(96, 'Kalpani chnadrasekara', 23, 'male', 'Severe');
 
 -- --------------------------------------------------------
 
@@ -817,26 +698,12 @@ CREATE TABLE `local_authority_officer` (
 --
 
 INSERT INTO `local_authority_officer` (`User_ID`, `Local_Officer_ID`, `Position`, `Assigned_divisional_secretariat`) VALUES
-(26, '1', NULL, 1),
-(51, 'LAO0001', 'Local Authority Officer', 86),
-(52, 'LAO0002', 'Local Authority Officer', 85),
-(53, 'LAO0003', 'Local Authority Officer', 82),
-(54, 'LAO0004', 'Local Authority Officer', 83),
-(55, 'LAO0005', 'Local Authority Officer', 87),
-(56, 'LAO0006', 'Local Authority Officer', 76),
-(59, 'LAO0007', 'Local Authority Officer', 88),
-(60, 'LAO0008', 'Local Authority Officer', 84),
-(61, 'LAO0009', 'Local Authority Officer', 79),
-(62, 'LAO0010', 'Local Authority Officer', 91),
-(63, 'LAO0011', 'Local Authority Officer', 92),
-(64, 'LAO0012', 'Local Authority Officer', 75),
-(65, 'LAO0013', 'Local Authority Officer', 93),
-(66, 'LAO0014', 'Local Authority Officer', 78),
-(67, 'LAO0015', 'Local Authority Officer', 77),
-(68, 'LAO0016', 'Local Authority Officer', 89),
-(69, 'LAO0017', 'Local Authority Officer', 80),
-(70, 'LAO0018', 'Local Authority Officer', 81),
-(71, 'LAO0019', 'Local Authority Officer', 90);
+(139, 'LAO0001', 'Local Authority Officer', 86),
+(140, 'LAO0002', 'Local Authority Officer', 85),
+(141, 'LAO0003', 'Local Authority Officer', 82),
+(142, 'LAO0004', 'Local Authority Officer', 83),
+(143, 'LAO0005', 'Local Authority Officer', 87),
+(144, 'LAO0006', 'Local Authority Officer', 76);
 
 -- --------------------------------------------------------
 
@@ -861,12 +728,9 @@ CREATE TABLE `missing_person_record` (
 --
 
 INSERT INTO `missing_person_record` (`Report_ID`, `Full_Name`, `Age`, `Gender`, `Last_Seen_Location`, `Last_Seen_Date`, `Last_Seen_Time`, `Status`, `Relationship_to_Person`) VALUES
-(36, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, ''),
-(45, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, ''),
-(52, 'asasda', 65, 'default', 'adasdada', '0000-00-00', '00:00:00', NULL, ''),
-(69, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, ''),
-(70, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, ''),
-(74, '', 0, 'default', '', '0000-00-00', '00:00:00', NULL, '');
+(86, 'Kasun perera', 36, 'male', 'Galle Bus station', '2026-07-14', '06:47:00', NULL, 'Brother'),
+(91, 'Shamila Liyanarachchi', 45, 'female', 'Kongaha Junction', '2026-07-25', '08:15:00', NULL, 'Mother'),
+(95, 'Kusuma Sandeepani', 55, 'female', 'Kongaha Junction', '2026-07-14', '07:24:00', NULL, 'Mother');
 
 -- --------------------------------------------------------
 
@@ -890,20 +754,84 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`Notification_ID`, `User_ID`, `Report_ID`, `Notification_Title`, `Notification_Message`, `Notification_Type`, `Is_Read`, `Created_At`) VALUES
-(1, 26, 61, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 1, '2026-07-24 01:39:31'),
-(2, 26, 62, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 1, '2026-07-25 17:51:35'),
-(3, 26, 63, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 21:06:03'),
-(4, 53, 64, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 21:42:10'),
-(5, 69, 66, 'New Death Report', 'A new Death Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 21:48:42'),
-(6, 60, 67, 'New Injured Person Report', 'A new Injured Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 21:49:12'),
-(7, 61, 68, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 21:51:36'),
-(8, 52, 69, 'New Missing Person Report', 'A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:04:32'),
-(9, 70, 70, 'New Missing Person Report', 'A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:07:17'),
-(10, 53, 71, 'New Death Report', 'A new Death Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:09:20'),
-(11, 65, 72, 'New Death Report', 'A new Death Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:09:44'),
-(12, 67, 73, 'New Injured Person Report', 'A new Injured Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:10:18'),
-(13, 71, 74, 'New Missing Person Report', 'A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:10:36'),
-(14, 69, 75, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-26 22:11:11');
+(1, 140, 77, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 01:29:18'),
+(2, 140, 84, 'New Death Report', 'A new Death Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 01:37:14'),
+(3, 140, 85, 'New Injured Person Report', 'A new Injured Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 01:42:52'),
+(4, 140, 86, 'New Missing Person Report', 'A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 01:44:39'),
+(5, 140, 87, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 01:47:44'),
+(6, 145, 77, 'Report Rejection', 'Your Report Has Been Rejected By a Local Authority Officer', 'LAO Rejection', 0, '2026-07-27 01:50:01'),
+(7, 145, 84, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 01:50:17'),
+(8, 145, 85, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 01:50:22'),
+(9, 145, 86, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 01:50:27'),
+(10, 146, 87, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 01:50:31'),
+(11, 145, 77, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 02:13:51'),
+(12, 145, 84, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 02:13:56'),
+(13, 145, 77, 'Report Rejection', 'Your Report Has Been Rejected By Disaster Management Officer', 'DMO Rejection', 0, '2026-07-27 02:22:46'),
+(14, 145, 84, 'Report Rejection', 'Your Report Has Been Rejected By Disaster Management Officer', 'DMO Rejection', 0, '2026-07-27 02:23:49'),
+(15, 140, 88, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 02:29:52'),
+(16, 145, 85, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 02:30:59'),
+(17, 145, 86, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 02:31:03'),
+(18, 146, 87, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 02:31:07'),
+(19, 145, 88, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 02:31:11'),
+(20, 145, 85, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 02:41:26'),
+(21, 145, 86, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 02:41:37'),
+(22, 146, 87, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 02:41:56'),
+(23, 145, 88, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 02:42:06'),
+(24, 145, 77, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 02:48:29'),
+(25, 146, 87, 'Report Rejection', 'Your Report Has Been Rejected By District Secretary', 'DS Rejected', 0, '2026-07-27 02:48:51'),
+(26, 145, 85, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 02:49:08'),
+(27, 145, 86, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 02:49:16'),
+(28, 145, 88, 'Report Rejection', 'Your Report Has Been Rejected By District Secretary', 'DS Rejected', 0, '2026-07-27 02:49:39'),
+(29, 145, 77, 'Compensation Processing', 'Your Compensation Claim Is Now Being Processed By Financial Officer', 'FO Processing', 0, '2026-07-27 02:53:00'),
+(30, 145, 85, 'Compensation Processing', 'Your Compensation Claim Is Now Being Processed By Financial Officer', 'FO Processing', 0, '2026-07-27 02:53:05'),
+(31, 145, 86, 'Compensation Processing', 'Your Compensation Claim Is Now Being Processed By Financial Officer', 'FO Processing', 0, '2026-07-27 02:53:14'),
+(32, 145, 88, 'Compensation Processing', 'Your Compensation Claim Is Now Being Processed By Financial Officer', 'FO Processing', 0, '2026-07-27 02:53:19'),
+(33, 140, 89, 'New Death Report', 'A new Death Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:07:33'),
+(34, 140, 90, 'New Injured Person Report', 'A new Injured Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:09:05'),
+(35, 140, 91, 'New Missing Person Report', 'A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:12:07'),
+(36, 140, 92, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:13:49'),
+(37, 146, 89, 'Report Rejection', 'Your Report Has Been Rejected By a Local Authority Officer', 'LAO Rejection', 0, '2026-07-27 03:15:45'),
+(38, 146, 90, 'Report Rejection', 'Your Report Has Been Rejected By a Local Authority Officer', 'LAO Rejection', 0, '2026-07-27 03:16:04'),
+(39, 146, 91, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:16:27'),
+(40, 146, 92, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:16:35'),
+(41, 140, 93, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:20:37'),
+(42, 140, 94, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:21:33'),
+(43, 140, 95, 'New Missing Person Report', 'A new Missing Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:22:54'),
+(44, 140, 96, 'New Injured Person Report', 'A new Injured Person Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:23:33'),
+(45, 140, 97, 'New Death Report', 'A new Death Report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:24:24'),
+(46, 140, 98, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:25:43'),
+(47, 140, 99, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:27:02'),
+(48, 140, 100, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 03:27:49'),
+(49, 149, 93, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:28:19'),
+(50, 149, 94, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:28:24'),
+(51, 149, 95, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:34:46'),
+(52, 149, 96, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:34:50'),
+(53, 149, 97, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:34:54'),
+(54, 149, 98, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:34:58'),
+(55, 147, 99, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:35:04'),
+(56, 147, 100, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 03:35:08'),
+(57, 147, 100, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:36:43'),
+(58, 146, 91, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:36:54'),
+(59, 146, 92, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:37:08'),
+(60, 149, 93, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:37:33'),
+(61, 149, 94, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:37:46'),
+(62, 149, 95, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:38:06'),
+(63, 149, 96, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:38:15'),
+(64, 149, 97, 'Report Approval', 'Your Report Has Been Approved By Disaster Management Officer', 'DMO Approval', 0, '2026-07-27 03:38:23'),
+(65, 149, 98, 'Report Rejection', 'Your Report Has Been Rejected By Disaster Management Officer', 'DMO Rejection', 0, '2026-07-27 03:40:48'),
+(66, 147, 99, 'Report Rejection', 'Your Report Has Been Rejected By Disaster Management Officer', 'DMO Rejection', 0, '2026-07-27 03:40:55'),
+(67, 146, 92, 'Report Rejection', 'Your Report Has Been Rejected By District Secretary', 'DS Rejected', 0, '2026-07-27 03:50:09'),
+(68, 146, 91, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 03:51:12'),
+(69, 149, 93, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 03:51:32'),
+(70, 149, 94, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 03:53:15'),
+(71, 149, 95, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 03:53:24'),
+(72, 147, 100, 'Report Approval', 'Your Report Has Been Approved By District Secretary', 'DS Approval', 0, '2026-07-27 03:57:03'),
+(73, 147, 100, 'Compensation Processing', 'Your Compensation Claim Is Now Being Processed By Financial Officer', 'FO Processing', 0, '2026-07-27 04:01:23'),
+(74, 149, 93, 'Compensation Processing', 'Your Compensation Claim Is Now Being Processed By Financial Officer', 'FO Processing', 0, '2026-07-27 04:01:26'),
+(75, 140, 101, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 04:07:59'),
+(76, 140, 102, 'New Property Damage Disaster Report', 'A new disaster report has been submitted for your Divisional Secretariat and requires review.', 'Report Submitted', 0, '2026-07-27 04:08:46'),
+(77, 147, 101, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 04:09:25'),
+(78, 147, 102, 'Report Approval', 'Your Report Has Been Approved By a Local Authority Officer', 'LAO Approval', 0, '2026-07-27 04:09:30');
 
 -- --------------------------------------------------------
 
@@ -961,22 +889,17 @@ CREATE TABLE `property_damage` (
 --
 
 INSERT INTO `property_damage` (`Report_ID`, `Property_Type`, `Damage_Level`, `Damage_Description`, `Estimated_Cost`, `Latitude`, `Longitude`) VALUES
-(38, 'default', '', '', 0.00, NULL, NULL),
-(39, 'default', '', '', 0.00, NULL, NULL),
-(40, 'default', '', '', 0.00, NULL, NULL),
-(41, 'default', '', '', 0.00, NULL, NULL),
-(46, 'rHouse', 'Moderate', '', 231332.00, 6.04043514, 80.22849507),
-(47, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(48, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(49, 'default', 'Minor', 'asasasa', 0.00, 0.00000000, 0.00000000),
-(59, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700),
-(60, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700),
-(61, 'agrLand', 'Minor', 'fdgdfg', 13123.00, 6.18324300, 80.11229700),
-(62, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(63, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(64, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(68, 'default', '', '', 0.00, 0.00000000, 0.00000000),
-(75, 'default', '', '', 0.00, 0.00000000, 0.00000000);
+(77, 'rHouse', 'Moderate', 'Minor damage to the roof with several tiles displa...', 300000.00, 6.23886170, 80.05739658),
+(87, 'comBuilding', 'Major', 'Strong winds damaged the roof and part of the boundary wall.', 300000.00, 6.10363939, 80.22786185),
+(88, 'rHouse', 'Minor', 'The property was affected by flooding, causing damage to household items and flooring.', 50000.00, 6.10363939, 80.22786185),
+(92, 'apt', '', 'A fallen tree damaged the roof and front section of the house.', 1200000.00, 6.10363939, 80.22786185),
+(93, 'vehicle', 'Moderate', 'A fallen tree damaged the Car.', 2000000.00, 6.10364000, 80.22784300),
+(94, 'apt', 'Major', 'A fallen tree damaged the roof and front section of the house.', 450000.00, 6.10363939, 80.22786185),
+(98, 'shop', 'Major', 'A fallen tree damaged the roof and front section of the house.', 1700000.00, 6.10363939, 80.22786185),
+(99, 'rHouse', 'Minor', 'A fallen tree damaged the roof and front section of the house.', 50000.00, 6.10363939, 80.22786185),
+(100, 'agrLand', '', 'A fallen tree damaged the roof and front section of the house.', 2500000.00, 6.10363939, 80.22786185),
+(101, 'apt', 'Moderate', 'he property was affected by flooding, causing damage to household items and flooring.', 1300000.00, 6.10363939, 80.22786185),
+(102, 'apt', 'Minor', 'he property was affected by flooding, causing damage to household items and flooring.', 100000.00, 6.10363939, 80.22786185);
 
 -- --------------------------------------------------------
 
@@ -1029,112 +952,29 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Full_Name`, `Gender`, `NIC`, `Email`, `Phone_Number`, `Address`, `Role_ID`, `User_Status`, `Created_Date`, `Profile_Picture`) VALUES
 (6, 'Admin', '$2y$10$wYr7YpeuBI7bFXltOqi2CuzNgYRJUDfcO4dH/5/17o08xlSJznxKy', 'Malisha Madhusith', 'Male', '200304811656', 'malishashadowflame99@gmail.com', '0766511220', 'Galleaa', 1, 'Active', '2026-07-22 12:12:34', '6_20260722_230543.jpg'),
-(9, 'MM@17', '$2y$10$vCXQHNooJBiH4qvxsOyMaemZIfsl7xxxv4paYtPrLIE/WPPiw7zfe', 'Malisha Madhusith', 'Male', '200304811656', 'malisha99@gmail.com', '0766511220', 'Malavigewatta,', 1, 'Active', '2026-07-22 12:12:34', 'Default'),
-(11, 'ABC', '$2y$10$FIITcBMLwPFDQeNkCIhSye8s6oyA39XImPvOrU9VbHW8BUNcMgNIW', 'abc', 'Male', '200304811655', 'malishashado@gmail.com', '0766511220', 'galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(14, 'as', '$2y$10$YENTnCSD27sazAzT7SftUuANVsgEcpE7zTSYUdrO9cU/dl4AgOoqG', 'as', '', '', '', '', '', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(19, 'Kasun@123', '$2y$10$L9.Ml8AbgFQUbhhUauwYxOOhysxbK2iz63akTE3X9XCPTeGYlFXde', 'Kasun Dananjaya', 'Male', '200304811656', 'AAAAA@gmail.com', '0766511220', 'Colombo', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(20, 'Madu@123', '$2y$10$Afuvp17dwAB1EK3V/DDR0OhQEC1NdEk.aNLZbiEnL8SXNhDx6X1im', 'Madushi Kalansoooriya', 'Female', '200304811656', 'AAA@gmail.com', '0766511220', 'Colombo', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(21, 'ASD123', '$2y$10$Cjk7CsqrShTnnsabPAB1g.cgMx0VawPWikzlKf8RxZr/rRGKLTsA2', 'Asanka Sampath Dananjaya', 'Male', '200304568596', 'AsankaSD@gmail.com', '0778899665', 'Kurunegala', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(22, 'charin', '$2y$10$jwJxmkgI9BBLns5BXJMnd.uDSbforiJCCQ3QIfuUj0tCtcbFrYf4y', 'charindu gayashan', 'Male', '200512700610', 'charindu@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(26, 'charindu', '$2y$10$TxVu6.HZBGZNYJr9.N4wAOFGpSAVdgZZaznXeaUZJvs9F.5Vze6Eq', 'Charindu Gayashan', 'Male', '200512700610', 'charindugayashan00@gmail.com', '0762352086', 'galle', 3, 'Active', '2026-07-22 12:12:34', '26_20260725_230436.jpeg'),
-(27, 'AAA', '$2y$10$zr22onqR0GJAgs.y2M5z5.5mk3nhPKqK0p9O7mC9qbXKBio4qDBsW', 'AAA', 'Male', '200304811654', 'asda@gmail.com', '0766511223', 'Galle', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(28, 'DS', '$2y$10$K7dz2nAvdSdMICRVgjRaHuR3mfn4cCIRaOkUEsqsYDeetwOItmZ0K', 'district secretary', 'Male', '200304568952', 'DS@gmail.com', '0755899663', 'Galle', 5, 'Active', '2026-07-22 12:12:34', '28_20260725_160125.png'),
-(29, 'LOF', '$2y$10$cdD18ckAbSJDasQ7WTUF0eEwdkBj8U29XI2K9.uuwG4EYZKR6jBPO', 'Local Authority Officer', 'Male', '200546568956', 'LOF@gmail.com', '0456633221', 'Galle', 4, 'Active', '2026-07-22 12:12:34', 'Default'),
-(30, 'DMO', '$2y$10$sYlC/BotKLirMNOTkiVLIOtc9wJz67I4FYFbibhhB1q7BAqyPg1hy', 'Disaster Managment Officer', 'Male', '200563254123', 'DMO@gmail.com', '0766588552', 'Galle', 2, 'Active', '2026-07-22 12:12:34', '30_20260725_223924.jpg'),
-(31, 'FO', '$2y$10$OIWerh3Mt2DpNoJO.aYEQuGI2nwVDFywXcNVwmpDzz48w3PD/WwZS', 'Financial Officer', 'Male', '200345889966', 'FO@gmail.com', '0766544882', 'Colombo', 6, 'Active', '2026-07-22 12:12:34', '31_20260724_235359.png'),
-(32, 'CT', '$2y$10$vXZ5gdY3pgKurzULxMmLH.m3Tanh13Ll1XnXfatDSb8Wn8obxLwnK', 'Citizen', 'Female', '200304589966', 'CT@gmail.com', '0755899667', 'Galle', 3, 'Active', '2026-07-22 12:12:34', '32_20260722_230342.png'),
-(34, 'adcas', '$2y$10$4A2YTBjhGrz.s.LLY.PU2uIfNRu9ZlipvWtojggYjpGdNsRg6stAu', 'ascasc', 'Male', '200304556633', 'aoudhaisoasiai@gmail.com', '0758966332', 'ascasc', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(36, 'asdaad', '$2y$10$WjiVr5a9sARcFBghKR130ea7g3lLDyDAE7JUKzCbTrHPOacZVa28G', 'asdad', 'Male', '200356889977', 'aoudasoasiai@gmail.com', '0758966337', 'asasasa', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(37, 'asda', '$2y$10$yxttHGmScCxZIiB5f1US0OriqVaAe8AK6TAApSmBSfwV52DYGPd16', 'asdads', 'Male', '200304556633', 'asqwqqasda@gmail.com', '0777777777', 'acasc', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(38, 'asdada', '$2y$10$/w/u3M1o/VT0Ag050oYzbuyKAC18Wb9WLNtNAw7hFLi.SLhKavUpW', 'sdasdasd', 'Male', '200304556633', 'CT@gmail.coma', '0000000000', 'acasc', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(41, 'dw', '$2y$10$rH8XAnaBuzB9ApmV5PGUSO30zRNAZOWTVVEl8olYbwfRVYDelVR4m', 'Malisha Madhusith', 'Female', '200304811693', 'malishamadhusith72@gmail.coma', '0766511220', 'asasasa', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(42, 'dasd', '$2y$10$N2gRi1mjBpWOncB0.tGyYeVFldvBFNzyRmhNJ10iiRumjPzROoAsS', 'asdsa', 'Male', '200304811693', 'malisashamadhusith72@gmail.com', '0766511220', 'asasasa', 3, 'Active', '2026-07-22 12:12:34', 'Default'),
-(43, 'j65', '$2y$10$Q5fiidYslGFDjL1c5ptFWuPSpUlgva2BDh0.xyvo25bkbWZqaSGAq', 'Malisha Madhusith', 'Male', '200304811693', 'maishamadhusith72@gmail.com', '0766511220', 'asasasa', 3, 'Banned', '2026-07-22 12:12:34', 'Default'),
-(44, 'ugytd', '$2y$10$ALmPYyT2eoKwIKi.oyu1cO3xkxq3Pnr4ffXLmaMpeY6RiUG0zQNMC', 'asdsaasdasdasdaasdadsadadadaad', 'Male', '200304811693', 'malishusith72@gmail.com', '0766511220', 'asasasa', 3, 'Banned', '2026-07-22 12:12:34', 'Default'),
-(45, 'asas', '$2y$10$sBdgJ9tYoMb7yIDyPFyz4uLAvxnmn3xTZ0JEPicTeb5BelLkbGLo6', 'Malisha Madhusith', 'Male', '200304811656', 'malishasamadhkjhusith72@gmail.com', '0777777777', 'asdasd', 5, 'Banned', '2026-07-22 12:12:34', 'Default'),
-(46, 'asdasd', '$2y$10$HeVGRPS3aLmsiquf.A3crOwhV1Yq90IXxzAqSXaRA7s0kcmqFkUt6', 'Citizen', 'Male', '200304556633', 'Galle@gmail.com', '0777788996', 'Galle', 3, 'Active', '2026-07-22 17:39:25', 'Default'),
-(47, 'FOASDAD', '$2y$10$iv5o1CA8Nv5kW.HeEgRYquG6vwvk0D1SDLrI.YVyITVhzDQLfUAFO', 'Malisha Madhusith', 'Female', '200304556666', 'malishamadhusith72@gmail.com', '0766511220', 'SADDSAD', 6, 'Active', '2026-07-25 02:40:35', 'Default.png'),
-(48, 'AdminAass', '$2y$10$xBxZNlxj3oxv3fJeDuxno.zRuEcDT9VlciahjWhXRNxkDldGaqvCu', 'Malisha Madhusith', 'Female', '200304556666', 'malishaasamadhusith72@gmail.com', '0766511220', 'ASDADAD', 5, 'Active', '2026-07-25 03:42:37', 'Default.png'),
-(49, 'AdminaSDFGHJK', '$2y$10$Q9IGfIYm5MUG/u9pVQw5ZurQCfFveqC3CIwwTOiBLvKeio991L/Ua', 'Malisha Madhusith', 'Female', '200304556666', 'malixzZXshamadhusith72@gmail.com', '0766511220', 'ASDADAD', 2, 'Active', '2026-07-25 03:50:07', 'Default.png'),
-(50, 'AdminASASSASAS', '$2y$10$nzLPLD9wjcikOH/LAC3yUen8u7YeWJtghbIWYiE8VFC0NOmdYP/lG', 'Malisha Madhusith', 'Male', '200304556666', 'maliSFASAxzZXshamadhusith72@gmail.com', '0766511220', 'ASDADAD', 5, 'Active', '2026-07-25 14:23:16', 'Default.png'),
-(51, 'lao_galle01', '$2y$10$0SUnuquIe053ojNya4yCt.kZqNi0ybpQwoSHG/JuOvNsWb6xZEQ2C', 'Nimal Perera', 'Male', '901234567V', 'nimal.perera01@gmail.com', '0712345001', '15 Main Street, Galle', 4, 'Active', '2026-07-26 19:29:29', 'Default.png'),
-(52, 'lao_galle02', '$2y$10$w3skFkdDt.wG.tydhMORo.tzKYOJuzZXNj5MZyqpUTec9i2Q4N1i6', 'Kasun Silva', 'Male', '911234568V', 'kasun.silva02@gmail.com', '0712345002', '22 Temple Road, Galle', 4, 'Active', '2026-07-26 19:31:29', 'Default.png'),
-(53, 'lao_galle03', '$2y$10$jWyqOR758GSPvsbZwuc5Y.XHZb8SNVuYV9DmaicVs2e0VxaCHVe7u', 'Dilani Fernando', 'Female', '925678901V', 'dilani.fernando01@gmail.com', '0712345003', '18 Station Road, Galle', 4, 'Active', '2026-07-26 19:34:15', 'Default.png'),
-(54, 'lao_galle04', '$2y$10$RxDSbKxZlqkz.bfWhFt/Z.oKo0p4di9K6KtaHZ1u9rYfR93i9nQE6', 'Tharindu Jayasinghe', 'Male', '931234570V', 'tharindu.jaya02@gmail.com', '0712345004', '18 Station Road, Galle', 4, 'Active', '2026-07-26 19:42:07', 'Default.png'),
-(55, 'lao_galle05', '$2y$10$5Ynr7N4JpaDHfANz2yU70OSOVCo0tFj0uSEusPfhmzX.sVRvj.x9a', 'Sanduni Wickramasinghe', 'Female', '946789012V', 'sanduni.w01@gmail.com', '0712345005', '11 Lake Road, Galle', 4, 'Active', '2026-07-26 19:43:43', 'Default.png'),
-(56, 'lao_galle06', '$2y$10$wdqXo6.2HdtqJ9YsUaXJ4OIIh7QF55qgXRPe6TUFV80g15ZrVBoDq', 'Chamara Rajapaksha', 'Male', '951234571V', 'chamara.r02@gmail.com', '0712345006', '77 New Town, Galle', 4, 'Active', '2026-07-26 19:45:57', 'Default.png'),
-(59, 'lao_galle07', '$2y$10$20cp032/qPp5xMvkyqBdeuiCUpFuS4OrJ9p0IKAi9t2fJKHRIWiaC', 'Iresha De Silva', 'Female', '967890123V', 'iresha.ds01@gmail.com', '0712345007', '29 River Road, Galle', 4, 'Active', '2026-07-26 19:53:43', 'Default.png'),
-(60, 'lao_galle08', '$2y$10$tCG0EdbKdNEUKwR8ctYluu1a7wNhgWQ4E4PbukOHq58FhYycGd9ci', 'Pradeep Kumara', 'Male', '971234572V', 'pradeep.k02@gmail.com', '0712345008', '35 Market Street, Galle', 4, 'Active', '2026-07-26 19:55:26', 'Default.png'),
-(61, 'lao_galle09', '$2y$10$.T80N.n6dEcfAnEBPEgeS.BynGq67QPALlELWbfB5B3LMLY98wmG6', 'Upeksha Senanayake', 'Female', '987654321V', 'upeksha.s01@gmail.com', '0712345009', '66 Hill Road, Galle', 4, 'Active', '2026-07-26 19:56:55', 'Default.png'),
-(62, 'lao_galle10', '$2y$10$itIbzV5G2eN/94I0YVeraeud0a8t.8BS1.QEAbWwHhvHyJftzsN0C', 'Roshan Bandara', 'Male', '991234573V', 'roshan.b02@gmail.com', '0712345010', '90 Temple Junction, Galle', 4, 'Active', '2026-07-26 19:58:23', 'Default.png'),
-(63, 'lao_galle11', '$2y$10$xmlXCOqE.JLcI1KaqYwQQOVcW4p/N1kZn66U3sbnO5rgiM8f32xs6', 'Asanka Wijesinghe', 'Male', '900112345V', 'asanka.w01@gmail.com', '0712345011', '12 Peradeniya Road, Galle', 4, 'Active', '2026-07-26 19:59:24', 'Default.png'),
-(64, 'lao_galle12', '$2y$10$G43nyOxFRmzVNvlqAx9tLO1UuAGgj91qlxgB457Lr6yLbCLCIO.Gq', 'Sachini Perera', 'Female', '920112346V', 'sachini.p02@gmail.com', '0712345012', '45 Katugastota Road, Galle', 4, 'Active', '2026-07-26 20:00:21', 'Default.png'),
-(65, 'lao_galle13', '$2y$10$nALunwW42tU8Fa6lputqEunp9XX8suXaVtpBsDyzzqRdb6Oj/G2DG', 'Ravindu Jayawardena', 'Male', '930112347V', 'ravindu.j01@gmail.com', '0712345013', '78 William Gopallawa Mawatha, Galle', 4, 'Active', '2026-07-26 20:01:31', 'Default.png'),
-(66, 'lao_galle14', '$2y$10$U2QXYYqlEHP/K9eSNqwGQOLciehy.JhGFOCy7AoZxs4JVGYInfd5.', 'Nadeesha Fernando', 'Female', '940112348V', 'nadeesha.f02@gmail.com', '0712345014', '78 William Gopallawa Mawatha, Galle', 4, 'Active', '2026-07-26 20:02:12', 'Default.png'),
-(67, 'lao_galle15', '$2y$10$UPMn.CSsjyVenFLrrClzY.HZwsB4w0sUPSsqrTwc7JkpQXgyS1MmW', 'Janaka Madushan', 'Male', '950112349V', 'janaka.m03@gmail.com', '0712345015', '78 William Gopallawa Mawatha, Galle', 4, 'Active', '2026-07-26 20:03:02', 'Default.png'),
-(68, 'lao_galle16', '$2y$10$7vIdCHBY.FLVt5tSrKDwY.M7kYm6YEhNyNtUfxOFsIAuXvsMpKar2', 'Hiruni Ekanayake', 'Female', '960112350V', 'hiruni.e04@gmail.com', '0712345016', '31 Rajapihilla Mawatha, Galle', 4, 'Active', '2026-07-26 20:03:56', 'Default.png'),
-(69, 'lao_galle17', '$2y$10$9JBjE4Rc9e5tbBo7s0o/nO6ha/3d5ByzJaAgqra/Tk.Y9iACURaiS', 'Thilina Gunawardana', 'Male', '970112351V', 'thilina.e04@gmail.com', '0712345017', '54 Dharmaraja Mawatha, Galle', 4, 'Active', '2026-07-26 20:06:23', 'Default.png'),
-(70, 'lao_galle18', '$2y$10$u.S8h1OVj78u0RmpGFcbGep66PJ6MQpbU3r2wx2DencPvCGmRWYJS', 'Udeshika Karunaratne', 'Female', '980112352V', 'udeshika.k03@gmail.com', '0712345018', '17 Heerassagala Road, Galle', 4, 'Active', '2026-07-26 20:07:32', 'Default.png'),
-(71, 'lao_galle19', '$2y$10$TBY9H6LUmikg1UHZ0XeatOgyrTEpKwnJRTmma2fiDiMyHnNUGzX1O', 'Chamath Bandara', 'Male', '990112353V', 'chamath.k03@gmail.com', '0712345019', '17 Ampitiya Road, Galle', 4, 'Active', '2026-07-26 20:08:48', 'Default.png'),
-(73, 'dmo_galle01', '$2y$10$cu0Z4qxEiCzL4bcJ2AXJjeFeBgAkj6j2WnytVaqR25YKKAbVKJHde', 'Ruwan Jayawardena', 'Male', '801234501V', 'ruwan.dmo01@gmail.com', '0717700001', '15 Main Street, Galle', 2, 'Active', '2026-07-26 20:21:52', 'Default.png'),
-(74, 'ds_galle01', '$2y$10$237vCQd7et337BUABxTCpuT/0vtNB9hcpXZ1Qsyn/igga4kBsEDZa', 'Mahinda Jayasinghe', 'Male', '721234501V', 'mahinda.ds01@gmail.com', '0718800001', '15 Main Street, Galle', 5, 'Active', '2026-07-26 20:25:10', 'Default.png'),
+(74, 'ds_galle01', '$2y$10$237vCQd7et337BUABxTCpuT/0vtNB9hcpXZ1Qsyn/igga4kBsEDZa', 'Mahinda Jayasinghe', 'Male', '721234501V', 'mahinda.ds01@gmail.com', '0718800001', '15 Main Street, Galle', 5, 'Active', '2026-07-26 20:25:10', '74_20260727_001939.jpg'),
 (75, 'ds_colombo01', '$2y$10$lUbJHTrjIBT8MDN.VEnV1uKSWzwi8k48EWx.dI4ztxR85YHdztcCC', 'Nadeeka Perera', 'Female', '741234502V', 'nadeeka.ds02@gmail.com', '0718800002', '6 Ampitiya Road, Colombo', 5, 'Active', '2026-07-26 20:26:47', 'Default.png'),
 (76, 'ds_gampaha01', '$2y$10$d0nzxp3j1FbhURBiFbreB.FRrrzUHCofvBwV7PDI5manKS8GiIraW', 'Chathurika Silva', 'Female', '781234504V', 'chathurika.ds02@gmail.com', '0718800004', '6 Ampitiya Road, Gampaha', 5, 'Active', '2026-07-26 20:28:50', 'Default.png'),
 (77, 'ds_matara01', '$2y$10$uGBvrbawUOGRbYmV7E1FFOVVa..g34cNgFYhAqm8zMca.bztqAwSG', 'Roshan Wijesinghe', 'Male', '781237504V', 'roshan.ds02@gmail.com', '0718800007', '6 Ampitiya Road, Matara', 5, 'Active', '2026-07-26 20:29:50', 'Default.png'),
-(78, 'fo_0001', '$2y$10$gYrAIKf261.DvkDsrw0NLezDl8t8mS4PS4Snw3AcMznbDfFk9hNni', 'Nuwan Perera', 'Male', '801567801V', 'nuwan.fo01@gmail.com', '0719900001', '15 Peradeniya Road, Kandy', 6, 'Active', '2026-07-26 20:32:38', 'Default.png'),
+(78, 'fo_0001', '$2y$10$gYrAIKf261.DvkDsrw0NLezDl8t8mS4PS4Snw3AcMznbDfFk9hNni', 'Nuwan Perera', 'Male', '801567801V', 'nuwan.fo01@gmail.com', '0719900001', '15 Peradeniya Road, Kandy', 6, 'Active', '2026-07-26 20:32:38', '78_20260727_003316.jpeg'),
 (79, 'fo_0002', '$2y$10$IK2Xl.wdumlZFrv/A64OX.9PEzeP3deafSO7b.eT83lLdTmlMyT6a', 'Chamari Silva', 'Female', '811567801V', 'chamari.fo01@gmail.com', '0719900002', '24 Katugastota Road, Galle', 6, 'Active', '2026-07-26 20:34:05', 'Default.png'),
 (80, 'fo_0003', '$2y$10$2T.75xC6f5xYv.Umdga10uvL5gXtrJAryKJpRbxXBdkDFW.b7kHWO', 'Roshan Fernando', 'Male', '841567803V', 'roshan.fo01@gmail.com', '0719900002', '24 Katugastota Road, Colombo', 6, 'Active', '2026-07-26 20:37:17', 'Default.png'),
 (81, 'fo_0004', '$2y$10$xv8JCi/Tb9lvA1kvT/YB6.oC6Epv11yqyjsNBPQI8R3lfjgvl1E.u', 'Nadeesha Jayawardena', 'Female', '861567804V', 'nadeesha.fo01@gmail.com', '0719900007', '24 Katugastota Road, Gampaha', 6, 'Active', '2026-07-26 20:38:36', 'Default.png'),
-(82, 'galle_user01', 'CT123456', 'Kasun Maduranga', 'Male', '200001234567', 'kasun.maduranga01@gmail.com', '0712345001', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(83, 'galle_user02', 'CT123456', 'Nimali Perera', 'Female', '200102345678', 'nimali.perera02@gmail.com', '0722345002', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(84, 'galle_user03', 'CT123456', 'Tharindu Fernando', 'Male', '199903456789', 'tharindu.fernando03@gmail.com', '0752345003', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(85, 'galle_user04', 'CT123456', 'Sachini Dilrukshi', 'Female', '200004567890', 'sachini.dilrukshi04@gmail.com', '0762345004', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(86, 'galle_user05', 'CT123456', 'Chamod Lakshan', 'Male', '199805678901', 'chamod.lakshan05@gmail.com', '0772345005', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(87, 'galle_user06', 'CT123456', 'Hiruni Sewwandi', 'Female', '200106789012', 'hiruni.sewwandi06@gmail.com', '0782345006', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(88, 'galle_user07', 'CT123456', 'Dinesh Kumara', 'Male', '199907890123', 'dinesh.kumara07@gmail.com', '0712345007', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(89, 'galle_user08', 'CT123456', 'Piumi Hansika', 'Female', '200008901234', 'piumi.hansika08@gmail.com', '0722345008', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(90, 'galle_user09', 'CT123456', 'Ravindu Nimesh', 'Male', '199909012345', 'ravindu.nimesh09@gmail.com', '0752345009', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(91, 'galle_user10', 'CT123456', 'Thilini Madushika', 'Female', '200110123456', 'thilini.madushika10@gmail.com', '0762345010', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(92, 'galle_user11', 'CT123456', 'Sahan Pramod', 'Male', '199811234567', 'sahan.pramod11@gmail.com', '0772345011', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(93, 'galle_user12', 'CT123456', 'Ishara Sandamini', 'Female', '200012345678', 'ishara.sandamini12@gmail.com', '0782345012', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(94, 'galle_user13', 'CT123456', 'Nuwan Chathuranga', 'Male', '199913456789', 'nuwan.chathuranga13@gmail.com', '0712345013', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(95, 'galle_user14', 'CT123456', 'Ayesha Fernando', 'Female', '200014567890', 'ayesha.fernando14@gmail.com', '0722345014', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(96, 'galle_user15', 'CT123456', 'Dinuka Sathsara', 'Male', '199815678901', 'dinuka.sathsara15@gmail.com', '0752345015', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(97, 'galle_user16', 'CT123456', 'Shashika Nadeeshani', 'Female', '200116789012', 'shashika.nadeeshani16@gmail.com', '0762345016', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(98, 'galle_user17', 'CT123456', 'Malith Ravishan', 'Male', '199917890123', 'malith.ravishan17@gmail.com', '0772345017', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(99, 'galle_user18', 'CT123456', 'Kavindi Upeksha', 'Female', '200018901234', 'kavindi.upeksha18@gmail.com', '0782345018', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(100, 'galle_user19', 'CT123456', 'Hasitha Lakmal', 'Male', '199919012345', 'hasitha.lakmal19@gmail.com', '0712345019', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(101, 'galle_user20', 'CT123456', 'Madhavi Sachintha', 'Female', '200120123456', 'madhavi.sachintha20@gmail.com', '0722345020', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(102, 'galle_user21', 'CT123456', 'Praveen Madushan', 'Male', '199821234567', 'praveen.madushan21@gmail.com', '0752345021', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(103, 'galle_user22', 'CT123456', 'Nethmi Senanayake', 'Female', '200022345678', 'nethmi.senanayake22@gmail.com', '0762345022', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(104, 'galle_user23', 'CT123456', 'Chathura Bandara', 'Male', '199923456789', 'chathura.bandara23@gmail.com', '0772345023', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(105, 'galle_user24', 'CT123456', 'Dinethmi Kavisha', 'Female', '200024567890', 'dinethmi.kavisha24@gmail.com', '0782345024', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(106, 'galle_user25', 'CT123456', 'Lahiru Sandaruwan', 'Male', '199825678901', 'lahiru.sandaruwan25@gmail.com', '0712345025', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(107, 'galle_user26', 'CT123456', 'Oshadi Himasha', 'Female', '200126789012', 'oshadi.himasha26@gmail.com', '0722345026', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(108, 'galle_user27', 'CT123456', 'Isuru Dhananjaya', 'Male', '199927890123', 'isuru.dhananjaya27@gmail.com', '0752345027', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(109, 'galle_user28', 'CT123456', 'Shenali Tharuka', 'Female', '200028901234', 'shenali.tharuka28@gmail.com', '0762345028', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(110, 'galle_user29', 'CT123456', 'Rukshan Prabath', 'Male', '199929012345', 'rukshan.prabath29@gmail.com', '0772345029', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(111, 'galle_user30', 'CT123456', 'Yashoda Nisansala', 'Female', '200130123456', 'yashoda.nisansala30@gmail.com', '0782345030', 'Galle', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(112, 'colombo_user01', 'CT123456', 'Amila Perera', 'Male', '199831234567', 'amila.perera31@gmail.com', '0712345031', 'Colombo', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(113, 'colombo_user02', 'CT123456', 'Shenuka Wijesinghe', 'Female', '200032345678', 'shenuka.wijesinghe32@gmail.com', '0722345032', 'Colombo', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(114, 'colombo_user03', 'CT123456', 'Ravindu Jayasinghe', 'Male', '199933456789', 'ravindu.jayasinghe33@gmail.com', '0752345033', 'Colombo', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(115, 'colombo_user04', 'CT123456', 'Tharushi Fernando', 'Female', '200034567890', 'tharushi.fernando34@gmail.com', '0762345034', 'Colombo', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(116, 'colombo_user05', 'CT123456', 'Kasun Dilshan', 'Male', '199835678901', 'kasun.dilshan35@gmail.com', '0772345035', 'Colombo', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(117, 'gampaha_user01', 'CT123456', 'Nimesh Madushan', 'Male', '200136789012', 'nimesh.madushan36@gmail.com', '0782345036', 'Gampaha', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(118, 'gampaha_user02', 'CT123456', 'Sanduni Hansika', 'Female', '199937890123', 'sanduni.hansika37@gmail.com', '0712345037', 'Gampaha', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(119, 'gampaha_user03', 'CT123456', 'Tharindu Lakmal', 'Male', '200038901234', 'tharindu.lakmal38@gmail.com', '0722345038', 'Gampaha', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(120, 'gampaha_user04', 'CT123456', 'Kavisha Dilhani', 'Female', '199939012345', 'kavisha.dilhani39@gmail.com', '0752345039', 'Gampaha', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(121, 'gampaha_user05', 'CT123456', 'Sahan Chathuranga', 'Male', '200140123456', 'sahan.chathuranga40@gmail.com', '0762345040', 'Gampaha', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(122, 'matara_user01', 'CT123456', 'Dulanjana Prabath', 'Male', '199841234567', 'dulanjana.prabath41@gmail.com', '0772345041', 'Matara', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(123, 'matara_user02', 'CT123456', 'Hiruni Sandamali', 'Female', '200042345678', 'hiruni.sandamali42@gmail.com', '0782345042', 'Matara', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(124, 'matara_user03', 'CT123456', 'Isuru Madushan', 'Male', '199943456789', 'isuru.madushan43@gmail.com', '0712345043', 'Matara', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(125, 'matara_user04', 'CT123456', 'Piumi Sewwandi', 'Female', '200044567890', 'piumi.sewwandi44@gmail.com', '0722345044', 'Matara', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(126, 'matara_user05', 'CT123456', 'Chamara Nimesh', 'Male', '199845678901', 'chamara.nimesh45@gmail.com', '0752345045', 'Matara', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(127, 'kandy_user01', 'CT123456', 'Dhanuka Bandara', 'Male', '200146789012', 'dhanuka.bandara46@gmail.com', '0762345046', 'Kandy', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(128, 'kandy_user02', 'CT123456', 'Sachini Madushika', 'Female', '199947890123', 'sachini.madushika47@gmail.com', '0772345047', 'Kandy', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(129, 'kandy_user03', 'CT123456', 'Ravindu Chathuranga', 'Male', '200048901234', 'ravindu.chathuranga48@gmail.com', '0782345048', 'Kandy', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(130, 'kandy_user04', 'CT123456', 'Nethmi Udeshika', 'Female', '199949012345', 'nethmi.udeshika49@gmail.com', '0712345049', 'Kandy', 3, 'Active', '2026-07-26 20:48:25', 'Default.png'),
-(131, 'kandy_user05', 'CT123456', 'Malith Sandeepa', 'Male', '200150123456', 'malith.sandeepa50@gmail.com', '0722345050', 'Kandy', 3, 'Active', '2026-07-26 20:48:25', 'Default.png');
+(135, 'dmo_galle01', '$2y$10$FKBH8hRD5g.5X6PI.Zr0m.wMFxoNF3Pm96tUN3scGd4bKxWVy.Ynu', 'Ruwan Jayawardena', 'Male', '801234501V', 'ruwan.dmo01@gmail.com', '0717700001', '25 Peradeniya Road, Kandy', 2, 'Active', '2026-07-27 00:13:37', '135_20260726_230619.jpeg'),
+(136, 'dmo_colombo01', '$2y$10$mvCAucPxBDrQiD/abkss4.jlyOvBKpBFY8fcJB16X/lUdBbDI3xZq', 'Nayana Perera', 'Female', '821234502V', 'nayana.dmo02@gmail.com', '0717700002', '42 Katugastota Road, Kandy', 2, 'Active', '2026-07-27 00:29:39', 'Default.png'),
+(137, 'dmo_matara01', '$2y$10$YQKSxPcVu4MnfPxbrmnPxu0EjftZ/OkIziYGBuvkY8W/MuaIvmNVS', 'Chaminda Silva', 'Male', '821234572V', 'chaminda.dmo02@gmail.com', '0717700007', '42 Katugastota Road, Kandy', 2, 'Active', '2026-07-27 00:30:57', 'Default.png'),
+(138, 'dmo_gampaha01', '$2y$10$J1JEuZiP9trrO8CggtVE5.IuLnFQLt1GkjXy6F5jEWDuYkXwW7JiW', 'Dilrukshi Fernando', 'Female', '821234506V', 'dilrukshi.dmo02@gmail.com', '0717700004', '25 Peradeniya Road, Kandy', 2, 'Active', '2026-07-27 00:32:45', 'Default.png'),
+(139, 'lao_galle01', '$2y$10$523Xfj62739xkfRtyIBERuEu8FoFrSpdPYdSwUBUyPcDVFVAO0Yny', 'Nimal Perera', 'Male', '901234567V', 'nimal.perera01@gmail.com', '0712345001', '15 Main Street, Galle', 4, 'Active', '2026-07-27 00:58:27', 'Default.png'),
+(140, 'lao_galle02', '$2y$10$l2QwJ5FC4H5qZc/Hl05mFOvBZGm2ecVGEN7OlY/S4SSG8fuhS12IS', 'Kasun Silva', 'Male', '902234567V', 'kasun.perera01@gmail.com', '0712345002', '16 Main Street, Galle', 4, 'Active', '2026-07-27 00:59:33', '140_20260726_221921.jpeg'),
+(141, 'lao_galle03', '$2y$10$mYE8ltAodwsxHXp8XafTeeVxSewa7tyt8vOq/9x1Ye7rY.L4espoy', 'Dilani Fernando', 'Female', '902234568V', 'dilani.lao01@gmail.com', '0712345003', '16 Main Street, Galle', 4, 'Active', '2026-07-27 01:00:35', 'Default.png'),
+(142, 'lao_galle04', '$2y$10$JMrxB9fMowKXqOMhfCaj/eU2KY2wH0kNyTh2oBZujz8s9vtxTNuzu', 'Tharindu Fernando', 'Male', '902234569V', 'tharindu.lao01@gmail.com', '0712345004', '17 Main Street, Galle', 4, 'Active', '2026-07-27 01:01:45', 'Default.png'),
+(143, 'lao_galle05', '$2y$10$TF8H.xjfIadRf7Xb3X5kJ.rq.69dhwo1jNPrG9gRLk8SudYlXLSua', 'Sanduni Wickramasinghe', 'Female', '902734569V', 'sanduni.lao01@gmail.com', '0712345005', '17 Main Street, Galle', 4, 'Active', '2026-07-27 01:03:26', 'Default.png'),
+(144, 'lao_galle06', '$2y$10$lndzZmnQ/hCgxiaDhC3HfuXSn5XLnP4k7RpeoKzEw/Fa4xU1ll5Vm', 'Chamara Wickramasinghe', 'Male', '902734560V', 'chamara.lao01@gmail.com', '0712345006', '47 Main Street, Galle', 4, 'Active', '2026-07-27 01:04:30', 'Default.png'),
+(145, 'Citizen01', '$2y$10$BxVBPHAFuBAZx9TGdks57eGoiYYOR7muhemZrGm/lS0yv/xPibtsy', 'Chamara Rajapaksha', 'Male', '951234571V', 'chamara.r02@gmail.com', '0712345006', '77 New Town, Galle', 3, 'Active', '2026-07-27 01:07:12', '145_20260726_221517.jpg'),
+(146, 'Citizen02', '$2y$10$wX5vnkq4yi51mc7HXprsduHwMaeYf1bRH8ZscBUiFlM6a9el3ZQF.', 'Hiruni Sandamali', 'Female', '951234577V', 'hiruni.r02@gmail.com', '0712345009', '77 New Town, Galle', 3, 'Active', '2026-07-27 01:10:04', '146_20260726_221557.png'),
+(147, 'Piumi', '$2y$10$RQq2FuWE3EP3MDl/QSF.RO8xOkGXEsVufN/eeUJqDrf7naV5bqsVO', 'Piumi Sewwandi', 'Female', '951234577V', 'piumi.r02@gmail.com', '0712345099', '7 New Town, Galle', 3, 'Active', '2026-07-27 01:11:53', 'Default.png'),
+(148, 'Sahan Chathuranga', '$2y$10$/RzuKK2fCY877sigFVcFd.OVe57ow1Ufv8AtApdE4I9W4ioCtFFeW', 'Sahan Chathuranga', 'Male', '951234577V', 'sahan.r02@gmail.com', '0712345091', '7 New Town, Galle', 3, 'Active', '2026-07-27 01:13:00', 'Default.png'),
+(149, 'Kamal', '$2y$10$2P9Npognpv3WQExYp2jyq.BiuRRiq5Amjlusf51GiFPJUS8jlmpxa', 'Kamal Chathuranga', 'Male', '951234578V', 'kamalC.r02@gmail.com', '0712345097', '7 pansala road, Galle', 3, 'Active', '2026-07-27 01:14:33', 'Default.png');
 
 -- --------------------------------------------------------
 
@@ -1157,25 +997,35 @@ CREATE TABLE `verification_report` (
 --
 
 INSERT INTO `verification_report` (`Verification_ID`, `Report_ID`, `Created_By_Officer_User_ID`, `Description`, `Report_Status`, `Estimated_Amount`, `Verification_Date`) VALUES
-(1, 38, 30, NULL, 'Verified', 200000.00, '2026-07-25 03:45:57'),
-(3, 46, 30, NULL, 'Verified', 230000.00, '2026-07-25 03:47:45'),
-(4, 47, 30, NULL, 'Verified', 200000.00, '2026-07-25 13:23:36'),
-(5, 51, 30, NULL, 'Verified', 250000.00, '2026-07-25 13:23:36'),
-(7, 46, 29, 'asasadad', 'Verified', 200330.00, '2026-07-25 17:22:54'),
-(8, 49, 30, 'kjhgfds', 'Verified', 28000.00, '2026-07-25 17:25:28'),
-(13, 49, 28, 'werghl', 'Verified', 15000.00, '2026-07-25 18:13:08'),
-(14, 56, 29, 'dfghjkl;\'', 'Verified', NULL, '2026-07-25 18:43:38'),
-(15, 47, 28, 'wertghjk,', 'Verified', 150000.00, '2026-07-25 18:44:52'),
-(16, 55, 30, 'asdada', 'Verified', 20000.00, '2026-07-26 02:10:01'),
-(17, 56, 30, 'adadas', 'Rejected', NULL, '2026-07-26 02:10:08'),
-(18, 57, 30, 'sdfghjk', 'Rejected', NULL, '2026-07-26 02:12:53'),
-(19, 58, 30, 'sxCx', 'Verified', 526626.00, '2026-07-26 02:31:31'),
-(20, 52, 29, 'hjk', 'Rejected', 32623.00, '2026-07-26 02:41:43'),
-(21, 52, 30, 'axasx', 'Rejected', 516554156.00, '2026-07-26 03:00:47'),
-(22, 46, 30, 'fdsZx', 'Verified', 203030.00, '2026-07-26 03:23:51'),
-(23, 58, 28, 'gj', 'Rejected', NULL, '2026-07-26 03:28:27'),
-(24, 58, 28, 'sdaacacasca', 'Verified', 20000.00, '2026-07-26 17:49:48'),
-(25, 52, 30, 'asdada', 'Verified', 2000.00, '2026-07-26 18:13:21');
+(1, 77, 135, 'Not enough Evidance', 'Rejected', NULL, '2026-07-27 02:22:46'),
+(2, 77, 135, 'File upload after inform', 'Verified', 250000.00, '2026-07-27 02:23:24'),
+(3, 84, 135, 'Not enough Evidance', 'Rejected', NULL, '2026-07-27 02:23:49'),
+(4, 85, 135, 'Evidance Verified.', 'Verified', 10000.00, '2026-07-27 02:41:26'),
+(5, 86, 135, 'Evidance Verified.', 'Verified', 30000.00, '2026-07-27 02:41:37'),
+(6, 87, 135, 'Evidance Verified.', 'Verified', 250000.00, '2026-07-27 02:41:56'),
+(7, 88, 135, 'Evidance Verified.', 'Verified', 50000.00, '2026-07-27 02:42:06'),
+(8, 77, 74, 'Evidance Verified and procced.', 'Verified', 250000.00, '2026-07-27 02:48:29'),
+(9, 87, 74, 'Not enough Evidance.', 'Rejected', NULL, '2026-07-27 02:48:51'),
+(10, 85, 74, 'Evidance Verified and procced.', 'Verified', 10000.00, '2026-04-27 02:49:08'),
+(11, 86, 74, 'Evidance Verified and procced.', 'Verified', 30000.00, '2026-05-27 02:49:15'),
+(12, 88, 74, 'not enough evidance', 'Rejected', NULL, '2026-07-27 02:49:39'),
+(13, 88, 74, 'Evidance Verified and procced.', 'Verified', 50000.00, '2026-07-27 02:50:33'),
+(14, 100, 135, 'Evidance Verified', 'Verified', 2500000.00, '2026-07-27 03:36:43'),
+(15, 91, 135, 'Evidance Verified', 'Verified', 30000.00, '2026-06-27 03:36:54'),
+(16, 92, 135, 'Evidance Verified', 'Verified', 1200000.00, '2026-07-27 03:37:08'),
+(17, 93, 135, 'Evidance Verified', 'Verified', 2000000.00, '2026-04-27 03:37:33'),
+(18, 94, 135, 'Evidance Verified', 'Verified', 450000.00, '2026-05-27 03:37:46'),
+(19, 95, 135, 'Evidance Verified', 'Verified', 30000.00, '2026-07-27 03:38:06'),
+(20, 96, 135, 'Evidance Verified', 'Verified', 10000.00, '2026-05-27 03:38:15'),
+(21, 97, 135, 'Evidance Verified', 'Verified', 80000.00, '2026-06-27 03:38:23'),
+(22, 98, 135, 'Not Enough Evidance', 'Rejected', NULL, '2026-07-27 03:40:48'),
+(23, 99, 135, 'Not Enough Evidance', 'Rejected', NULL, '2026-07-27 03:40:55'),
+(24, 92, 74, 'Not Enough Evidance', 'Rejected', NULL, '2026-07-27 03:50:09'),
+(25, 91, 74, 'Verified Report Details', 'Verified', 30000.00, '2026-06-27 03:51:12'),
+(26, 93, 74, 'Verified Report Details', 'Verified', 2000000.00, '2026-07-27 03:51:32'),
+(27, 94, 74, 'Verified Report Details', 'Verified', 450000.00, '2026-07-27 03:53:15'),
+(28, 95, 74, 'Verified Report Details', 'Verified', 30000.00, '2026-07-27 03:53:24'),
+(29, 100, 74, 'Verified Report Details', 'Verified', 2500000.00, '2026-07-27 03:57:03');
 
 --
 -- Indexes for dumped tables
@@ -1329,13 +1179,13 @@ ALTER TABLE `verification_report`
 -- AUTO_INCREMENT for table `compensation_report`
 --
 ALTER TABLE `compensation_report`
-  MODIFY `Compensation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `Compensation_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `disaster_report`
 --
 ALTER TABLE `disaster_report`
-  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `Report_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `disaster_type`
@@ -1353,13 +1203,13 @@ ALTER TABLE `divisional_secretariat`
 -- AUTO_INCREMENT for table `evidence_file_and_photos`
 --
 ALTER TABLE `evidence_file_and_photos`
-  MODIFY `File_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `File_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `Notification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Notification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `password_reset_otp`
@@ -1371,13 +1221,13 @@ ALTER TABLE `password_reset_otp`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=132;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 
 --
 -- AUTO_INCREMENT for table `verification_report`
 --
 ALTER TABLE `verification_report`
-  MODIFY `Verification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Verification_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
