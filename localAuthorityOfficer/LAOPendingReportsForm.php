@@ -2,7 +2,8 @@
     include_once 'LAOdashboard.php';
     include 'LAOTrackReport.php';
 
-
+    // Fallback if $type isn't explicitly set in LAOTrackReport.php
+    $type = $type ?? $selectedReport['Report_Type'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +122,7 @@
     </div>
   </div>
 
-  <?php if ($selectedReport): ?>
+  <?php if (!empty($selectedReport)): ?>
     <!-- Side-by-Side Detailed Report & Evidence Panel Container -->
     <div class="row g-3 mb-4" id="selectedReportSection">
 
@@ -177,13 +178,13 @@
           </div>
 
           <?php
-            $fileName = $selectedReport['File_Name'] ?? $selectedReport['File_Path'] ?? $selectedReport['Attachment'] ?? null;
+            $filePath = $selectedReport['File_Path'] ?? $selectedReport['File_Name'] ?? null;
           ?>
 
-          <?php if (!empty($fileName)): ?>
+          <?php if (!empty($filePath)): ?>
             <?php
-              $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-              $fullPath = "../uploads/reports/" . htmlspecialchars($fileName);
+              $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+              $fullPath = "../reports/" . htmlspecialchars($filePath);
             ?>
 
             <?php if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])): ?>
@@ -199,8 +200,8 @@
             <?php elseif ($ext === 'pdf'): ?>
               <div class="text-center p-4 border rounded-3 bg-light">
                 <i class="bi bi-file-earmark-pdf-fill text-danger" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2"><?php echo htmlspecialchars($fileName); ?></div>
-                <a href="<?php echo $fullPath; ?>" download="<?php echo htmlspecialchars($fileName); ?>" target="_blank" class="btn btn-sm btn-danger mt-3">
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($filePath); ?></div>
+                <a href="<?php echo $fullPath; ?>" download="<?php echo htmlspecialchars($filePath); ?>" target="_blank" class="btn btn-sm btn-danger mt-3">
                   <i class="bi bi-file-earmark-arrow-down me-1"></i> Download PDF Document
                 </a>
               </div>
@@ -208,7 +209,7 @@
             <?php else: ?>
               <div class="text-center p-4 border rounded-3 bg-light">
                 <i class="bi bi-file-earmark-zip-fill text-secondary" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2"><?php echo htmlspecialchars($fileName); ?></div>
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($filePath); ?></div>
                 <a href="<?php echo $fullPath; ?>" download class="btn btn-sm btn-secondary mt-3">
                   <i class="bi bi-download me-1"></i> Download File
                 </a>
@@ -235,12 +236,12 @@
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr><td class="text-muted" style="width:25%">Property:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Property_Type']); ?></td></tr>
-              <tr><td class="text-muted">Damage Level:</td><td><?php echo htmlspecialchars($ReportData['Damage_Level']); ?></td></tr>
-              <tr><td class="text-muted">Estimated Cost:</td><td><?php echo htmlspecialchars($ReportData['Estimated_Cost']); ?></td></tr>
+              <tr><td class="text-muted" style="width:25%">Property:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Property_Type'] ?? '-'); ?></td></tr>
+              <tr><td class="text-muted">Damage Level:</td><td><?php echo htmlspecialchars($ReportData['Damage_Level'] ?? '-'); ?></td></tr>
+              <tr><td class="text-muted">Estimated Cost:</td><td><?php echo htmlspecialchars($ReportData['Estimated_Cost'] ?? '-'); ?></td></tr>
               <tr>
                 <td class="text-muted align-top">Damage Description:</td>
-                <td><div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line;"><?php echo htmlspecialchars($ReportData['Damage_Description']); ?></div></td>
+                <td><div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line;"><?php echo htmlspecialchars($ReportData['Damage_Description'] ?? 'None'); ?></div></td>
               </tr>
             </tbody>
           </table>
@@ -256,11 +257,11 @@
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td></tr>
-              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td></tr>
-              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td></tr>
-              <tr><td class="text-muted">Last Seen Location:</td><td><?php echo htmlspecialchars($ReportData['Last_Seen_Location']); ?></td></tr>
-              <tr><td class="text-muted">Last Seen Date:</td><td><?php echo htmlspecialchars($ReportData['Last_Seen_Date']); ?></td></tr>
+              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name'] ?? '-'); ?></td></tr>
+              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age'] ?? '-'); ?> years old</td></tr>
+              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender'] ?? '-'); ?></span></td></tr>
+              <tr><td class="text-muted">Last Seen Location:</td><td><?php echo htmlspecialchars($ReportData['Last_Seen_Location'] ?? '-'); ?></td></tr>
+              <tr><td class="text-muted">Last Seen Date:</td><td><?php echo htmlspecialchars($ReportData['Last_Seen_Date'] ?? '-'); ?></td></tr>
             </tbody>
           </table>
         </div>
@@ -275,10 +276,10 @@
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td></tr>
-              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td></tr>
-              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td></tr>
-              <tr><td class="text-muted">Injury Level:</td><td><span class="badge bg-warning text-dark"><?php echo htmlspecialchars($ReportData['Injured_Level']); ?></span></td></tr>
+              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name'] ?? '-'); ?></td></tr>
+              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age'] ?? '-'); ?> years old</td></tr>
+              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender'] ?? '-'); ?></span></td></tr>
+              <tr><td class="text-muted">Injury Level:</td><td><span class="badge bg-warning text-dark"><?php echo htmlspecialchars($ReportData['Injured_Level'] ?? '-'); ?></span></td></tr>
             </tbody>
           </table>
         </div>
@@ -293,10 +294,10 @@
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td></tr>
-              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td></tr>
-              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td></tr>
-              <tr><td class="text-muted">Cause of Death:</td><td><div class="p-3 bg-light rounded-3 text-dark border"><?php echo htmlspecialchars($ReportData['Cause_Of_Death']); ?></div></td></tr>
+              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name'] ?? '-'); ?></td></tr>
+              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age'] ?? '-'); ?> years old</td></tr>
+              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender'] ?? '-'); ?></span></td></tr>
+              <tr><td class="text-muted">Cause of Death:</td><td><div class="p-3 bg-light rounded-3 text-dark border"><?php echo htmlspecialchars($ReportData['Cause_Of_Death'] ?? '-'); ?></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -377,8 +378,7 @@
           cancelButtonText: 'Cancel'
       }).then((result) => {
           if (result.isConfirmed) {
-              // Target your backend processing script (e.g. LAOProcessReport.php or LAOdashboard.php)
-              window.location.href = `LAOdashboard.php?action=${action.toLowerCase()}&report_id=${reportId}`;
+              window.location.href = `LAOPendingReportsForm.php?action=${action.toLowerCase()}&report_id=${reportId}`;
           }
       });
   }

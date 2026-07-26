@@ -248,13 +248,13 @@
           </div>
 
           <?php
-            $filePath = $selectedReport['File_Path'] ?? $selectedReport['Attachment'] ?? $selectedReport['Image_Path'] ?? null;
+            $filePath = $selectedReport['File_Path'] ?? $selectedReport['File_Name'] ?? null;
           ?>
 
           <?php if (!empty($filePath)): ?>
             <?php
               $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-              $fullPath = "../uploads/reports/" . htmlspecialchars($filePath);
+              $fullPath = "../reports/" . htmlspecialchars($filePath);
             ?>
 
             <?php if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])): ?>
