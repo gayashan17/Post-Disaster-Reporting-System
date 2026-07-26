@@ -163,7 +163,6 @@ class LocalAuthorityOfficer extends User
 
 
     ///////get divishionaln sectryryru
-
     public function getDivisionalSecretariats($con)
     {
         try

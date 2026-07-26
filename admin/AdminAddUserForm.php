@@ -256,7 +256,41 @@
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Region Assigned</label>
-                        <input type="text" class="form-control" name="regionAssigned" required>
+                        <div class="input-group">
+                            <select id="office-name-input"
+                                    name="officeName"
+                                    class="form-select text-muted"
+                                    required>
+
+                                <option value="">Select Office</option>
+
+                                <option value="Ampara">Ampara District Secretary Office</option>
+                                <option value="Anuradhapura">Anuradhapura District Secretary Office</option>
+                                <option value="Badulla">Badulla District Secretary Office</option>
+                                <option value="Batticaloa">Batticaloa District Secretary Office</option>
+                                <option value="Colombo">Colombo District Secretary Office</option>
+                                <option value="Galle">Galle District Secretary Office</option>
+                                <option value="Gampaha">Gampaha District Secretary Office</option>
+                                <option value="Hambantota">Hambantota District Secretary Office</option>
+                                <option value="Jaffna">Jaffna District Secretary Office</option>
+                                <option value="Kalutara">Kalutara District Secretary Office</option>
+                                <option value="Kandy">Kandy District Secretary Office</option>
+                                <option value="Kegalle">Kegalle District Secretary Office</option>
+                                <option value="Kilinochchi">Kilinochchi District Secretary Office</option>
+                                <option value="Kurunegala">Kurunegala District Secretary Office</option>
+                                <option value="Mannar">Mannar District Secretary Office</option>
+                                <option value="Matale">Matale District Secretary Office</option>
+                                <option value="Matara">Matara District Secretary Office</option>
+                                <option value="Monaragala">Monaragala District Secretary Office</option>
+                                <option value="Mullaitivu">Mullaitivu District Secretary Office</option>
+                                <option value="Nuwara Eliya">Nuwara Eliya District Secretary Office</option>
+                                <option value="Polonnaruwa">Polonnaruwa District Secretary Office</option>
+                                <option value="Puttalam">Puttalam District Secretary Office</option>
+                                <option value="Ratnapura">Ratnapura District Secretary Office</option>
+                                <option value="Trincomalee">Trincomalee District Secretary Office</option>
+                                <option value="Vavuniya">Vavuniya District Secretary Office</option>
+                            </select>
+                        </div>
                     </div>
 
                 <?php elseif ($type === 'ds'): ?>
@@ -305,6 +339,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="col-md-4">
                         <label class="form-label">Office Location</label>
                         <input type="text" class="form-control" name="officeLocation" required>

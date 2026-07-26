@@ -51,7 +51,7 @@
         $rejectedReportCount = 0;
     }
 
-    // 3. get Table Data
+    // 2. get Table Data
     try
     {
         $query = "SELECT d.Report_ID, d.Report_Type, d.District, d.Report_Status, d.Report_Date, u.Full_Name FROM disaster_report d JOIN users u ON d.User_ID = u.User_ID WHERE DS_ID = ?";
@@ -67,6 +67,45 @@
         error_log($e->getMessage());
         $tableResult = false;
     }
+
+    // 3. get Verified Reports
+    try
+    {
+        $query = "SELECT d.Report_ID, d.Report_Type, d.District, d.Report_Status, d.Report_Date, u.Full_Name FROM disaster_report d JOIN users u ON d.User_ID = u.User_ID WHERE DS_ID = ? AND d.Report_Status='LAO Approved'";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $DSID);
+        mysqli_stmt_execute($stmt);
+
+        $verifiedResult = mysqli_stmt_get_result($stmt);
+    }
+    catch(Exception $e)
+    {
+        error_log($e->getMessage());
+        $tableResult = false;
+    }
+
+    // 4. get Rejected Reports
+    try
+    {
+        $query = "SELECT d.Report_ID, d.Report_Type, d.District, d.Report_Status, d.Report_Date, u.Full_Name FROM disaster_report d JOIN users u ON d.User_ID = u.User_ID WHERE DS_ID = ? AND d.Report_Status='LAO Rejected'";
+
+        $stmt = mysqli_prepare($con, $query);
+        mysqli_stmt_bind_param($stmt, "s", $DSID);
+        mysqli_stmt_execute($stmt);
+
+        $rejectedResult = mysqli_stmt_get_result($stmt);
+    }
+    catch(Exception $e)
+    {
+        error_log($e->getMessage());
+        $tableResult = false;
+    }
+
+
+
+
+
 
 
     $Notifications = Notification::loadNotification($con,$userId);

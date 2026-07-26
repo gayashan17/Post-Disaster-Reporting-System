@@ -27,13 +27,13 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item active" href="#"><i class="bi bi-hourglass-split"></i> Pending Reports</a>
-  <a class="nav-item" onclick="showInfo('Verified Reports')"><i class="bi bi-check-square"></i> Verified Reports</a>
-  <a class="nav-item" onclick="showInfo('Rejected Reports')"><i class="bi bi-x-square"></i> Rejected Reports</a>
-  <a class="nav-item" onclick="showInfo('All Reports')"><i class="bi bi-file-earmark-text"></i> All Reports</a>
+  <a class="nav-item" href="LAOVerifiedReportsForm.php" ><i class="bi bi-check-square"></i> Verified Reports</a>
+  <a class="nav-item" href="LAORejectedReportsForm.php"><i class="bi bi-x-square"></i> Rejected Reports</a>
+  <a class="nav-item" href="LAOAllReportsForm.php"><i class="bi bi-file-earmark-text"></i> All Reports</a>
 
   <div class="nav-section-label">Account</div>
-  <a class="nav-item" onclick="showInfo('Profile')"><i class="bi bi-person"></i> Profile</a>
+  <a class="nav-item active" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+  <a class="nav-item" href="LAOProfileForm.php"><i class="bi bi-person"></i> Profile</a>
 
   <div class="sidebar-footer">
     <a class="nav-item" onclick="confirmLogout()"><i class="bi bi-box-arrow-left"></i> Logout</a>
@@ -50,7 +50,7 @@
       <span class="notif-badge"><?php echo $NotificationCount; ?></span>
     <?php endif; ?>
   </button>
-  <div class="user-pill" onclick="showInfo('Profile')">
+  <div class="user-pill" onclick="window.location.href='LAOProfileForm.php';">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
     <span class="user-name"><?php echo htmlspecialchars($username ?? '');?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
@@ -95,7 +95,17 @@
           <?php if (!empty($tableResult) && mysqli_num_rows($tableResult) > 0): ?>
               <?php while ($row = mysqli_fetch_assoc($tableResult)): ?>
                 <div class="report-card">
-                  <div class="report-thumb"><i class="bi bi-house-damage"></i></div>
+                  <div class="report-thumb">
+                      <?php if($row['Report_Type']=="Property Damage"):?>
+                        <i class="bi bi-house"></i>
+                      <?php elseif ($row['Report_Type']=="Missing Person Record"): ?>
+                        <i class="bi bi-person-exclamation"></i>
+                      <?php elseif ($row['Report_Type']=="Death Record"): ?>
+                        <i class="bi bi-person-exclamation"></i>
+                        <?php elseif ($row['Report_Type']=="Injured Person"): ?>
+                        <i class="bi bi-hospital"></i>
+                      <?php endif; ?>
+                  </div>
                   <div class="report-meta">
                     <div class="d-flex align-items-center gap-2 mb-1">
                       <span class="report-id">Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?></span>
@@ -125,7 +135,7 @@
         </div>
 
         <div class="mt-3 text-center">
-          <button class="btn btn-outline-primary rounded-3 w-100" onclick="showInfo('All Reports')">View All Reports</button>
+          <a class="btn btn-outline-primary rounded-3 w-100" href="LAOAllReportsForm.php">View All Reports</a>
         </div>
       </div>
     </div>
@@ -191,9 +201,10 @@
           <div class="panel-title"><i class="bi bi-lightning-charge-fill" style="color:var(--gold)"></i> Quick Actions</div>
         </div>
         <div class="d-flex flex-column gap-2">
-          <a class="qa-btn" onclick="showInfo('Pending Reports')"><i class="bi bi-hourglass-split"></i> View Pending Reports</a>
-          <a class="qa-btn" onclick="showInfo('Verified Reports')"><i class="bi bi-check-circle-fill"></i> View Verified Reports</a>
-          <a class="qa-btn" onclick="showNotifications()"><i class="bi bi-bell-fill"></i> Notifications</a>
+          <a class="qa-btn" href="LAOAllReportsForm.php"><i class="bi bi-hourglass-split"></i> View All Reports</a>
+          <a class="qa-btn" href="LAOVerifiedReportsForm.php"><i class="bi bi-check-circle-fill text-primary"></i> View Verified Reports</a>
+          <a class="qa-btn" href="LAORejectedReportsForm.php"><i class="bi bi-x-circle-fill text-danger"></i> View Rejected Reports</a>
+          <a class="qa-btn" onclick="showNotifications()"><i class="bi bi-bell-fill color-purple"></i> Notifications</a>
         </div>
       </div>
 
