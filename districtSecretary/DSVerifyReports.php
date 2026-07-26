@@ -21,6 +21,26 @@ function dsSendResponse($success, $message = '', $data = null)
     exit();
 }
 
+// Helper function to fetch Citizen User_ID for notifications
+function getCitizenUserIdByReportId($con, $reportID)
+{
+    $getUserQuery = "SELECT User_ID FROM disaster_report WHERE Report_ID = ?";
+    if ($stmtUser = mysqli_prepare($con, $getUserQuery))
+    {
+        mysqli_stmt_bind_param($stmtUser, "i", $reportID);
+        mysqli_stmt_execute($stmtUser);
+        $userResult = mysqli_stmt_get_result($stmtUser);
+
+        if ($userRow = mysqli_fetch_assoc($userResult))
+        {
+            mysqli_stmt_close($stmtUser);
+            return (int) $userRow['User_ID'];
+        }
+        mysqli_stmt_close($stmtUser);
+    }
+    return null;
+}
+
 // ---- Auth check (District Secretary only, Role_ID = 5) ----
 if (!isset($_SESSION['user_Id']) || !isset($_SESSION['role_Id']) || $_SESSION['role_Id'] != 5)
 {
@@ -58,14 +78,14 @@ try
                 dsSendResponse(false, 'Invalid Report ID.');
             }
 
-            $details      = $districtSecretary->getDMOApprovedReportDetails($con, $reportID);
-            $typeDetails  = $districtSecretary->getReportTypeDetails($con, $reportID, $details['Report_Type']);
+            $details       = $districtSecretary->getDMOApprovedReportDetails($con, $reportID);
+            $typeDetails   = $districtSecretary->getReportTypeDetails($con, $reportID, $details['Report_Type']);
             $evidenceFiles = $districtSecretary->getEvidenceFilesByReportID($con, $reportID);
 
             dsSendResponse(true, '', [
-                'report'          => $details,
-                'type_details'    => $typeDetails,
-                'evidence_files'  => $evidenceFiles
+                'report'         => $details,
+                'type_details'   => $typeDetails,
+                'evidence_files' => $evidenceFiles
             ]);
             break;
         }
@@ -97,6 +117,15 @@ try
                 dsSendResponse(false, 'Description is required.');
             }
 
+            // 1. Get Citizen User ID first
+            $citizenUserID = getCitizenUserIdByReportId($con, $reportID);
+
+            if (!$citizenUserID)
+            {
+                dsSendResponse(false, 'Unable to find citizen linked to this report.');
+            }
+
+            // 2. Perform DB updates
             $districtSecretary->addVerifiedVerificationReport(
                 $con,
                 $reportID,
@@ -106,7 +135,16 @@ try
             );
             $districtSecretary->updateReportStatusToDSApproved($con, $reportID);
 
-            Notification::createCitizenNotification($con,$reportID,"Report Approval","Your Report Has Been Approved By District Secretary","DS Approval");
+            // 3. Send Notification with all 6 parameters
+            Notification::createCitizenNotification(
+                $con,
+                $citizenUserID,
+                $reportID,
+                "Report Approval",
+                "Your Report Has Been Approved By District Secretary",
+                "DS Approval"
+            );
+
             dsSendResponse(true, 'Report has been approved successfully.');
             break;
         }
@@ -133,6 +171,15 @@ try
                 dsSendResponse(false, 'A reason for rejection is required.');
             }
 
+            // 1. Get Citizen User ID first
+            $citizenUserID = getCitizenUserIdByReportId($con, $reportID);
+
+            if (!$citizenUserID)
+            {
+                dsSendResponse(false, 'Unable to find citizen linked to this report.');
+            }
+
+            // 2. Perform DB updates
             $districtSecretary->addRejectedVerificationReport(
                 $con,
                 $reportID,
@@ -141,7 +188,16 @@ try
             );
             $districtSecretary->updateReportStatusToDSRejected($con, $reportID);
 
-            Notification::createCitizenNotification($con,$reportID,"Report Rejection","Your Report Has Been Rejected By District Secretary","DS Rejected");
+            // 3. Send Notification with all 6 parameters
+            Notification::createCitizenNotification(
+                $con,
+                $citizenUserID,
+                $reportID,
+                "Report Rejection",
+                "Your Report Has Been Rejected By District Secretary",
+                "DS Rejected"
+            );
+
             dsSendResponse(true, 'Report has been rejected.');
             break;
         }
