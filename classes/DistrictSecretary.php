@@ -112,8 +112,11 @@ class DistrictSecretary extends User
                     LEFT JOIN verification_report vr
                         ON dr.Report_ID = vr.Report_ID
                         AND vr.Created_By_Officer_User_ID IN (
-                            SELECT User_ID FROM users WHERE Role_ID = 2
+                            SELECT User_ID
+                            FROM users
+                            WHERE Role_ID = 2
                         )
+                        AND vr.Report_Status = 'Verified'
 
                     LEFT JOIN citizen c
                         ON dr.User_ID = c.User_ID

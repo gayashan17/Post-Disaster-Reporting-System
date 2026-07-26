@@ -38,17 +38,6 @@
         <i class="bi bi-person-plus"></i> Add New User
     </a>
 
-    <div class="nav-section-label">System</div>
-    <a class="nav-item" href="#" onclick="showInfo('Reports Overview')">
-        <i class="bi bi-file-earmark-bar-graph"></i> Reports Overview
-    </a>
-    <a class="nav-item" href="#" onclick="showInfo('System Logs')">
-        <i class="bi bi-journal-text"></i> System Logs
-    </a>
-    <a class="nav-item" href="#" onclick="showInfo('Settings')">
-        <i class="bi bi-gear"></i> Settings
-    </a>
-
     <div class="nav-section-label">Account</div>
     <a class="nav-item" href="#" onclick="showInfo('Notifications')">
         <i class="bi bi-bell"></i> Notifications
