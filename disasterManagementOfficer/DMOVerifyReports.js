@@ -1,5 +1,5 @@
 /* ================================================================
-   DSVerifyReports.js  -  Part 1: Verify Reports (DMO Approved)
+   DMOVerifyReports.js  -  Verify Reports (LAO Approved)
    ================================================================ */
 
 let verifyReportsTable = null;
@@ -327,7 +327,7 @@ function buildReportDetailsHTML(d, typeDetails, evidenceFiles) {
         <div class="detail-section-title">Evidence Files</div>
         ${buildEvidenceHTML(evidenceFiles)}
 
-        <div class="detail-section-title">DMO Estimate</div>
+        <div class="detail-section-title">LAO Estimate</div>
         <div class="row">
             <div class="col-md-6">
                 <div class="detail-label">Estimated Amount</div>

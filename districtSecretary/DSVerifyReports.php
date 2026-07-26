@@ -57,7 +57,7 @@ try
                 dsSendResponse(false, 'Invalid Report ID.');
             }
 
-            $details      = $districtSecretary->getDSApprovedReportDetails($con, $reportID);
+            $details      = $districtSecretary->getDMOApprovedReportDetails($con, $reportID);
             $typeDetails  = $districtSecretary->getReportTypeDetails($con, $reportID, $details['Report_Type']);
             $evidenceFiles = $districtSecretary->getEvidenceFilesByReportID($con, $reportID);
 

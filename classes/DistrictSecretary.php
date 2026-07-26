@@ -152,9 +152,9 @@ class DistrictSecretary extends User
 
 
     // ================================================================
-    //   GET FULL REPORT DETAILS (single row, no multiplying joins)
+    //   GET FULL DMO Approved REPORT DETAILS (single row, no multiplying joins)
     // ================================================================
-    public function getDSApprovedReportDetails($con, $Report_ID)
+    public function getDMOApprovedReportDetails($con, $Report_ID)
     {
         try
         {
@@ -223,7 +223,238 @@ class DistrictSecretary extends User
             throw new Exception("Failed to load report details: " . $e->getMessage());
         }
     }
+    // ================================================================
+    //   GET FULL DS Approved REPORT DETAILS (single row, no multiplying joins)
+    // ================================================================
+    public function getDSApprovedReportDetails($con, $Report_ID)
+    {
+        try
+        {
+            $query = "SELECT
+                        dr.*,
+                        u.User_ID,
+                        u.Username,
+                        u.Full_Name,
+                        u.Gender,
+                        u.NIC,
+                        u.Email,
+                        u.Phone_Number,
+                        u.Address,
+                        c.Beneficiary_Name,
+                        c.Beneficiary_Bank,
+                        c.Beneficiary_Bank_Account_No,
+                        ds.DS_ID,
+                        ds.DS_Name,
+                        ds.District AS DS_District,
+                        vr.*
+                    FROM disaster_report dr
+                    INNER JOIN users u 
+                        ON dr.User_ID = u.User_ID
+                    LEFT JOIN citizen c 
+                        ON dr.User_ID = c.User_ID
+                    LEFT JOIN divisional_secretariat ds 
+                        ON dr.DS_ID = ds.DS_ID
+                    LEFT JOIN verification_report vr
+                        ON dr.Report_ID = vr.Report_ID
+                        AND vr.Created_By_Officer_User_ID IN (
+                            SELECT User_ID 
+                            FROM users 
+                            WHERE Role_ID = 5
+                        )
+                        AND vr.Report_Status = 'Verified'
+                    WHERE dr.Report_ID = ?";
 
+            $stmt = mysqli_prepare($con, $query);
+
+            if(!$stmt)
+            {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt, "i", $Report_ID);
+
+            if(!mysqli_stmt_execute($stmt))
+            {
+                throw new Exception("Failed to retrieve report details.");
+            }
+
+            $result = mysqli_stmt_get_result($stmt);
+            $report = mysqli_fetch_assoc($result);
+
+            mysqli_stmt_close($stmt);
+
+            if(!$report)
+            {
+                throw new Exception("Report not found.");
+            }
+
+            return $report;
+        }
+        catch(Exception $e)
+        {
+            throw new Exception("Failed to load report details: " . $e->getMessage());
+        }
+    }
+    // ================================================================
+    //   GET FULL DS Reject REPORT DETAILS (single row, no multiplying joins)
+    // ================================================================
+    public function getDSRejectedReportDetails($con, $Report_ID)
+    {
+        try
+        {
+            $query = "SELECT
+                        dr.*,
+                        u.User_ID,
+                        u.Username,
+                        u.Full_Name,
+                        u.Gender,
+                        u.NIC,
+                        u.Email,
+                        u.Phone_Number,
+                        u.Address,
+                        c.Beneficiary_Name,
+                        c.Beneficiary_Bank,
+                        c.Beneficiary_Bank_Account_No,
+                        ds.DS_ID,
+                        ds.DS_Name,
+                        ds.District AS DS_District,
+                        vr.*
+                    FROM disaster_report dr
+                    INNER JOIN users u 
+                        ON dr.User_ID = u.User_ID
+                    LEFT JOIN citizen c 
+                        ON dr.User_ID = c.User_ID
+                    LEFT JOIN divisional_secretariat ds 
+                        ON dr.DS_ID = ds.DS_ID
+                    LEFT JOIN verification_report vr
+                        ON dr.Report_ID = vr.Report_ID
+                        AND vr.Created_By_Officer_User_ID IN (
+                            SELECT User_ID 
+                            FROM users 
+                            WHERE Role_ID = 5
+                        )
+                        AND vr.Report_Status = 'Rejected'
+                    WHERE dr.Report_ID = ?";
+
+            $stmt = mysqli_prepare($con, $query);
+
+            if(!$stmt)
+            {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt, "i", $Report_ID);
+
+            if(!mysqli_stmt_execute($stmt))
+            {
+                throw new Exception("Failed to retrieve report details.");
+            }
+
+            $result = mysqli_stmt_get_result($stmt);
+            $report = mysqli_fetch_assoc($result);
+
+            mysqli_stmt_close($stmt);
+
+            if(!$report)
+            {
+                throw new Exception("Report not found.");
+            }
+
+            return $report;
+        }
+        catch(Exception $e)
+        {
+            throw new Exception("Failed to load report details: " . $e->getMessage());
+        }
+    }
+
+    // ================================================================
+    //   GET DS-REJECTED REPORT DETAILS FOR RE-PROCESSING
+    //   (pulls the DMO's original estimate, since the DS's own
+    //   rejected verification_report row has a NULL amount)
+    // ================================================================
+    public function getDSRejectedReportForProcessing($con, $Report_ID)
+    {
+        try
+        {
+            $query = "SELECT
+                        dr.*,
+                        u.User_ID,
+                        u.Username,
+                        u.Full_Name,
+                        u.Gender,
+                        u.NIC,
+                        u.Email,
+                        u.Phone_Number,
+                        u.Address,
+                        c.Beneficiary_Name,
+                        c.Beneficiary_Bank,
+                        c.Beneficiary_Bank_Account_No,
+                        ds.DS_ID,
+                        ds.DS_Name,
+                        ds.District AS DS_District,
+                        dmo_vr.Estimated_Amount AS Estimated_Amount,
+                        dmo_vr.Description AS DMO_Description,
+                        ds_vr.Description AS Rejection_Reason
+                    FROM disaster_report dr
+                    INNER JOIN users u
+                        ON dr.User_ID = u.User_ID
+                    LEFT JOIN citizen c
+                        ON dr.User_ID = c.User_ID
+                    LEFT JOIN divisional_secretariat ds
+                        ON dr.DS_ID = ds.DS_ID
+                    LEFT JOIN verification_report dmo_vr
+                        ON dr.Report_ID = dmo_vr.Report_ID
+                        AND dmo_vr.Created_By_Officer_User_ID IN (
+                            SELECT User_ID
+                            FROM users
+                            WHERE Role_ID = 2
+                        )
+                        AND dmo_vr.Report_Status = 'Verified'
+                    LEFT JOIN verification_report ds_vr
+                        ON dr.Report_ID = ds_vr.Report_ID
+                        AND ds_vr.Created_By_Officer_User_ID IN (
+                            SELECT User_ID
+                            FROM users
+                            WHERE Role_ID = 5
+                        )
+                        AND ds_vr.Report_Status = 'Rejected'
+                    WHERE dr.Report_ID = ?
+                        AND dr.Report_Status = 'DS Rejected'";
+
+            $stmt = mysqli_prepare($con, $query);
+
+            if(!$stmt)
+            {
+                throw new Exception("Failed to prepare statement.");
+            }
+
+            mysqli_stmt_bind_param($stmt, "i", $Report_ID);
+
+            if(!mysqli_stmt_execute($stmt))
+            {
+                throw new Exception("Failed to retrieve report details.");
+            }
+
+            $result = mysqli_stmt_get_result($stmt);
+            $report = mysqli_fetch_assoc($result);
+
+            mysqli_stmt_close($stmt);
+
+            if(!$report)
+            {
+                throw new Exception("Report not found or is not currently DS Rejected.");
+            }
+
+            return $report;
+        }
+        catch(Exception $e)
+        {
+            throw new Exception("Failed to load report details for processing: " . $e->getMessage());
+        }
+    }
+
+    
     // ================================================================
     //   GET ALL EVIDENCE FILES FOR A REPORT (supports multiple files)
     // ================================================================
