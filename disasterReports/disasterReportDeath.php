@@ -6,6 +6,27 @@
     include '../userData.php';
     include '../DBconnection.php';
 
+    // ---------- AJAX: fetch DS list for a district ----------
+    if (isset($_POST['action']) && $_POST['action'] === 'getDS')
+    {
+        header('Content-Type: application/json');
+
+        $district = $_POST['district'] ?? null;
+
+        if (!$district) {
+            echo json_encode(['error' => 'No district provided']);
+            exit;
+        }
+
+        try {
+            $dsList = DisasterReport::getDivisionalSecretariat($con, $district);
+            echo json_encode($dsList);
+        } catch (Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
+        exit;
+    }
+
     $district = $_POST['district-input'];
     $streetAddress = $_POST['stAdd-input'];
     $disasterDate = $_POST['date-input'];
@@ -58,7 +79,14 @@
             $report->setStreetAddress($streetAddress);
             $report->setDescription($desc);
 
-            $DSID = DisasterReport :: getDivisionalSecretariat($con,$district);
+            // DS_ID comes directly from the DS combo box the user picked
+            $DSID = $_POST['ds-input'] ?? null;
+
+            if (!$DSID || $DSID === 'default') {
+                echo "Please select a Divisional Secretariat.";
+                exit;
+            }
+
             $report->setDSID($DSID);
 
             // Child Class Data
@@ -76,8 +104,6 @@
             // Upload Evidence Files
             $evidence = new EvidenceFile();
             $evidence->uploadFiles($con, $reportId, $userId);
-
-
 
             Notification :: createLAONotification(
             $con,$DSID,$reportId,

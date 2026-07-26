@@ -297,3 +297,73 @@ form.addEventListener("submit", function (e) {
     });
 
 });
+
+// ===========================
+// District -> Divisional Secretariat
+// ===========================
+
+const districtInput = document.getElementById("district-input");
+const dsInput = document.getElementById("ds-input");
+
+if (districtInput && dsInput)
+{
+    districtInput.addEventListener("change", function () {
+
+        const district = this.value;
+
+        dsInput.innerHTML = '<option value="default">Loading...</option>';
+        dsInput.disabled = true;
+
+        if (district === "default")
+        {
+            dsInput.innerHTML = '<option value="default">Select District First</option>';
+            return;
+        }
+
+        let backendFile = "";
+
+        switch (reportType)
+        {
+            case "prDmg": backendFile = "disasterReportDmg.php"; break;
+            case "death": backendFile = "disasterReportDeath.php"; break;
+            case "inj": backendFile = "disasterReportInj.php"; break;
+            case "missing": backendFile = "disasterReportMissing.php"; break;
+            default: return;
+        }
+
+        fetch(backendFile, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "action=getDS&district=" + encodeURIComponent(district)
+        })
+        .then(res => res.json())
+        .then(data => {
+
+            if (Array.isArray(data) && data.length > 0)
+            {
+                dsInput.innerHTML = '<option value="default">Select</option>';
+
+                data.forEach(ds => {
+                    const opt = document.createElement("option");
+                    opt.value = ds.DS_ID;
+                    opt.textContent = ds.DS_Name;
+                    dsInput.appendChild(opt);
+                });
+
+                dsInput.disabled = false;
+            }
+            else
+            {
+                dsInput.innerHTML = '<option value="default">No DS found for this district</option>';
+            }
+
+        })
+        .catch(err => {
+
+            dsInput.innerHTML = '<option value="default">Error loading list</option>';
+            console.error(err);
+
+        });
+
+    });
+}

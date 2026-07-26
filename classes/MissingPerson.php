@@ -1,7 +1,7 @@
 <?php
     include '../userData.php';  //user data is stored here
     include '../DBconnection.php';
-    include 'DisasterReport.php';
+    require_once __DIR__ . '/DisasterReport.php';
     
 // ================================================================//
 //                       MissingPerson CLASS                       //
