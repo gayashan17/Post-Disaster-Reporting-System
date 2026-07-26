@@ -60,14 +60,29 @@ try
         // ------------------------------------------------------
         case 'details':
         {
-            $reportID = isset($_GET['report_id']) ? (int) $_GET['report_id'] : 0;
+            $reportID     = isset($_GET['report_id']) ? (int) $_GET['report_id'] : 0;
+            $reportStatus = isset($_GET['status']) ? strtolower(trim($_GET['status'])) : 'approved';
 
             if ($reportID <= 0)
             {
                 dsSendResponse(false, 'Invalid Report ID.');
             }
 
-            $details       = $districtSecretary->getDSApprovedReportDetails($con, $reportID);
+            if ($reportStatus === 'rejected')
+            {
+                $details = $districtSecretary->getDSRejectedReportForProcessing($con, $reportID);
+            }
+            elseif ($reportStatus === 'process')
+            {
+                // Re-approving a rejected report: pull the DMO's original
+                // estimate (the DS's own rejected record has a NULL amount).
+                $details = $districtSecretary->getDSRejectedReportForProcessing($con, $reportID);
+            }
+            else
+            {
+                $details = $districtSecretary->getDSApprovedReportDetails($con, $reportID);
+            }
+
             $typeDetails   = $districtSecretary->getReportTypeDetails($con, $reportID, $details['Report_Type']);
             $evidenceFiles = $districtSecretary->getEvidenceFilesByReportID($con, $reportID);
 

@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verify Reports - District Secretary</title>
+    <title>Verify Reports - Disaster Management Officer</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
@@ -138,7 +138,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content" style="border-radius:16px;border:none">
             <div class="modal-header" style="border-bottom:1px solid #eef0f2">
-                <h5 class="modal-title fw-bold">DMO Approved Report Details</h5>
+                <h5 class="modal-title fw-bold">LAO Approved Report Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="reportDetailsBody">
@@ -180,7 +180,7 @@
                             <div class="val" id="apprSummaryReportType">-</div>
                         </div>
                         <div class="col-md-4 item">
-                            <div class="lbl">Estimate Amount (DMO)</div>
+                            <div class="lbl">Estimate Amount (LAO)</div>
                             <div class="val" id="apprSummaryEstimateAmount">-</div>
                         </div>
                     </div>

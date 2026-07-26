@@ -1,7 +1,7 @@
 <?php
 // ================================================================
-//   DSVerifyReports.php  -  Backend AJAX handler (Part 1)
-//   Handles: DMO Approved reports list, full details, approve, reject
+//   DMOVerifyReports.php  -  Backend AJAX handler
+//   Handles: LAO Approved reports list, full details, approve, reject
 // ================================================================
 
 session_start();
@@ -10,7 +10,7 @@ header('Content-Type: application/json');
 include_once '../DBconnection.php';
 include_once '../classes/DisasterManagementOfficer.php';
 
-function dsSendResponse($success, $message = '', $data = null)
+function dmoSendResponse($success, $message = '', $data = null)
 {
     echo json_encode([
         'success' => $success,
@@ -20,14 +20,14 @@ function dsSendResponse($success, $message = '', $data = null)
     exit();
 }
 
-// ---- Auth check (District Secretary only, Role_ID = 5) ----
+// ---- Auth check (Disaster Management Officer only, Role_ID = 2) ----
 if (!isset($_SESSION['user_Id']) || !isset($_SESSION['role_Id']) || $_SESSION['role_Id'] != 2)
 {
-    dsSendResponse(false, 'Unauthorized access.');
+    dmoSendResponse(false, 'Unauthorized access.');
 }
 
-$districtSecretaryUserID = $_SESSION['user_Id'];
-$DisasterManagementOfficer = new DisasterManagementOfficer();
+$dmoUserID = $_SESSION['user_Id'];
+$dmo = new DisasterManagementOfficer();
 
 $action = $_REQUEST['action'] ?? '';
 
@@ -36,12 +36,12 @@ try
     switch ($action)
     {
         // ------------------------------------------------------
-        // LIST: All DMO Approved reports awaiting DS verification
+        // LIST: All LAO Approved reports awaiting DMO verification
         // ------------------------------------------------------
         case 'list':
         {
-            $reports = $DisasterManagementOfficer->getDMOApprovedReports($con, $districtSecretaryUserID);
-            dsSendResponse(true, '', $reports);
+            $reports = $dmo->getLAOApprovedReports($con, $dmoUserID);
+            dmoSendResponse(true, '', $reports);
             break;
         }
 
@@ -54,14 +54,14 @@ try
 
             if ($reportID <= 0)
             {
-                dsSendResponse(false, 'Invalid Report ID.');
+                dmoSendResponse(false, 'Invalid Report ID.');
             }
 
-            $details      = $DisasterManagementOfficer->getDSApprovedReportDetails($con, $reportID);
-            $typeDetails  = $DisasterManagementOfficer->getReportTypeDetails($con, $reportID, $details['Report_Type']);
-            $evidenceFiles = $DisasterManagementOfficer->getEvidenceFilesByReportID($con, $reportID);
+            $details       = $dmo->getLAOApprovedReportDetails($con, $reportID);
+            $typeDetails   = $dmo->getReportTypeDetails($con, $reportID, $details['Report_Type']);
+            $evidenceFiles = $dmo->getEvidenceFilesByReportID($con, $reportID);
 
-            dsSendResponse(true, '', [
+            dmoSendResponse(true, '', [
                 'report'          => $details,
                 'type_details'    => $typeDetails,
                 'evidence_files'  => $evidenceFiles
@@ -70,13 +70,13 @@ try
         }
 
         // ------------------------------------------------------
-        // APPROVE: Create verified verification report + move to DS Approved
+        // APPROVE: Create verified verification report + move to DMO Approved
         // ------------------------------------------------------
         case 'approve':
         {
             if ($_SERVER['REQUEST_METHOD'] !== 'POST')
             {
-                dsSendResponse(false, 'Invalid request method.');
+                dmoSendResponse(false, 'Invalid request method.');
             }
 
             $reportID       = isset($_POST['report_id']) ? (int) $_POST['report_id'] : 0;
@@ -85,38 +85,38 @@ try
 
             if ($reportID <= 0)
             {
-                dsSendResponse(false, 'Invalid Report ID.');
+                dmoSendResponse(false, 'Invalid Report ID.');
             }
             if ($approvedAmount <= 0)
             {
-                dsSendResponse(false, 'Approved amount must be greater than zero.');
+                dmoSendResponse(false, 'Approved amount must be greater than zero.');
             }
             if ($description === '')
             {
-                dsSendResponse(false, 'Description is required.');
+                dmoSendResponse(false, 'Description is required.');
             }
 
-            $DisasterManagementOfficer->addVerifiedVerificationReport(
+            $dmo->addVerifiedVerificationReport(
                 $con,
                 $reportID,
-                $districtSecretaryUserID,
+                $dmoUserID,
                 $description,
                 $approvedAmount
             );
-            $DisasterManagementOfficer->updateReportStatusToDSApproved($con, $reportID);
+            $dmo->updateReportStatusToDMOApproved($con, $reportID);
 
-            dsSendResponse(true, 'Report has been approved successfully.');
+            dmoSendResponse(true, 'Report has been approved successfully.');
             break;
         }
 
         // ------------------------------------------------------
-        // REJECT: Create rejected verification report + move to DS Rejected
+        // REJECT: Create rejected verification report + move to DMO Rejected
         // ------------------------------------------------------
         case 'reject':
         {
             if ($_SERVER['REQUEST_METHOD'] !== 'POST')
             {
-                dsSendResponse(false, 'Invalid request method.');
+                dmoSendResponse(false, 'Invalid request method.');
             }
 
             $reportID    = isset($_POST['report_id']) ? (int) $_POST['report_id'] : 0;
@@ -124,32 +124,32 @@ try
 
             if ($reportID <= 0)
             {
-                dsSendResponse(false, 'Invalid Report ID.');
+                dmoSendResponse(false, 'Invalid Report ID.');
             }
             if ($description === '')
             {
-                dsSendResponse(false, 'A reason for rejection is required.');
+                dmoSendResponse(false, 'A reason for rejection is required.');
             }
 
-            $DisasterManagementOfficer->addRejectedVerificationReport(
+            $dmo->addRejectedVerificationReport(
                 $con,
                 $reportID,
-                $districtSecretaryUserID,
+                $dmoUserID,
                 $description
             );
-            $DisasterManagementOfficer->updateReportStatusToDSRejected($con, $reportID);
+            $dmo->updateReportStatusToDMORejected($con, $reportID);
 
-            dsSendResponse(true, 'Report has been rejected.');
+            dmoSendResponse(true, 'Report has been rejected.');
             break;
         }
 
         default:
         {
-            dsSendResponse(false, 'Unknown action requested.');
+            dmoSendResponse(false, 'Unknown action requested.');
         }
     }
 }
 catch (Exception $e)
 {
-    dsSendResponse(false, $e->getMessage());
+    dmoSendResponse(false, $e->getMessage());
 }

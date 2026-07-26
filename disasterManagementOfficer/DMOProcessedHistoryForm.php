@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Processed History - District Secretary</title>
+    <title>Processed History - Disaster Management Officer</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
@@ -204,7 +204,7 @@
                             <div class="val" id="apprSummaryReportType">-</div>
                         </div>
                         <div class="col-md-4 item">
-                            <div class="lbl">Estimate Amount (DMO)</div>
+                            <div class="lbl">Estimate Amount (LAO)</div>
                             <div class="val" id="apprSummaryEstimateAmount">-</div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 /* ================================================================
-   DSProcessedHistory.js  -  Part 3: Processed History
+   DMOProcessedHistory.js  -  Processed History
    (Approved reports table + Rejected reports table)
    ================================================================ */
 
@@ -77,7 +77,7 @@ function renderApprovedTable(rows) {
             safeVal(row.DS_Name),
             `<span class="badge-approved">${formatMoney(row.Estimated_Amount)}</span>`,
             safeVal(row.Bank_Account_No),
-            `<button class="icon-btn view" title="View Report" onclick="openReportDetails(${row.Report_ID})">
+            `<button class="icon-btn view" title="View Report" onclick="openReportDetails(${row.Report_ID}, 'approved')">
                 <i class="bi bi-eye"></i>
              </button>`
         ]);
@@ -134,7 +134,7 @@ function renderRejectedTable(rows) {
             safeVal(row.DS_Name),
             `<span class="badge-rejected">${safeVal(row.Rejection_Reason, 'No reason given')}</span>`,
             safeVal(row.Bank_Account_No),
-            `<button class="icon-btn view" title="View Report" onclick="openReportDetails(${row.Report_ID})">
+            `<button class="icon-btn view" title="View Report" onclick="openReportDetails(${row.Report_ID}, 'rejected')">
                 <i class="bi bi-eye"></i>
              </button>
              <button class="icon-btn process" title="Process (Re-approve)" onclick="confirmProcessRejected(${row.Report_ID})">
@@ -162,7 +162,7 @@ function bindToolbarEvents() {
 // ----------------------------------------------------------------
 // Shared report details modal (view-only here, Close button only)
 // ----------------------------------------------------------------
-function openReportDetails(reportID) {
+function openReportDetails(reportID, status = 'approved') {
     currentReportID = reportID;
 
     const modalEl = document.getElementById('reportDetailsModal');
@@ -180,7 +180,7 @@ function openReportDetails(reportID) {
     $.ajax({
         url: 'DMOProcessedHistory.php',
         method: 'GET',
-        data: { action: 'details', report_id: reportID },
+        data: { action: 'details', report_id: reportID, status: status },
         dataType: 'json',
         success: function (res) {
             if (!res.success) {
@@ -388,7 +388,7 @@ function loadReportForProcessing(reportID) {
     $.ajax({
         url: 'DMOProcessedHistory.php',
         method: 'GET',
-        data: { action: 'details', report_id: reportID },
+        data: { action: 'details', report_id: reportID, status: 'process' },
         dataType: 'json',
         success: function (res) {
             if (!res.success) {

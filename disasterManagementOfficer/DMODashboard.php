@@ -1,4 +1,8 @@
 <?php
+// ================================================================
+//   DMODashboard.php  -  Backend AJAX handler
+//   Handles: Dashboard summary statistics for Disaster Management Officer
+// ================================================================
 
 session_start();
 header('Content-Type: application/json');
@@ -6,7 +10,7 @@ header('Content-Type: application/json');
 include_once '../DBconnection.php';
 include_once '../classes/DisasterManagementOfficer.php';
 
-function dsSendResponse($success, $message = '', $data = null)
+function dmoSendResponse($success, $message = '', $data = null)
 {
     echo json_encode([
         'success' => $success,
@@ -16,14 +20,14 @@ function dsSendResponse($success, $message = '', $data = null)
     exit();
 }
 
-// ---- Auth check (District Secretary only, Role_ID = 5) ----
+// ---- Auth check (Disaster Management Officer only, Role_ID = 2) ----
 if (!isset($_SESSION['user_Id']) || !isset($_SESSION['role_Id']) || $_SESSION['role_Id'] != 2)
 {
-    dsSendResponse(false, 'Unauthorized access.');
+    dmoSendResponse(false, 'Unauthorized access.');
 }
 
-$districtSecretaryUserID = $_SESSION['user_Id'];
-$DisasterManagementOfficer = new DisasterManagementOfficer();
+$dmoUserID = $_SESSION['user_Id'];
+$dmo = new DisasterManagementOfficer();
 
 $action = $_REQUEST['action'] ?? '';
 
@@ -36,18 +40,18 @@ try
         // ------------------------------------------------------
         case 'stats':
         {
-            $stats = $DisasterManagementOfficer->getDSDashboardStats($con, $districtSecretaryUserID);
-            dsSendResponse(true, '', $stats);
+            $stats = $dmo->getDMODashboardStats($con, $dmoUserID);
+            dmoSendResponse(true, '', $stats);
             break;
         }
 
         default:
         {
-            dsSendResponse(false, 'Unknown action requested.');
+            dmoSendResponse(false, 'Unknown action requested.');
         }
     }
 }
 catch (Exception $e)
 {
-    dsSendResponse(false, $e->getMessage());
+    dmoSendResponse(false, $e->getMessage());
 }
