@@ -1,4 +1,6 @@
-
+/* ================================================================
+   DMODashboard.js  -  Disaster Management Officer Dashboard
+   ================================================================ */
 
 let recentActivityTable = null;
 let approvalsChart = null;
