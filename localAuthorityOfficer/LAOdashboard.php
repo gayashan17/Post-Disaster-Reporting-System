@@ -144,8 +144,8 @@
             $title = 'Report Approval';
             $message = 'Your Report Has Been Approved By a Local Authority Officer';
             $type = 'LAO Approval';
-
-        } elseif ($action === 'reject')
+        }
+        elseif ($action === 'reject')
         {
             $newStatus = 'LAO Rejected';
             $title = 'Report Rejection';
@@ -155,20 +155,40 @@
 
         if ($newStatus !== null)
         {
-            $updateQuery = "UPDATE disaster_report SET Report_Status = ? WHERE Report_ID = ?";
+            // Step 1: Find the citizen who submitted the report
+            $getUserQuery = "SELECT User_ID FROM disaster_report WHERE Report_ID = ?";
+            if ($stmtUser = mysqli_prepare($con, $getUserQuery)) {
+                mysqli_stmt_bind_param($stmtUser, "i", $reportId);
+                mysqli_stmt_execute($stmtUser);
+                $userResult = mysqli_stmt_get_result($stmtUser);
 
-            if ($stmt = mysqli_prepare($con, $updateQuery))
-            {
-                mysqli_stmt_bind_param($stmt, "si", $newStatus, $reportId);
+                if ($userRow = mysqli_fetch_assoc($userResult)) {
+                    $citizenUserId = $userRow['User_ID'];
+                    mysqli_stmt_close($stmtUser);
 
-                if (mysqli_stmt_execute($stmt))
-                {
-                    mysqli_stmt_close($stmt);
+                    // Step 2: Update status on disaster_report
+                    $updateQuery = "UPDATE disaster_report SET Report_Status = ? WHERE Report_ID = ?";
+                    if ($stmt = mysqli_prepare($con, $updateQuery)) {
+                        mysqli_stmt_bind_param($stmt, "si", $newStatus, $reportId);
 
-                    Notification::createCitizenNotification($con, $reportId, $title, $message, $type);
-                } else
-                {
-                    mysqli_stmt_close($stmt);
+                        if (mysqli_stmt_execute($stmt)) {
+                            mysqli_stmt_close($stmt);
+
+                            // Step 3: Insert Notification for that specific citizen
+                            $notifSuccess = Notification::createCitizenNotification(
+                                $con,
+                                $citizenUserId,
+                                $reportId,
+                                $title,
+                                $message,
+                                $type
+                            );
+
+                            if (!$notifSuccess) {
+                                die("Notification Query Failed: " . mysqli_error($con));
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -31,11 +31,10 @@ class Notification
         }
     }
 
-    public static function createCitizenNotification(mysqli $con,int $reportId,string $title,string $message,string $type)
+    public static function createCitizenNotification(mysqli $con,int $userId,int $reportId,string $title,string $message,string $type)
     {
         try
         {
-            $userId = DisasterReport::getReportUserID($con,$reportId);
             $query="INSERT INTO notification(User_ID,Report_ID,Notification_Title,Notification_Message,Notification_Type) VALUES(?,?,?,?,?)";
 
             $stmt = mysqli_prepare($con,$query);
