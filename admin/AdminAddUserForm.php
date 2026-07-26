@@ -258,37 +258,37 @@
                         <label class="form-label">Region Assigned</label>
                         <div class="input-group">
                             <select id="office-name-input"
-                                    name="officeName"
+                                    name="regionAssigned"
                                     class="form-select text-muted"
                                     required>
 
                                 <option value="">Select Office</option>
 
-                                <option value="Ampara">Ampara District Secretary Office</option>
-                                <option value="Anuradhapura">Anuradhapura District Secretary Office</option>
-                                <option value="Badulla">Badulla District Secretary Office</option>
-                                <option value="Batticaloa">Batticaloa District Secretary Office</option>
-                                <option value="Colombo">Colombo District Secretary Office</option>
-                                <option value="Galle">Galle District Secretary Office</option>
-                                <option value="Gampaha">Gampaha District Secretary Office</option>
-                                <option value="Hambantota">Hambantota District Secretary Office</option>
-                                <option value="Jaffna">Jaffna District Secretary Office</option>
-                                <option value="Kalutara">Kalutara District Secretary Office</option>
-                                <option value="Kandy">Kandy District Secretary Office</option>
-                                <option value="Kegalle">Kegalle District Secretary Office</option>
-                                <option value="Kilinochchi">Kilinochchi District Secretary Office</option>
-                                <option value="Kurunegala">Kurunegala District Secretary Office</option>
-                                <option value="Mannar">Mannar District Secretary Office</option>
-                                <option value="Matale">Matale District Secretary Office</option>
-                                <option value="Matara">Matara District Secretary Office</option>
-                                <option value="Monaragala">Monaragala District Secretary Office</option>
-                                <option value="Mullaitivu">Mullaitivu District Secretary Office</option>
-                                <option value="Nuwara Eliya">Nuwara Eliya District Secretary Office</option>
-                                <option value="Polonnaruwa">Polonnaruwa District Secretary Office</option>
-                                <option value="Puttalam">Puttalam District Secretary Office</option>
-                                <option value="Ratnapura">Ratnapura District Secretary Office</option>
-                                <option value="Trincomalee">Trincomalee District Secretary Office</option>
-                                <option value="Vavuniya">Vavuniya District Secretary Office</option>
+                                <option value="Ampara">Ampara District </option>
+                                <option value="Anuradhapura">Anuradhapura District </option>
+                                <option value="Badulla">Badulla District </option>
+                                <option value="Batticaloa">Batticaloa District </option>
+                                <option value="Colombo">Colombo District </option>
+                                <option value="Galle">Galle District </option>
+                                <option value="Gampaha">Gampaha District </option>
+                                <option value="Hambantota">Hambantota District </option>
+                                <option value="Jaffna">Jaffna District </option>
+                                <option value="Kalutara">Kalutara District </option>
+                                <option value="Kandy">Kandy District </option>
+                                <option value="Kegalle">Kegalle District </option>
+                                <option value="Kilinochchi">Kilinochchi District </option>
+                                <option value="Kurunegala">Kurunegala District </option>
+                                <option value="Mannar">Mannar District </option>
+                                <option value="Matale">Matale District </option>
+                                <option value="Matara">Matara District </option>
+                                <option value="Monaragala">Monaragala District </option>
+                                <option value="Mullaitivu">Mullaitivu District </option>
+                                <option value="Nuwara Eliya">Nuwara Eliya District </option>
+                                <option value="Polonnaruwa">Polonnaruwa District </option>
+                                <option value="Puttalam">Puttalam District </option>
+                                <option value="Ratnapura">Ratnapura District </option>
+                                <option value="Trincomalee">Trincomalee District </option>
+                                <option value="Vavuniya">Vavuniya District </option>
                             </select>
                         </div>
                     </div>
