@@ -109,7 +109,14 @@ class DisasterManagementOfficer extends User
                         dr.Report_Type,
                         dr.District,
                         ds.DS_Name,
-                        vr.Estimated_Amount,
+
+                        CASE
+                            WHEN dr.Report_Type = 'Property Damage' THEN pd.Estimated_Cost
+                            WHEN dr.Report_Type = 'Injured Person' THEN 10000.00
+                            WHEN dr.Report_Type = 'Missing Person Record' THEN 30000.00
+                            WHEN dr.Report_Type = 'Death Record' THEN 80000.00
+                        END AS Estimated_Amount,
+
                         c.Beneficiary_Bank_Account_No AS Bank_Account_No
 
                     FROM disaster_report dr
@@ -120,11 +127,8 @@ class DisasterManagementOfficer extends User
                     LEFT JOIN divisional_secretariat ds
                         ON dr.DS_ID = ds.DS_ID
 
-                    LEFT JOIN verification_report vr
-                        ON dr.Report_ID = vr.Report_ID
-                        AND vr.Created_By_Officer_User_ID IN (
-                            SELECT User_ID FROM users WHERE Role_ID = 4
-                        )
+                    LEFT JOIN property_damage pd
+                        ON dr.Report_ID = pd.Report_ID
 
                     LEFT JOIN citizen c
                         ON dr.User_ID = c.User_ID
@@ -185,23 +189,30 @@ class DisasterManagementOfficer extends User
                         ds.DS_ID,
                         ds.DS_Name,
                         ds.District AS DS_District,
-                        vr.*
+
+                        CASE
+                            WHEN dr.Report_Type = 'Property Damage' THEN pd.Estimated_Cost
+                            WHEN dr.Report_Type = 'Injured Person' THEN 10000.00
+                            WHEN dr.Report_Type = 'Missing Person Record' THEN 30000.00
+                            WHEN dr.Report_Type = 'Death Record' THEN 80000.00
+                        END AS Estimated_Amount
+
                     FROM disaster_report dr
+
                     INNER JOIN users u
                         ON dr.User_ID = u.User_ID
+
                     LEFT JOIN citizen c
                         ON dr.User_ID = c.User_ID
+
                     LEFT JOIN divisional_secretariat ds
                         ON dr.DS_ID = ds.DS_ID
-                    LEFT JOIN verification_report vr
-                        ON dr.Report_ID = vr.Report_ID
-                        AND vr.Created_By_Officer_User_ID IN (
-                            SELECT User_ID
-                            FROM users
-                            WHERE Role_ID = 4
-                        )
-                        AND vr.Report_Status = 'Verified'
-                    WHERE dr.Report_ID = ?";
+
+                    LEFT JOIN property_damage pd
+                        ON dr.Report_ID = pd.Report_ID
+
+                    WHERE dr.Report_ID = ?
+                        AND dr.Report_Status = 'LAO Approved'";
 
             $stmt = mysqli_prepare($con, $query);
 
@@ -390,50 +401,57 @@ class DisasterManagementOfficer extends User
     {
         try
         {
-            $query = "SELECT
-                        dr.*,
-                        u.User_ID,
-                        u.Username,
-                        u.Full_Name,
-                        u.Gender,
-                        u.NIC,
-                        u.Email,
-                        u.Phone_Number,
-                        u.Address,
-                        c.Beneficiary_Name,
-                        c.Beneficiary_Bank,
-                        c.Beneficiary_Bank_Account_No,
-                        ds.DS_ID,
-                        ds.DS_Name,
-                        ds.District AS DS_District,
-                        lao_vr.Estimated_Amount AS Estimated_Amount,
-                        lao_vr.Description AS LAO_Description,
-                        dmo_vr.Description AS Rejection_Reason
-                    FROM disaster_report dr
-                    INNER JOIN users u
-                        ON dr.User_ID = u.User_ID
-                    LEFT JOIN citizen c
-                        ON dr.User_ID = c.User_ID
-                    LEFT JOIN divisional_secretariat ds
-                        ON dr.DS_ID = ds.DS_ID
-                    LEFT JOIN verification_report lao_vr
-                        ON dr.Report_ID = lao_vr.Report_ID
-                        AND lao_vr.Created_By_Officer_User_ID IN (
-                            SELECT User_ID
-                            FROM users
-                            WHERE Role_ID = 4
-                        )
-                        AND lao_vr.Report_Status = 'Verified'
-                    LEFT JOIN verification_report dmo_vr
-                        ON dr.Report_ID = dmo_vr.Report_ID
-                        AND dmo_vr.Created_By_Officer_User_ID IN (
-                            SELECT User_ID
-                            FROM users
-                            WHERE Role_ID = 2
-                        )
-                        AND dmo_vr.Report_Status = 'Rejected'
-                    WHERE dr.Report_ID = ?
-                        AND dr.Report_Status = 'DMO Rejected'";
+        $query = "SELECT
+                    dr.*,
+                    u.User_ID,
+                    u.Username,
+                    u.Full_Name,
+                    u.Gender,
+                    u.NIC,
+                    u.Email,
+                    u.Phone_Number,
+                    u.Address,
+                    c.Beneficiary_Name,
+                    c.Beneficiary_Bank,
+                    c.Beneficiary_Bank_Account_No,
+                    ds.DS_ID,
+                    ds.DS_Name,
+                    ds.District AS DS_District,
+
+                    CASE
+                        WHEN dr.Report_Type = 'Property Damage' THEN pd.Estimated_Cost
+                        WHEN dr.Report_Type = 'Injured Person' THEN 10000.00
+                        WHEN dr.Report_Type = 'Missing Person Record' THEN 30000.00
+                        WHEN dr.Report_Type = 'Death Record' THEN 80000.00
+                    END AS Estimated_Amount,
+
+                    dmo_vr.Description AS Rejection_Reason
+
+                FROM disaster_report dr
+
+                INNER JOIN users u
+                    ON dr.User_ID = u.User_ID
+
+                LEFT JOIN citizen c
+                    ON dr.User_ID = c.User_ID
+
+                LEFT JOIN divisional_secretariat ds
+                    ON dr.DS_ID = ds.DS_ID
+
+                LEFT JOIN property_damage pd
+                    ON dr.Report_ID = pd.Report_ID
+
+                LEFT JOIN verification_report dmo_vr
+                    ON dr.Report_ID = dmo_vr.Report_ID
+                    AND dmo_vr.Created_By_Officer_User_ID IN (
+                        SELECT User_ID
+                        FROM users
+                        WHERE Role_ID = 2
+                    )
+                    AND dmo_vr.Report_Status = 'Rejected'
+
+                WHERE dr.Report_ID = ?
+                    AND dr.Report_Status = 'DMO Rejected'";
 
             $stmt = mysqli_prepare($con, $query);
 
