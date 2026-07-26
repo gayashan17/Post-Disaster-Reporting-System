@@ -1,4 +1,5 @@
 <?php
+    include '../userData.php';
     include 'Citizendashboard.php';
 ?>
 

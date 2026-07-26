@@ -12,13 +12,83 @@ function showInfo(page) {
   });
 }
 
-function showNotifAlert() {
+function showNotifications() {
+  let contentHtml = '';
+
+  // Safely grab userNotifications array
+  const notificationsList = (typeof userNotifications !== 'undefined' && Array.isArray(userNotifications))
+    ? userNotifications
+    : [];
+
+  if (notificationsList.length > 0) {
+    // Build items list
+    contentHtml = notificationsList.map(notif => `
+      <div style="padding:10px 4px; border-bottom:1px solid #e2e8f0; display:flex; gap:10px; align-items:flex-start;">
+        <span style="font-size:18px; line-height:1;"><i class="bi bi-info-circle-fill"></i></span>
+        <div style="flex:1;">
+          <div style="font-weight:600; color:#1e293b;">
+            Report <b>:${escapeHtml(notif.report_id || notif.Report_ID)}</b>
+          </div>
+          <div style="color:#475569; margin-top:2px; font-size:12.5px;">
+            ${escapeHtml(notif.message || notif.Message)}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    // Fallback for empty notification list
+    contentHtml = `
+      <div style="padding:20px 0; text-align:center; color:#64748b;">
+        <span>You have no notifications.</span>
+      </div>
+    `;
+  }
+    const hasNotifications = notificationsList.length > 0;
+  // Render SweetAlert2
   Swal.fire({
     title: 'Notifications',
-    text: '2 new reports have been assigned to you.',
-    icon: 'info',
-    confirmButtonColor: '#2563eb'
+    width: '440px',
+    html: `
+      <div style="text-align:left; font-size:13px; max-height:320px; overflow-y:auto; padding-right:6px;">
+        ${contentHtml}
+      </div>
+    `,
+    showCancelButton: true,
+    showConfirmButton: hasNotifications,
+    confirmButtonColor: '#2563eb',
+    cancelButtonColor: '#64748b',
+    confirmButtonText: 'Mark All as Read',
+    cancelButtonText: 'Close',
+    focusCancel: true
+  }).then((result) => {
+      if (result.isConfirmed)
+      {
+          fetch("../MarkNotificationsRead.php", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  notificationIDs: notificationIDs
+              })
+          })
+          .then(response => response.text())
+          .then(data => {
+              console.log(data);
+              location.reload();
+          });
+      }
   });
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 function reviewReport(id, type, reporter) {

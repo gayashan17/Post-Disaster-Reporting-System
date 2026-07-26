@@ -5,11 +5,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once '../classes/Citizen.php';
 
-// --- Auth Check -------------------------------------------------
-if (!isset($_SESSION['username']) || !isset($_SESSION['user_Id']) || $_SESSION['user_Id'] == null) {
-    header('Location: ../LoginForm.php');
-    exit();
-}
 
 // --- Process Bank Details Submission -----------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_bank_details'])) {

@@ -12,9 +12,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="../style.css" rel="stylesheet">
-
-  
+  <link href="../style.css" rel="stylesheet">
 </head>
 <body>
 
@@ -35,7 +33,6 @@
   <a class="nav-item" onclick="showInfo('All Reports')"><i class="bi bi-file-earmark-text"></i> All Reports</a>
 
   <div class="nav-section-label">Account</div>
-  <a class="nav-item" onclick="showInfo('Notifications')"><i class="bi bi-bell"></i> Notifications</a>
   <a class="nav-item" onclick="showInfo('Profile')"><i class="bi bi-person"></i> Profile</a>
 
   <div class="sidebar-footer">
@@ -47,12 +44,15 @@
 <header id="topbar">
   <button id="menu-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
   <div class="topbar-title">Local Authority Officer <span>Dashboard</span></div>
-  <button class="notif-btn" onclick="showNotifAlert()" title="Notifications">
-    <i class="bi bi-bell"></i><span class="notif-badge">2</span>
+  <button class="notif-btn" onclick="showNotifications()" title="Notifications">
+    <i class="bi bi-bell"></i>
+    <?php if(!empty($NotificationCount) && $NotificationCount > 0): ?>
+      <span class="notif-badge"><?php echo $NotificationCount; ?></span>
+    <?php endif; ?>
   </button>
   <div class="user-pill" onclick="showInfo('Profile')">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
-    <span class="user-name"><?php echo htmlspecialchars($username);?></span>
+    <span class="user-name"><?php echo htmlspecialchars($username ?? '');?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
   </div>
 </header>
@@ -61,7 +61,7 @@
 <main id="main">
 
   <!-- Summary Strip -->
-  <div class="summary-strip">
+  <div class="summary-strip mb-4">
     <div class="strip-card">
       <div class="strip-icon blue"><i class="bi bi-file-earmark-text"></i></div>
       <div><div class="strip-val" id="s-total">0</div><div class="strip-lbl">Total Assigned</div></div>
@@ -82,72 +82,107 @@
 
   <div class="row g-3">
 
-    <!-- Pending Reports list -->
+    <!-- Left Column: Pending Reports (Expanded to fill column height) -->
     <div class="col-lg-7">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title"><i class="bi bi-hourglass-split"></i> Pending Reports</div>
-          <span class="role-tagLAO">Local Authority</span>
-        </div>
-        <div class="d-flex flex-column gap-3">
+      <div class="panel h-100 d-flex flex-column justify-content-between">
+        <div>
+          <div class="panel-header">
+            <div class="panel-title"><i class="bi bi-hourglass-split"></i> Pending Reports</div>
+            <span class="role-tagLAO">Local Authority</span>
+          </div>
+          <div class="d-flex flex-column gap-3">
 
-        <?php if ($tableResult && mysqli_num_rows($tableResult) > 0): ?>
-            <?php while ($row = mysqli_fetch_assoc($tableResult)): ?>
-              <div class="report-card">
-                <div class="report-thumb"><i class="bi bi-house-damage"></i></div>
-                <div class="report-meta">
-                  <div class="d-flex align-items-center gap-2 mb-1">
-                    <span class="report-id">Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?></span>
-                    <span class="badge-status badge-pending"><?php echo htmlspecialchars($row['Report_Status']) ?></span>
+          <?php if (!empty($tableResult) && mysqli_num_rows($tableResult) > 0): ?>
+              <?php while ($row = mysqli_fetch_assoc($tableResult)): ?>
+                <div class="report-card">
+                  <div class="report-thumb"><i class="bi bi-house-damage"></i></div>
+                  <div class="report-meta">
+                    <div class="d-flex align-items-center gap-2 mb-1">
+                      <span class="report-id">Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?></span>
+                      <span class="badge-status badge-pending"><?php echo htmlspecialchars($row['Report_Status']) ?></span>
+                    </div>
+                    <div class="report-type"><?php echo htmlspecialchars($row['Report_Type']) ?></div>
+                    <div class="report-by">Reported by: <?php echo htmlspecialchars($row['Full_Name']) ?></div>
+                    <div class="report-date"><i class="bi bi-calendar3 me-1"></i> <?php echo htmlspecialchars($row['Report_Date']) ?></div>
                   </div>
-                  <div class="report-type"><?php echo htmlspecialchars($row['Report_Type']) ?></div>
-                  <div class="report-by">Reported by: <?php echo htmlspecialchars($row['Full_Name']) ?></div>
-                  <div class="report-date"><i class="bi bi-calendar3 me-1"></i> <?php echo htmlspecialchars($row['Report_Date']) ?></div>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                  <button class="btn btn-primary btn-sm rounded-3"
-                    onclick="reviewReport
-                    ('Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?>',
-                    '<?php echo htmlspecialchars($row['Report_Type']) ?>',
-                    '<?php echo htmlspecialchars($row['Full_Name']) ?>')">
+                  <div class="d-flex flex-column gap-2">
+                    <button class="btn btn-primary btn-sm rounded-3"
+                      onclick="reviewReport
+                      ('Report ID: <?php echo htmlspecialchars($row['Report_ID']) ?>',
+                      '<?php echo htmlspecialchars($row['Report_Type']) ?>',
+                      '<?php echo htmlspecialchars($row['Full_Name']) ?>')">
 
-                    <i class="bi bi-eye me-1"></i>Review
-                  </button>
+                      <i class="bi bi-eye me-1"></i>Review
+                    </button>
+                  </div>
                 </div>
-              </div>
-            <?php endwhile; ?>
-      <?php endif; ?>
+              <?php endwhile; ?>
+          <?php else: ?>
+              <div class="text-center text-muted py-3">No pending reports found.</div>
+          <?php endif; ?>
 
-            </div>
-            <div class="mt-3 text-center">
-              <button class="btn btn-outline-primary rounded-3 w-100" onclick="showInfo('All Reports')">View All Reports</button>
-            </div>
           </div>
         </div>
 
-    <!-- Right column -->
+        <div class="mt-3 text-center">
+          <button class="btn btn-outline-primary rounded-3 w-100" onclick="showInfo('All Reports')">View All Reports</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Notifications Panel & Quick Actions -->
     <div class="col-lg-5 d-flex flex-column gap-3">
 
-      <!-- Recent Activity -->
-      <div class="panel">
+      <!-- Dynamic Notifications Panel -->
+      <div class="panel h-100">
         <div class="panel-header">
-          <div class="panel-title"><i class="bi bi-clock-history"></i> Recent Activity</div>
+          <div class="panel-title"><i class="bi bi-bell"></i> Notifications</div>
+          <a class="stat-link" onclick="showNotifications()">View All</a>
         </div>
-        <div class="notif-item">
-          <div class="notif-icon green"><i class="bi bi-check-circle-fill"></i></div>
-          <div class="notif-text">You verified <strong>RPT-2024-0012</strong> — Property Damage.</div>
-          <div class="notif-time">1h ago</div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon rose" style="background:#fef2f2;color:#ef4444"><i class="bi bi-x-circle-fill"></i></div>
-          <div class="notif-text">You rejected <strong>RPT-2024-0011</strong> — insufficient evidence.</div>
-          <div class="notif-time">3h ago</div>
-        </div>
-        <div class="notif-item">
-          <div class="notif-icon blue"><i class="bi bi-info-circle-fill"></i></div>
-          <div class="notif-text">New report <strong>RPT-2024-0015</strong> assigned to you.</div>
-          <div class="notif-time">5h ago</div>
-        </div>
+
+        <?php
+        $notificationIDs = [];
+        if (!empty($Notifications) && mysqli_num_rows($Notifications) > 0): ?>
+            <?php while ($row = mysqli_fetch_assoc($Notifications)): ?>
+                <?php $notificationIDs[] = $row['Notification_ID']; ?>
+                <div class="notif-item">
+                  <?php if(in_array($row['Report_Status'], ["LAO Approved", "DMO Approved", "DS Approved", "FO Approved"])): ?>
+                      <div class="notif-icon green">
+                        <i class="bi bi-check-circle-fill"></i>
+                      </div>
+                  <?php elseif(in_array($row['Report_Status'], ["LAO Pending", "DMO Pending", "DS Pending", "FO Pending", "Submitted"])): ?>
+                      <div class="notif-icon blue">
+                        <i class="bi bi-info-circle-fill"></i>
+                      </div>
+                  <?php elseif(in_array($row['Report_Status'], ["LAO Rejected", "DMO Rejected", "DS Rejected", "FO Rejected"])): ?>
+                      <div class="notif-icon red">
+                        <i class="bi bi-x-circle-fill"></i>
+                      </div>
+                  <?php elseif($row['Report_Status'] == "FO Paid"): ?>
+                      <div class="notif-icon purple">
+                        <i class="bi bi-credit-card-fill"></i>
+                      </div>
+                  <?php else: ?>
+                      <div class="notif-icon blue">
+                        <i class="bi bi-info-circle-fill"></i>
+                      </div>
+                  <?php endif; ?>
+
+                  <div class="notif-text">
+                    Report <strong><?php echo htmlspecialchars($row['Report_ID']); ?>: </strong><br>
+                    <?php echo htmlspecialchars($row['Notification_Message']); ?>
+                  </div>
+                  <div class="notif-time"><?php echo htmlspecialchars($row['Created_At']); ?></div>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <div class="notif-item">
+              <div class="notif-icon green">
+                <i class="bi bi-info-circle-fill"></i>
+              </div>
+              <div class="notif-text">You have No Recent Notifications</div>
+            </div>
+        <?php endif; ?>
       </div>
 
       <!-- Quick Actions -->
@@ -158,7 +193,7 @@
         <div class="d-flex flex-column gap-2">
           <a class="qa-btn" onclick="showInfo('Pending Reports')"><i class="bi bi-hourglass-split"></i> View Pending Reports</a>
           <a class="qa-btn" onclick="showInfo('Verified Reports')"><i class="bi bi-check-circle-fill"></i> View Verified Reports</a>
-          <a class="qa-btn" onclick="showInfo('Notifications')"><i class="bi bi-bell-fill"></i> Notifications</a>
+          <a class="qa-btn" onclick="showNotifications()"><i class="bi bi-bell-fill"></i> Notifications</a>
         </div>
       </div>
 
@@ -175,15 +210,36 @@
 
 <script src="LAOdashboard.js"></script>
 
+<?php
+$notificationsArray = [];
+if (!empty($Notifications) && mysqli_num_rows($Notifications) > 0) {
+    mysqli_data_seek($Notifications, 0);
+    while ($row = mysqli_fetch_assoc($Notifications)) {
+        $notificationsArray[] = [
+            'report_id' => $row['Report_ID'] ?? '',
+            'title'     => $row['Notification_Title'] ?? 'Notification',
+            'message'   => $row['Notification_Message'] ?? '',
+            'time'      => $row['Created_At'] ?? ''
+        ];
+    }
+}
+?>
+
+<!-- Inject notification arrays into JavaScript -->
+<script>
+    const userNotifications = <?php echo json_encode($notificationsArray); ?>;
+    const notificationIDs  = <?php echo json_encode($notificationIDs); ?>;
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function()
     {
         if (typeof animateCounter === 'function')
         {
-            animateCounter('s-total', <?php echo (int)$totReportCount; ?>);
-            animateCounter('s-pending', <?php echo (int)$submittedReportCount; ?>);
-            animateCounter('s-verified', <?php echo (int)$verifiedReportCount; ?>);
-            animateCounter('s-rejected', <?php echo (int)$rejectedReportCount; ?>);
+            animateCounter('s-total', <?php echo (int)($totReportCount ?? 0); ?>);
+            animateCounter('s-pending', <?php echo (int)($submittedReportCount ?? 0); ?>);
+            animateCounter('s-verified', <?php echo (int)($verifiedReportCount ?? 0); ?>);
+            animateCounter('s-rejected', <?php echo (int)($rejectedReportCount ?? 0); ?>);
         }
     });
 </script>

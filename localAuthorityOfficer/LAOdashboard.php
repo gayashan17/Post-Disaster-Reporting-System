@@ -3,6 +3,7 @@
     require_once '../classes/LocalAuthorityOfficer.php';
     include '../userData.php';
     include '../DBconnection.php';
+    include '../classes/Notification.php';
 
     $DSID = LocalAuthorityOfficer::getDSID($con,$userId);
     // 1. get Summary Counts
@@ -66,4 +67,10 @@
         error_log($e->getMessage());
         $tableResult = false;
     }
+
+
+    $Notifications = Notification::loadNotification($con,$userId);
+    $NotificationCount = Notification::getNotificationCount($con,$userId);
+
+
 ?>
