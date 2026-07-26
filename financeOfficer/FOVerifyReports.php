@@ -9,6 +9,7 @@ header('Content-Type: application/json');
 
 include_once '../DBconnection.php';
 include_once '../classes/FinancialOfficer.php';
+include_once '../classes/Notification.php';
 
 function foSendResponse($success, $message = '', $data = null)
 {
@@ -18,6 +19,26 @@ function foSendResponse($success, $message = '', $data = null)
         'data'    => $data
     ]);
     exit();
+}
+
+// Helper function to fetch Citizen User_ID for notifications
+function getCitizenUserIdByReportId($con, $reportID)
+{
+    $getUserQuery = "SELECT User_ID FROM disaster_report WHERE Report_ID = ?";
+    if ($stmtUser = mysqli_prepare($con, $getUserQuery))
+    {
+        mysqli_stmt_bind_param($stmtUser, "i", $reportID);
+        mysqli_stmt_execute($stmtUser);
+        $userResult = mysqli_stmt_get_result($stmtUser);
+
+        if ($userRow = mysqli_fetch_assoc($userResult))
+        {
+            mysqli_stmt_close($stmtUser);
+            return (int) $userRow['User_ID'];
+        }
+        mysqli_stmt_close($stmtUser);
+    }
+    return null;
 }
 
 // ---- Auth check (Financial Officer only, Role_ID = 6) ----
@@ -79,8 +100,27 @@ try
                 foSendResponse(false, 'Invalid Report ID.');
             }
 
+            // 1. Get Citizen User ID first
+            $citizenUserID = getCitizenUserIdByReportId($con, $reportID);
+
+            if (!$citizenUserID)
+            {
+                foSendResponse(false, 'Unable to find citizen linked to this report.');
+            }
+
+            // 2. Perform DB updates
             $financialOfficer->addCompensationReport($con, $reportID, $financialOfficerUserID);
             $financialOfficer->updateReportStatusToFOPending($con, $reportID);
+
+            // 3. Send Notification with all 6 parameters
+            Notification::createCitizenNotification(
+                $con,
+                $citizenUserID,
+                $reportID,
+                "Compensation Processing",
+                "Your Compensation Claim Is Now Being Processed By Financial Officer",
+                "FO Processing"
+            );
 
             foSendResponse(true, 'Report has been moved to processing successfully.');
             break;
