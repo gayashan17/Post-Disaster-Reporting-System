@@ -9,6 +9,7 @@ header('Content-Type: application/json');
 
 include_once '../DBconnection.php';
 include_once '../classes/DisasterManagementOfficer.php';
+include_once '../classes/Notification.php';
 
 function dmoSendResponse($success, $message = '', $data = null)
 {
@@ -18,6 +19,26 @@ function dmoSendResponse($success, $message = '', $data = null)
         'data'    => $data
     ]);
     exit();
+}
+
+// Helper function to fetch Citizen User_ID for notifications
+function getCitizenUserIdByReportId($con, $reportID)
+{
+    $getUserQuery = "SELECT User_ID FROM disaster_report WHERE Report_ID = ?";
+    if ($stmtUser = mysqli_prepare($con, $getUserQuery))
+    {
+        mysqli_stmt_bind_param($stmtUser, "i", $reportID);
+        mysqli_stmt_execute($stmtUser);
+        $userResult = mysqli_stmt_get_result($stmtUser);
+
+        if ($userRow = mysqli_fetch_assoc($userResult))
+        {
+            mysqli_stmt_close($stmtUser);
+            return (int) $userRow['User_ID'];
+        }
+        mysqli_stmt_close($stmtUser);
+    }
+    return null;
 }
 
 // ---- Auth check (Disaster Management Officer only, Role_ID = 2) ----
@@ -96,6 +117,15 @@ try
                 dmoSendResponse(false, 'Description is required.');
             }
 
+            // 1. Get Citizen User ID first
+            $citizenUserID = getCitizenUserIdByReportId($con, $reportID);
+
+            if (!$citizenUserID)
+            {
+                dmoSendResponse(false, 'Unable to find citizen linked to this report.');
+            }
+
+            // 2. Perform DB updates
             $dmo->addVerifiedVerificationReport(
                 $con,
                 $reportID,
@@ -104,6 +134,16 @@ try
                 $approvedAmount
             );
             $dmo->updateReportStatusToDMOApproved($con, $reportID);
+
+            // 3. Send Notification with all 6 parameters
+            Notification::createCitizenNotification(
+                $con,
+                $citizenUserID,
+                $reportID,
+                "Report Approval",
+                "Your Report Has Been Approved By Disaster Management Officer",
+                "DMO Approval"
+            );
 
             dmoSendResponse(true, 'Report has been approved successfully.');
             break;
@@ -131,6 +171,15 @@ try
                 dmoSendResponse(false, 'A reason for rejection is required.');
             }
 
+            // 1. Get Citizen User ID first
+            $citizenUserID = getCitizenUserIdByReportId($con, $reportID);
+
+            if (!$citizenUserID)
+            {
+                dmoSendResponse(false, 'Unable to find citizen linked to this report.');
+            }
+
+            // 2. Perform DB updates
             $dmo->addRejectedVerificationReport(
                 $con,
                 $reportID,
@@ -138,6 +187,16 @@ try
                 $description
             );
             $dmo->updateReportStatusToDMORejected($con, $reportID);
+
+            // 3. Send Notification with all 6 parameters
+            Notification::createCitizenNotification(
+                $con,
+                $citizenUserID,
+                $reportID,
+                "Report Rejection",
+                "Your Report Has Been Rejected By Disaster Management Officer",
+                "DMO Rejection"
+            );
 
             dmoSendResponse(true, 'Report has been rejected.');
             break;
