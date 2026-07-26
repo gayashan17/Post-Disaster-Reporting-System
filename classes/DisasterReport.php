@@ -220,39 +220,38 @@ class DisasterReport
 
     }
 
-    //Divitional Secretariat for District
-    public static function getDivisionalSecretariat($con,$district)
+    // Get all Divisional Secretariats belonging to a District
+    public static function getDivisionalSecretariat($con, $district)
     {
         try
         {
-            $query =  "SELECT DS_ID FROM divisional_secretariat WHERE DS_Name = ?";
+            $query = "SELECT DS_ID, DS_Name FROM divisional_secretariat WHERE District = ?";
 
-            $stmt = mysqli_prepare($con,$query);
+            $stmt = mysqli_prepare($con, $query);
 
-            mysqli_stmt_bind_param($stmt,"s",$district);
+            mysqli_stmt_bind_param($stmt, "s", $district);
 
             mysqli_stmt_execute($stmt);
 
             $result = mysqli_stmt_get_result($stmt);
 
-            if($row = mysqli_fetch_assoc($result))
+            $dsList = [];
+            while ($row = mysqli_fetch_assoc($result))
             {
-                $DSID = $row['DS_ID'];
-                return $DSID;
-            }
-            else
-            {
-                throw new Exception ("Invalid District");
+                $dsList[] = $row;
             }
 
+            if (empty($dsList))
+            {
+                throw new Exception("Invalid District");
+            }
 
+            return $dsList;
         }
-        catch(Exception $e)
+        catch (Exception $e)
         {
             throw $e;
-            return false;
         }
-
     }
 
 }
