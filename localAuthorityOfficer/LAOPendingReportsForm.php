@@ -1,6 +1,8 @@
 <?php
-    include 'LAOdashboard.php';
+    include_once 'LAOdashboard.php';
     include 'LAOTrackReport.php';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +10,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rejected Reports - Local Authority Officer</title>
+  <title>Pending Reports - Local Authority Officer</title>
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
@@ -16,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <link href="../style.css" rel="stylesheet">
+  <link href="LAO.css" rel="stylesheet">
 </head>
 <body>
 
@@ -30,14 +33,14 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
-  <a class="nav-item" href="LAOPendingReportsForm.php"><i class="bi bi-clock-history"></i> Pending Reports</a>
+  <a class="nav-item active" href="LAOPendingReportsForm.php"><i class="bi bi-clock-history"></i> Pending Reports</a>
   <a class="nav-item" href="LAOVerifiedReportsForm.php"><i class="bi bi-check-square"></i> Verified Reports</a>
-  <a class="nav-item active" href="LAORejectedReportsForm.php"><i class="bi bi-x-square"></i> Rejected Reports</a>
+  <a class="nav-item" href="LAORejectedReportsForm.php"><i class="bi bi-x-square"></i> Rejected Reports</a>
   <a class="nav-item" href="LAOAllReportsForm.php"><i class="bi bi-file-earmark-text"></i> All Reports</a>
 
   <div class="nav-section-label">Account</div>
-  <a class="nav-item " href="LAOdashboardForm.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
-  <a class="nav-item" onclick="window.location.href='LAOProfileForm.php.php';"><i class="bi bi-person"></i> Profile</a>
+  <a class="nav-item" href="LAOdashboardForm.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
+  <a class="nav-item" href="LAOProfileForm.php"><i class="bi bi-person"></i> Profile</a>
 
   <div class="sidebar-footer">
     <a class="nav-item" onclick="confirmLogout()"><i class="bi bi-box-arrow-left"></i> Logout</a>
@@ -54,7 +57,7 @@
       <span class="notif-badge"><?php echo $NotificationCount; ?></span>
     <?php endif; ?>
   </button>
-  <div class="user-pill" onclick="showInfo('Profile')">
+  <div class="user-pill" onclick="window.location.href='LAOProfileForm.php';">
     <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
     <span class="user-name"><?php echo htmlspecialchars($username ?? '');?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
@@ -68,13 +71,13 @@
       <div class="panel">
         <div class="panel-header d-flex justify-content-between align-items-center mb-3">
           <div class="panel-title fs-5 fw-bold">
-            <i class="bi bi-x-circle-fill me-2 text-danger"></i> Rejected Reports
+            <i class="bi bi-hourglass-split me-2 text-warning"></i> Pending Review Reports
           </div>
           <span class="role-tagLAO">Local Authority</span>
         </div>
 
         <div class="table-responsive">
-          <table id="rejected-table" class="table table-borderless align-middle" style="width:100%">
+          <table id="pending-reports-table" class="table table-borderless align-middle" style="width:100%">
             <thead>
               <tr>
                 <th>Report ID</th>
@@ -86,21 +89,21 @@
               </tr>
             </thead>
             <tbody>
-            <?php if (isset($rejectedResult) && $rejectedResult && mysqli_num_rows($rejectedResult) > 0): ?>
-                <?php while ($row = mysqli_fetch_assoc($rejectedResult)): ?>
+            <?php if (isset($pendingResult) && $pendingResult && mysqli_num_rows($pendingResult) > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($pendingResult)): ?>
                 <tr>
                     <td><strong><?php echo htmlspecialchars($row['Report_ID']); ?></strong></td>
                     <td><?php echo htmlspecialchars($row['Report_Type']); ?></td>
-                    <td><?php echo htmlspecialchars($row['Full_Name']); ?></td>
+                    <td><?php echo htmlspecialchars($row['Full_Name'] ?? 'Citizen'); ?></td>
                     <td>
-                      <span class="badge-status badge-rejected">
+                      <span class="badge bg-warning text-dark px-2 py-1">
                         <?php echo htmlspecialchars($row['Report_Status']); ?>
                       </span>
                     </td>
                     <td><?php echo htmlspecialchars($row['Report_Date']); ?></td>
                     <td>
-                      <a class="btn btn-sm btn-outline-secondary rounded-2"
-                        href="LAORejectedReportsForm.php?report_id=<?php echo urlencode($row['Report_ID']); ?>">
+                      <a class="btn btn-sm btn-outline-primary rounded-2"
+                        href="LAOPendingReportsForm.php?report_id=<?php echo urlencode($row['Report_ID']); ?>">
                         <i class="bi bi-eye me-1"></i>View
                       </a>
                     </td>
@@ -108,7 +111,7 @@
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" class="text-center text-muted py-4">No rejected reports found.</td>
+                    <td colspan="6" class="text-center text-muted py-4">No pending reports found for verification.</td>
                 </tr>
             <?php endif; ?>
             </tbody>
@@ -129,7 +132,7 @@
             <div class="panel-title fw-bold text-primary">
               <i class="bi bi-info-circle me-2"></i> Report Details — #<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>
             </div>
-            <a href="LAOVerifiedReportsForm.php" class="btn-close" aria-label="Close"></a>
+            <a href="LAOPendingReportsForm.php" class="btn-close" aria-label="Close"></a>
           </div>
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
@@ -166,7 +169,7 @@
         </div>
       </div>
 
-      <!-- Uploaded Evidence -->
+      <!-- Right Column: Uploaded Evidence (5/12 width) -->
       <div class="col-lg-5">
         <div class="panel h-100">
           <div class="panel-header mb-3 border-bottom pb-2">
@@ -174,13 +177,13 @@
           </div>
 
           <?php
-            $filePath = $selectedReport['File_Path'] ?? $selectedReport['File_Name'] ?? $selectedReport['File_Path'] ?? null;
+            $fileName = $selectedReport['File_Name'] ?? $selectedReport['File_Path'] ?? $selectedReport['Attachment'] ?? null;
           ?>
 
-          <?php if (!empty($filePath)): ?>
+          <?php if (!empty($fileName)): ?>
             <?php
-              $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-              $fullPath = "../reports/" . htmlspecialchars($filePath);
+              $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+              $fullPath = "../uploads/reports/" . htmlspecialchars($fileName);
             ?>
 
             <?php if (in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'])): ?>
@@ -196,16 +199,16 @@
             <?php elseif ($ext === 'pdf'): ?>
               <div class="text-center p-4 border rounded-3 bg-light">
                 <i class="bi bi-file-earmark-pdf-fill text-danger" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2"><?php echo htmlspecialchars( $selectedReport['File_Name']); ?></div>
-                <a href="<?php echo $fullPath; ?>" target="_blank" class="btn btn-sm btn-danger mt-3">
-                  <i class="bi bi-file-earmark-arrow-down me-1"></i> View / Download PDF Document
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($fileName); ?></div>
+                <a href="<?php echo $fullPath; ?>" download="<?php echo htmlspecialchars($fileName); ?>" target="_blank" class="btn btn-sm btn-danger mt-3">
+                  <i class="bi bi-file-earmark-arrow-down me-1"></i> Download PDF Document
                 </a>
               </div>
 
             <?php else: ?>
               <div class="text-center p-4 border rounded-3 bg-light">
                 <i class="bi bi-file-earmark-zip-fill text-secondary" style="font-size: 3rem;"></i>
-                <div class="fw-bold mt-2"><?php echo htmlspecialchars( $selectedReport['File_Name']); ?></div>
+                <div class="fw-bold mt-2"><?php echo htmlspecialchars($fileName); ?></div>
                 <a href="<?php echo $fullPath; ?>" download class="btn btn-sm btn-secondary mt-3">
                   <i class="bi bi-download me-1"></i> Download File
                 </a>
@@ -223,34 +226,21 @@
       </div>
     </div>
 
-    <!-- Property Damage Specific Details -->
+    <!-- Subtype Specific Panels -->
     <?php if ($type == "Property Damage" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
-          <div class="panel-title fw-bold text-danger">Property Damage Report</div>
+          <div class="panel-title fw-bold text-danger">Property Damage Details</div>
         </div>
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr>
-                <td class="text-muted" style="width:25%">Property:</td>
-                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Property_Type']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Damage Level:</td>
-                <td><?php echo htmlspecialchars($ReportData['Damage_Level']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Estimated Cost:</td>
-                <td><?php echo htmlspecialchars($ReportData['Estimated_Cost']); ?></td>
-              </tr>
+              <tr><td class="text-muted" style="width:25%">Property:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Property_Type']); ?></td></tr>
+              <tr><td class="text-muted">Damage Level:</td><td><?php echo htmlspecialchars($ReportData['Damage_Level']); ?></td></tr>
+              <tr><td class="text-muted">Estimated Cost:</td><td><?php echo htmlspecialchars($ReportData['Estimated_Cost']); ?></td></tr>
               <tr>
                 <td class="text-muted align-top">Damage Description:</td>
-                <td>
-                  <div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line;">
-                    <?php echo htmlspecialchars($ReportData['Damage_Description']); ?>
-                  </div>
-                </td>
+                <td><div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line;"><?php echo htmlspecialchars($ReportData['Damage_Description']); ?></div></td>
               </tr>
             </tbody>
           </table>
@@ -258,110 +248,82 @@
       </div>
     <?php endif; ?>
 
-    <!-- Missing Person Specific Details -->
     <?php if ($type == "Missing Person Record" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
-          <div class="panel-title fw-bold text-danger">Missing Person Record</div>
+          <div class="panel-title fw-bold text-danger">Missing Person Details</div>
         </div>
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr>
-                <td class="text-muted" style="width:25%">Full Name:</td>
-                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Age:</td>
-                <td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td>
-              </tr>
-              <tr>
-                <td class="text-muted">Gender:</td>
-                <td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Last Seen Location:</td>
-                <td><?php echo htmlspecialchars($ReportData['Last_Seen_Location']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Last Seen Date:</td>
-                <td><?php echo htmlspecialchars($ReportData['Last_Seen_Date']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Last Seen Time:</td>
-                <td><?php echo htmlspecialchars($ReportData['Last_Seen_Time']); ?></td>
-              </tr>
+              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td></tr>
+              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td></tr>
+              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td></tr>
+              <tr><td class="text-muted">Last Seen Location:</td><td><?php echo htmlspecialchars($ReportData['Last_Seen_Location']); ?></td></tr>
+              <tr><td class="text-muted">Last Seen Date:</td><td><?php echo htmlspecialchars($ReportData['Last_Seen_Date']); ?></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     <?php endif; ?>
 
-    <!-- Injured Person Specific Details -->
     <?php if ($type == "Injured Person" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
-          <div class="panel-title fw-bold text-danger">Injured Person Record</div>
+          <div class="panel-title fw-bold text-danger">Injured Person Details</div>
         </div>
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr>
-                <td class="text-muted" style="width:25%">Full Name:</td>
-                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Age:</td>
-                <td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td>
-              </tr>
-              <tr>
-                <td class="text-muted">Gender:</td>
-                <td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td>
-              </tr>
-              <tr>
-                <td class="text-muted align-top">Injury Level:</td>
-                <td><span class="badge bg-warning text-dark"><?php echo htmlspecialchars($ReportData['Injured_Level']); ?></span></td>
-              </tr>
+              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td></tr>
+              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td></tr>
+              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td></tr>
+              <tr><td class="text-muted">Injury Level:</td><td><span class="badge bg-warning text-dark"><?php echo htmlspecialchars($ReportData['Injured_Level']); ?></span></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     <?php endif; ?>
 
-    <!-- Death Person Specific Details -->
     <?php if ($type == "Death Record" && !empty($ReportData) && is_array($ReportData)): ?>
       <div class="panel mt-3">
         <div class="panel-header mb-3 border-bottom pb-2">
-          <div class="panel-title fw-bold text-danger">Deceased Person Record</div>
+          <div class="panel-title fw-bold text-danger">Deceased Person Details</div>
         </div>
         <div class="table-responsive">
           <table class="table table-borderless fs-6 mb-0">
             <tbody>
-              <tr>
-                <td class="text-muted" style="width:25%">Full Name:</td>
-                <td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td>
-              </tr>
-              <tr>
-                <td class="text-muted">Age:</td>
-                <td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td>
-              </tr>
-              <tr>
-                <td class="text-muted">Gender:</td>
-                <td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td>
-              </tr>
-              <tr>
-                <td class="text-muted align-top">Cause of Death:</td>
-                <td>
-                  <div class="p-3 bg-light rounded-3 text-dark border">
-                    <?php echo htmlspecialchars($ReportData['Cause_Of_Death']); ?>
-                  </div>
-                </td>
-              </tr>
+              <tr><td class="text-muted" style="width:25%">Full Name:</td><td class="fw-bold"><?php echo htmlspecialchars($ReportData['Full_Name']); ?></td></tr>
+              <tr><td class="text-muted">Age:</td><td><?php echo htmlspecialchars($ReportData['Age']); ?> years old</td></tr>
+              <tr><td class="text-muted">Gender:</td><td><span class="badge bg-secondary"><?php echo htmlspecialchars($ReportData['Gender']); ?></span></td></tr>
+              <tr><td class="text-muted">Cause of Death:</td><td><div class="p-3 bg-light rounded-3 text-dark border"><?php echo htmlspecialchars($ReportData['Cause_Of_Death']); ?></div></td></tr>
             </tbody>
           </table>
         </div>
       </div>
     <?php endif; ?>
+
+    <!-- accept / reject buttons -->
+    <div class="panel mt-4 p-4 border-top">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+        <div>
+          <h5 class="fw-bold text-dark mb-1">Take Action on Report #<?php echo htmlspecialchars($selectedReport['Report_ID']); ?></h5>
+          <p class="text-muted mb-0 fs-6">Review details thoroughly before approving or rejecting this report.</p>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="javascript:void(0)"
+             onclick="processReportAction('<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>', 'Accept')"
+             class="btn btn-success px-4 py-2 rounded-3 shadow-sm fw-medium">
+            <i class="bi bi-check-circle me-2"></i>Accept / Verify
+          </a>
+          <a href="javascript:void(0)"
+             onclick="processReportAction('<?php echo htmlspecialchars($selectedReport['Report_ID']); ?>', 'Reject')"
+             class="btn btn-outline-danger px-4 py-2 rounded-3 shadow-sm fw-medium">
+            <i class="bi bi-x-circle me-2"></i>Reject Report
+          </a>
+        </div>
+      </div>
+    </div>
 
   <?php elseif (isset($_GET['report_id'])): ?>
     <div class="alert alert-warning rounded-3 shadow-sm" role="alert">
@@ -374,7 +336,6 @@
     </div>
   <?php endif; ?>
 
-
   <footer class="mt-4">&copy; 2024 Post-Disaster Reporting and Compensation Management System. All rights reserved.</footer>
 </main>
 
@@ -386,11 +347,41 @@
 
 <script>
   $(document).ready(function() {
-      $('#rejected-table').DataTable({
+      $('#pending-reports-table').DataTable({
           "pageLength": 10,
           "ordering": true
       });
+
+      // Smooth scroll down to details when report_id parameter is set in URL
+      if ($('#selectedReportSection').length) {
+          $('html, body').animate({
+              scrollTop: $("#selectedReportSection").offset().top - 90
+          }, 500);
+      }
   });
+
+  // Action Handling Function (Accept / Reject)
+  function processReportAction(reportId, action) {
+      const isAccept = action === 'Accept';
+
+      Swal.fire({
+          title: isAccept ? 'Accept Report?' : 'Reject Report?',
+          text: isAccept
+            ? `Are you sure you want to verify Report #${reportId}?`
+            : `Are you sure you want to reject Report #${reportId}?`,
+          icon: isAccept ? 'question' : 'warning',
+          showCancelButton: true,
+          confirmButtonColor: isAccept ? '#198754' : '#dc3545',
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: isAccept ? 'Yes, Accept' : 'Yes, Reject',
+          cancelButtonText: 'Cancel'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Target your backend processing script (e.g. LAOProcessReport.php or LAOdashboard.php)
+              window.location.href = `LAOdashboard.php?action=${action.toLowerCase()}&report_id=${reportId}`;
+          }
+      });
+  }
 </script>
 </body>
 </html>

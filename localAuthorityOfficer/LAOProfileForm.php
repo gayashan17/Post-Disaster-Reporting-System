@@ -37,12 +37,13 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
+  <a class="nav-item" href="LAOPendingReportsForm.php"><i class="bi bi-clock-history"></i> Pending Reports</a>
   <a class="nav-item" href="LAOVerifiedReportsForm.php"><i class="bi bi-check-square"></i> Verified Reports</a>
   <a class="nav-item" href="LAORejectedReportsForm.php"><i class="bi bi-x-square"></i> Rejected Reports</a>
   <a class="nav-item" href="LAOAllReportsForm.php"><i class="bi bi-file-earmark-text"></i> All Reports</a>
 
   <div class="nav-section-label">Account</div>
-  <a class="nav-item " href="LAOdashboardForm.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
+  <a class="nav-item" href="LAOdashboardForm.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
   <a class="nav-item active" href="LAOprofileForm.php"><i class="bi bi-person"></i> Profile</a>
 
   <div class="sidebar-footer">
@@ -61,7 +62,13 @@
     <?php endif; ?>
   </button>
   <div class="user-pill" onclick="window.location.href='LAOprofileForm.php';">
-    <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+    <div class="user-avatar">
+      <?php if (!empty($profilePicFile) && $profilePicFile !== 'default.png'): ?>
+        <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>" alt="Avatar" class="rounded-circle" width="30" height="30">
+      <?php else: ?>
+        <i class="bi bi-person-fill"></i>
+      <?php endif; ?>
+    </div>
     <span class="user-name"><?php echo htmlspecialchars($username ?? '');?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
   </div>
@@ -76,7 +83,7 @@
 
       <form action="LAOprofile.php" method="POST" enctype="multipart/form-data" id="profilePicForm">
         <div class="profile-avatar-lg mb-3 profile-avatar-wrap">
-              <?php if (!empty($profilePicFile)): ?>
+              <?php if (!empty($profilePicFile) && $profilePicFile !== 'default.png'): ?>
                   <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>"
                        alt="Profile Picture" class="profile-avatar-img">
               <?php else: ?>
@@ -210,6 +217,102 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.all.min.js"></script>
 
 <script src="LAOdashboard.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Auto submit profile picture upload on file selection
+    const profilePicInput = document.getElementById('profilePicInput');
+    if (profilePicInput) {
+        profilePicInput.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                document.getElementById('profilePicForm').submit();
+            }
+        });
+    }
+
+    // 2. Profile Pic URL Parameter Notifications
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('pic') === 'success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Profile Picture Updated',
+            text: 'Your profile image has been updated successfully.',
+            timer: 2000,
+            showConfirmButton: false
+        });
+    } else if (urlParams.get('pic') === 'error') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Upload Failed',
+            text: urlParams.get('msg') || 'Failed to update profile picture.'
+        });
+    }
+
+    // 3. Handle Profile Details Form AJAX Submission
+    const profileForm = document.getElementById('profile-form');
+    if (profileForm) {
+        profileForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const newPwd = document.getElementById('newPassword').value;
+            const confirmPwd = document.getElementById('confirmPassword').value;
+
+            if (newPwd !== confirmPwd) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password Mismatch',
+                    text: 'New password and confirm password fields do not match.'
+                });
+                return;
+            }
+
+            const payload = {
+                fullName: document.getElementById('fullName').value,
+                gender: document.getElementById('gender').value,
+                NIC: document.getElementById('NIC').value,
+                email: document.getElementById('email').value,
+                phoneNo: document.getElementById('phoneNo').value,
+                address: document.getElementById('address').value,
+                newPassword: newPwd,
+                confirmPassword: confirmPwd
+            };
+
+            fetch('LAOprofile.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: data.message,
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Update Failed',
+                        text: data.message
+                    });
+                }
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An unexpected error occurred while saving profile changes.'
+                });
+            });
+        });
+    }
+});
+</script>
 
 </body>
 </html>

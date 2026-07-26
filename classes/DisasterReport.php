@@ -116,11 +116,16 @@ class DisasterReport
                  dr.Street_Address,
                  dr.Description,
                  dr.Report_Date,
-                 dt.Disaster_Type_Name AS Disaster
+                 dt.Disaster_Type_Name AS Disaster,
+                 e.File_Name,
+                 e.File_Type,
+                 e.File_Path
                  FROM disaster_report dr
                  JOIN local_authority_officer lao ON dr.DS_ID = lao.Assigned_divisional_secretariat
                  JOIN disaster_type dt ON dr.Disaster_Type_ID = dt.Disaster_Type_ID
-                 JOIN users u ON dr.User_ID = u.User_ID WHERE dr.Report_ID = ?";
+                 JOIN users u ON dr.User_ID = u.User_ID
+                 JOIN evidence_file_and_photos e ON dr.Report_ID = e.Report_ID
+                 WHERE dr.Report_ID = ?";
 
                  $stmt = mysqli_prepare($con,$query);
 

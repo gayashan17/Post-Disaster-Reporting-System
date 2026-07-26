@@ -27,6 +27,7 @@
   </div>
 
   <div class="nav-section-label">Reports</div>
+    <a class="nav-item" href="LAOPendingReportsForm.php"><i class="bi bi-clock-history"></i> Pending Reports</a>
   <a class="nav-item" href="LAOVerifiedReportsForm.php" ><i class="bi bi-check-square"></i> Verified Reports</a>
   <a class="nav-item" href="LAORejectedReportsForm.php"><i class="bi bi-x-square"></i> Rejected Reports</a>
   <a class="nav-item" href="LAOAllReportsForm.php"><i class="bi bi-file-earmark-text"></i> All Reports</a>
@@ -51,7 +52,14 @@
     <?php endif; ?>
   </button>
   <div class="user-pill" onclick="window.location.href='LAOProfileForm.php';">
-    <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+    <div class="user-avatar">
+      <?php if (!empty($profilePicFile) && $profilePicFile !== 'default.png'): ?>
+          <img src="../uploads/Profile_Pic/<?php echo htmlspecialchars($profilePicFile); ?>"
+               alt="Profile Picture" class="profile-avatar-img">
+      <?php else: ?>
+          <i class="bi bi-person-fill"></i>
+      <?php endif; ?>
+    </div>
     <span class="user-name"><?php echo htmlspecialchars($username ?? '');?></span>
     <i class="bi bi-chevron-down text-muted" style="font-size:11px"></i>
   </div>
